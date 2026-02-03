@@ -1,0 +1,471 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig } from '../../config/site';
+
+const { contact } = siteConfig;
+
+// Escaleras - variedad de estilos
+const escaleras = [
+  { imagen: '/images/arquitectura/escalera-01.jpg', titulo: 'Escalera comercial', desc: 'Con barandas de vidrio y acero inox' },
+  { imagen: '/images/arquitectura/escalera-02.jpg', titulo: 'Montaje de escalera', desc: 'Instalación en obra' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.28.jpeg', titulo: 'Escalera interior', desc: 'Diseño moderno con descanso' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.28 (1).jpeg', titulo: 'Escalera central', desc: 'Peldaños flotantes con columna' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.28 (2).jpeg', titulo: 'Escalera doble altura', desc: 'Vista desde jardín' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.33.jpeg', titulo: 'Escalera en voladizo', desc: 'Peldaños flotantes' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.28.jpeg', titulo: 'Escalera exterior', desc: 'Estructura completa con barandas' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.31 (1).jpeg', titulo: 'Escalera con descanso', desc: 'Montaje en obra' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.31 (2).jpeg', titulo: 'Estructura en taller', desc: 'Fabricación de escalera' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.32.jpeg', titulo: 'Escalera zig-zag', desc: 'Producción en taller' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.35.jpeg', titulo: 'Escalera exterior', desc: 'Con barandas tubulares' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.47.12.jpeg', titulo: 'Escalera caracol industrial', desc: 'Estructura helicoidal de acceso' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.30 (1).jpeg', titulo: 'Peldaños empotrados', desc: 'Con tensores de acero' },
+  { imagen: '/images/arquitectura/escalera-03.jpg', titulo: 'Escalera residencial', desc: 'En construcción' },
+];
+
+// Barandas y pasamanos
+const barandas = [
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.29.jpeg', titulo: 'Baranda artística', desc: 'Herrería con volutas decorativas' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.29 (1).jpeg', titulo: 'Baranda residencial', desc: 'Diseño clásico con volutas' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.30.jpeg', titulo: 'Baranda moderna', desc: 'Barras verticales' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.29.jpeg', titulo: 'Barandas de edificio', desc: 'Instalación en complejo residencial' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.29 (1).jpeg', titulo: 'Baranda con vidrio', desc: 'Diseño contemporáneo' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.30.jpeg', titulo: 'Balcones con vidrio', desc: 'Edificio de departamentos' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.30 (1).jpeg', titulo: 'Balcón residencial', desc: 'Con baranda de vidrio' },
+];
+
+// Cerramientos, techos y pérgolas
+const cerramientos = [
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.31.jpeg', titulo: 'Cerramientos plegables', desc: 'Sistema de vidrio tipo acordeón' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.30 (2).jpeg', titulo: 'Cerramiento residencial', desc: 'Sistema plegable terminado' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.45.13.jpeg', titulo: 'Pérgola con policarbonato', desc: 'Estructura metálica y techo' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.46.39.jpeg', titulo: 'Techo de vidrio', desc: 'Estructura con tensores' },
+  { imagen: '/images/arquitectura/acero-inox-01.jpg', titulo: 'Fachada de vidrio', desc: 'Entrada con acero inoxidable' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.47.06 (4).jpeg', titulo: 'Cerramiento Saracho Neumáticos', desc: 'Cerramiento perimetral comercial' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.46.35 (3).jpeg', titulo: 'Cerramiento industrial', desc: 'Estructura con chapa perforada' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.47.08.jpeg', titulo: 'Pérgola en construcción', desc: 'Estructura residencial' },
+];
+
+// Portones y accesos
+const portones = [
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.47.07.jpeg', titulo: 'Portón enrollable', desc: 'Cortina metálica azul' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.42.28 (3).jpeg', titulo: 'Puerta metálica', desc: 'Acceso en hormigón visto' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.52.jpeg', titulo: 'Cabina de vigilancia', desc: 'Fabricación en taller' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.46.37 (2).jpeg', titulo: 'Puerta con malla', desc: 'Acceso industrial con reja' },
+];
+
+// Mobiliario metálico
+const mobiliario = [
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.51.jpeg', titulo: 'Base de mesa', desc: 'Estructura metálica a medida' },
+  { imagen: '/images/arquitectura/WhatsApp Image 2026-02-02 at 08.44.36.jpeg', titulo: 'Mesa de diseño', desc: 'Base geométrica angular' },
+  { imagen: '/images/arquitectura/acero-inox-02.jpg', titulo: 'Trabajos en inox', desc: 'Piezas especiales' },
+];
+---
+
+<BaseLayout
+  title="Arquitectura Metálica - Escaleras, Barandas y Cerramientos"
+  description="Fabricación de escaleras metálicas, barandas, cerramientos de vidrio, pérgolas y trabajos en acero inoxidable. Soluciones para arquitectos y constructoras en Buenos Aires."
+>
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center">
+    <div class="absolute inset-0">
+      <img
+        src="/images/arquitectura/escalera-01.jpg"
+        alt="Escalera metálica de diseño"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/40"></div>
+    </div>
+
+    <div class="container relative z-10 py-20">
+      <div class="max-w-3xl">
+        <p class="text-accent font-semibold mb-4 tracking-wider uppercase">Diseño y Fabricación a Medida</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+          ARQUITECTURA<br />
+          <span class="text-accent">METÁLICA</span>
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+          Escaleras, barandas, cerramientos de vidrio, pérgolas y trabajos en acero inoxidable.
+          Diseño y fabricación a medida para arquitectos, estudios de diseño y constructoras.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contacto" class="btn btn-accent text-base px-8">
+            Solicitar Cotización
+          </a>
+          <a href="#proyectos" class="btn btn-outline border-white text-white hover:bg-white hover:text-gray-900 text-base px-8">
+            Ver Proyectos
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats -->
+  <section class="bg-gray-900 py-10">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">+30</div>
+          <div class="text-sm text-gray-400 mt-1">Años de experiencia</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">A medida</div>
+          <div class="text-sm text-gray-400 mt-1">Diseños personalizados</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">Inox</div>
+          <div class="text-sm text-gray-400 mt-1">Acero inoxidable</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">100%</div>
+          <div class="text-sm text-gray-400 mt-1">Fabricación propia</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proyectos -->
+  <section id="proyectos" class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestros Proyectos</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Cada pieza es diseñada y fabricada en nuestras instalaciones con los más altos estándares de calidad.
+        </p>
+      </div>
+
+      <!-- Escaleras -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Escaleras</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Escaleras de incendio, decorativas, caracol, en voladizo y estructurales.
+          Diseños a medida para cada espacio, con terminaciones en hierro, acero inoxidable o combinadas con vidrio.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-4">
+          {escaleras.map((item) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-[3/4]">
+              <img
+                src={item.imagen}
+                alt={item.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{item.titulo}</p>
+                  <p class="text-gray-300 text-sm">{item.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Barandas -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Barandas y Pasamanos</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Barandas en hierro forjado, acero inoxidable y combinadas con vidrio templado.
+          Desde diseños artísticos con volutas hasta líneas minimalistas modernas.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {barandas.map((item) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-[3/4]">
+              <img
+                src={item.imagen}
+                alt={item.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{item.titulo}</p>
+                  <p class="text-gray-300 text-sm">{item.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Cerramientos -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Cerramientos, Techos y Pérgolas</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Cerramientos de vidrio plegables, techos con policarbonato o vidrio, pérgolas y fachadas.
+          Soluciones para ampliar espacios con luz natural.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {cerramientos.map((item) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-square">
+              <img
+                src={item.imagen}
+                alt={item.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{item.titulo}</p>
+                  <p class="text-gray-300 text-sm">{item.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Portones y Mobiliario -->
+      <div class="grid md:grid-cols-2 gap-8 mb-20">
+        <!-- Portones -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-1 bg-accent"></div>
+            <h3 class="text-xl font-bold text-gray-900">Portones y Accesos</h3>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            {portones.map((item) => (
+              <div class="group relative overflow-hidden rounded-lg aspect-square">
+                <img
+                  src={item.imagen}
+                  alt={item.titulo}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-semibold text-sm">{item.titulo}</p>
+                    <p class="text-gray-300 text-xs">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Mobiliario -->
+        <div>
+          <div class="flex items-center gap-4 mb-6">
+            <div class="w-12 h-1 bg-accent"></div>
+            <h3 class="text-xl font-bold text-gray-900">Mobiliario Metálico</h3>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            {mobiliario.map((item) => (
+              <div class="group relative overflow-hidden rounded-lg aspect-square">
+                <img
+                  src={item.imagen}
+                  alt={item.titulo}
+                  class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  loading="lazy"
+                />
+                <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                  <div class="absolute bottom-0 left-0 right-0 p-3">
+                    <p class="text-white font-semibold text-sm">{item.titulo}</p>
+                    <p class="text-gray-300 text-xs">{item.desc}</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestros Servicios</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Ofrecemos soluciones integrales desde el diseño hasta la instalación final.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Escaleras</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Escaleras de incendio</li>
+            <li>Escaleras caracol</li>
+            <li>Escaleras con vidrio</li>
+            <li>Escaleras en voladizo</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Barandas</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Barandas de hierro</li>
+            <li>Barandas de acero inox</li>
+            <li>Barandas con vidrio</li>
+            <li>Herrería artística</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Cerramientos</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Cerramientos de vidrio</li>
+            <li>Sistemas plegables</li>
+            <li>Techos y pérgolas</li>
+            <li>Fachadas metálicas</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Portones</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Portones de garage</li>
+            <li>Puertas de acceso</li>
+            <li>Rejas y cerramientos</li>
+            <li>Automatización</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Acero Inoxidable</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Frentes y revestimientos</li>
+            <li>Mobiliario especializado</li>
+            <li>Piezas a medida</li>
+            <li>Acabado espejo o satinado</li>
+          </ul>
+        </div>
+
+        <div class="bg-white p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Herrería</h3>
+          <ul class="text-gray-600 text-sm space-y-1">
+            <li>Trabajos artísticos</li>
+            <li>Piezas decorativas</li>
+            <li>Restauraciones</li>
+            <li>Diseños personalizados</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Target Audience -->
+  <section class="section bg-gray-900 text-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold mb-4">Trabajamos con</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Brindamos soluciones a medida para profesionales y empresas del sector de la construcción.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
+          <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5" />
+            </svg>
+          </div>
+          <h4 class="font-bold mb-1">Arquitectos</h4>
+          <p class="text-sm text-gray-400">Diseños a medida</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
+          <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+          </div>
+          <h4 class="font-bold mb-1">Estudios de Diseño</h4>
+          <p class="text-sm text-gray-400">Proyectos integrales</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
+          <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 14v3m4-3v3m4-3v3M3 21h18M3 10h18M3 7l9-4 9 4M4 10h16v11H4V10z" />
+            </svg>
+          </div>
+          <h4 class="font-bold mb-1">Constructoras</h4>
+          <p class="text-sm text-gray-400">Proyectos a gran escala</p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur border border-white/10 rounded-xl p-6 text-center hover:bg-white/10 transition-colors">
+          <div class="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+            </svg>
+          </div>
+          <h4 class="font-bold mb-1">Particulares</h4>
+          <p class="text-sm text-gray-400">Proyectos residenciales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" class="section bg-primary">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+          Trabajemos Juntos
+        </h2>
+        <p class="text-xl text-gray-300 mb-8">
+          Contanos sobre tu proyecto y te asesoramos sin compromiso.
+          Convertimos tus ideas en realidad con la mejor calidad.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contacto/" class="btn btn-accent px-8 py-4 font-bold">
+            Solicitar Cotización
+          </a>
+          <a
+            href={`https://wa.me/${contact.phoneWhatsApp}?text=${encodeURIComponent('Hola, estoy interesado en trabajos de arquitectura metálica. Me gustaría recibir información.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn bg-green-500 hover:bg-green-600 text-white px-8 py-4 font-bold inline-flex items-center justify-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            WhatsApp Directo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

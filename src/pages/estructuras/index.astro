@@ -1,0 +1,418 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+// Categorías de proyectos con imágenes reales
+const galponesIndustriales = [
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.34.jpeg', titulo: 'Estructura en construcción', desc: 'Montaje de columnas reticuladas' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.35.jpeg', titulo: 'Nave industrial', desc: 'Interior con cerchas metálicas' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.35 (1).jpeg', titulo: 'Galpón comercial', desc: 'Estructura junto a edificio' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.35 (2).jpeg', titulo: 'Galpón terminado', desc: 'Interior con cerramientos' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.47.13.jpeg', titulo: 'Nave con entrepiso', desc: 'Estructura de gran porte' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.47.13 (1).jpeg', titulo: 'Entrepiso metálico', desc: 'Vista interior' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.47.13 (2).jpeg', titulo: 'Detalle estructural', desc: 'Vigas con aislación ISOVER' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.47.14 (2).jpeg', titulo: 'Galpón comercial', desc: 'Terminación con oficina interior' },
+];
+
+const infraestructuraUrbana = [
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.36 (3).jpeg', titulo: 'Estación de carga', desc: 'Cerramientos bajo viaducto' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.37.jpeg', titulo: 'Electrolinera', desc: 'Estructura para carga eléctrica' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.37 (1).jpeg', titulo: 'Proyecto urbano', desc: 'Infraestructura de movilidad' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.46.38.jpeg', titulo: 'Cerramientos', desc: 'Malla metálica bajo autopista' },
+];
+
+const refugiosPeatonales = [
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.02.25.jpeg', titulo: 'Parada de colectivo', desc: 'Diseño moderno urbano' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.02.25 (1).jpeg', titulo: 'Refugios en serie', desc: 'Mobiliario urbano' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.03.12.jpeg', titulo: 'Refugio peatonal', desc: 'Con barandas decorativas' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.03.12 (1).jpeg', titulo: 'Diseño contemporáneo', desc: 'Estructura negra mate' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.03.13 (3).jpeg', titulo: 'Vista frontal', desc: 'Parada terminada' },
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 15.03.14 (1).jpeg', titulo: 'En uso', desc: 'Refugio con pasajeros' },
+];
+
+const proyectosEspeciales = [
+  { imagen: '/images/estructuras/escultura eolica.jpg', titulo: 'Escultura Eólica', desc: 'Obra artística de 15m de altura' },
+];
+
+const torretasTelecomunicaciones = [
+  { imagen: '/images/estructuras/WhatsApp Image 2026-02-02 at 08.44.53.jpeg', titulo: 'Torreta de telecomunicaciones', desc: 'Torre instalada con paneles' },
+  { imagen: '/images/estructuras/torreta_movil-01.jpg', titulo: 'Torreta móvil', desc: 'Sistema desplegable sobre trailer' },
+  { imagen: '/images/estructuras/Torreta_desplegable.jpg', titulo: 'Torreta desplegable', desc: 'Fabricación en taller' },
+];
+
+const planosTecnicos = [
+  { imagen: '/images/estructuras/galpon.jpg', titulo: 'Cubierta metálica', desc: 'Planos polideportivo - Gob. Buenos Aires' },
+  { imagen: '/images/estructuras/polideportivo.jpg', titulo: 'Complejo deportivo', desc: 'Proyecto integral' },
+  { imagen: '/images/estructuras/stadium.jpg', titulo: 'Estadio', desc: 'Pista de atletismo y cancha' },
+  { imagen: '/images/estructuras/mastil.jpg', titulo: 'Mástil telescópico', desc: 'Sistema wireless' },
+];
+---
+
+<BaseLayout
+  title="Estructuras Metálicas - Galpones, Naves e Infraestructura"
+  description="Construcción de estructuras metálicas: galpones industriales, naves, infraestructura urbana, refugios peatonales y proyectos especiales. Más de 30 años de experiencia en Buenos Aires."
+>
+  <!-- Hero con imagen de fondo -->
+  <section class="relative bg-primary text-white py-24 lg:py-32 overflow-hidden">
+    <div class="absolute inset-0 opacity-20">
+      <img
+        src="/images/estructuras/WhatsApp Image 2026-02-02 at 08.47.13.jpeg"
+        alt="Estructura metálica"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <div class="container relative z-10">
+      <div class="max-w-4xl">
+        <p class="text-accent font-semibold mb-4 tracking-wider uppercase">Más de 30 años de experiencia</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          ESTRUCTURAS<br />
+          <span class="text-accent">METÁLICAS</span>
+        </h1>
+        <p class="text-xl text-gray-200 mb-8 max-w-2xl">
+          Diseñamos, fabricamos y montamos estructuras metálicas para la industria,
+          el sector público y proyectos especiales. Desde galpones industriales hasta
+          infraestructura urbana de última generación.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#proyectos" class="btn btn-accent text-base">
+            Ver Proyectos
+          </a>
+          <a href="#contacto" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-base">
+            Solicitar Cotización
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Estadísticas -->
+  <section class="bg-gray-900 text-white py-12">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <p class="text-4xl md:text-5xl font-bold text-accent">+30</p>
+          <p class="text-gray-400 mt-2">Años de experiencia</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl font-bold text-accent">+500</p>
+          <p class="text-gray-400 mt-2">Proyectos realizados</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl font-bold text-accent">+50.000</p>
+          <p class="text-gray-400 mt-2">m² construidos</p>
+        </div>
+        <div>
+          <p class="text-4xl md:text-5xl font-bold text-accent">100%</p>
+          <p class="text-gray-400 mt-2">Obras entregadas</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Proyectos -->
+  <section id="proyectos" class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Nuestros Proyectos</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Cada estructura es única. Trabajamos con clientes del sector privado y público,
+          adaptándonos a las necesidades específicas de cada proyecto.
+        </p>
+      </div>
+
+      <!-- Galpones Industriales -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Galpones y Naves Industriales</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Estructuras de gran porte para almacenamiento, producción y logística.
+          Columnas reticuladas, cerchas de alta resistencia, entrepisos metálicos y aislación térmica.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {galponesIndustriales.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-square">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{proyecto.titulo}</p>
+                  <p class="text-gray-300 text-sm">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Infraestructura Urbana -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Infraestructura Urbana</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Proyectos de infraestructura para ciudades: estaciones de carga para vehículos eléctricos,
+          cerramientos bajo autopistas y estructuras de servicios públicos.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {infraestructuraUrbana.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-square">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{proyecto.titulo}</p>
+                  <p class="text-gray-300 text-sm">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Refugios Peatonales -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Mobiliario Urbano</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Diseño y fabricación de refugios peatonales, paradas de colectivo y mobiliario urbano
+          con diseño contemporáneo. Proyectos realizados para municipios y gobiernos provinciales.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {refugiosPeatonales.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-[4/3]">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{proyecto.titulo}</p>
+                  <p class="text-gray-300 text-sm">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Torretas de Telecomunicaciones -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Torretas de Telecomunicaciones</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Diseño y fabricación de torretas móviles desplegables para telecomunicaciones.
+          Sistemas sobre trailer con despliegue rápido para instalaciones temporales o permanentes.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {torretasTelecomunicaciones.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-[3/4]">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <p class="text-white text-xl font-bold">{proyecto.titulo}</p>
+                  <p class="text-gray-300">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Proyectos Especiales -->
+      <div class="mb-20">
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Proyectos Especiales</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Estructuras únicas que requieren ingeniería especializada: esculturas monumentales
+          y proyectos arquitectónicos de alta complejidad.
+        </p>
+        <div class="grid grid-cols-1 gap-6">
+          {proyectosEspeciales.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-video max-w-2xl">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent">
+                <div class="absolute bottom-0 left-0 right-0 p-6">
+                  <p class="text-white text-xl font-bold">{proyecto.titulo}</p>
+                  <p class="text-gray-300">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Ingeniería y Planos -->
+      <div>
+        <div class="flex items-center gap-4 mb-8">
+          <div class="w-12 h-1 bg-accent"></div>
+          <h3 class="text-2xl font-bold text-gray-900">Ingeniería y Desarrollo</h3>
+        </div>
+        <p class="text-gray-600 mb-8 max-w-3xl">
+          Contamos con departamento técnico propio para el desarrollo de proyectos.
+          Planos estructurales, memorias de cálculo y documentación técnica completa.
+        </p>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {planosTecnicos.map((proyecto) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-[4/3] bg-gray-100">
+              <img
+                src={proyecto.imagen}
+                alt={proyecto.titulo}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <p class="text-white font-semibold">{proyecto.titulo}</p>
+                  <p class="text-gray-300 text-sm">{proyecto.desc}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Servicios -->
+  <section id="servicios" class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Servicios Integrales</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Ofrecemos soluciones completas desde el diseño hasta la entrega llave en mano.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Ingeniería</h3>
+          <p class="text-gray-600 text-sm">
+            Cálculo estructural, planos de taller y documentación técnica completa.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Fabricación</h3>
+          <p class="text-gray-600 text-sm">
+            Taller propio con equipamiento de última generación y control de calidad.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Transporte</h3>
+          <p class="text-gray-600 text-sm">
+            Logística especializada para traslado de estructuras de gran porte.
+          </p>
+        </div>
+
+        <div class="bg-white p-6 rounded-lg shadow-sm hover:shadow-md transition-shadow">
+          <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center mb-4">
+            <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold text-gray-900 mb-2">Montaje</h3>
+          <p class="text-gray-600 text-sm">
+            Equipos propios de montaje con personal capacitado y certificado.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clientes -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Confían en Nosotros</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Trabajamos con empresas líderes y organismos públicos en proyectos de alta exigencia.
+        </p>
+      </div>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 items-center opacity-60">
+        <div class="text-center p-4">
+          <p class="font-bold text-gray-700">Gobierno de Buenos Aires</p>
+          <p class="text-sm text-gray-500">Infraestructura Social</p>
+        </div>
+        <div class="text-center p-4">
+          <p class="font-bold text-gray-700">Municipios</p>
+          <p class="text-sm text-gray-500">Obras públicas</p>
+        </div>
+        <div class="text-center p-4">
+          <p class="font-bold text-gray-700">Industria Privada</p>
+          <p class="text-sm text-gray-500">Galpones y plantas</p>
+        </div>
+        <div class="text-center p-4">
+          <p class="font-bold text-gray-700">Desarrolladores</p>
+          <p class="text-sm text-gray-500">Proyectos comerciales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section id="contacto" class="section bg-primary text-white">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold mb-6">
+          ¿Tenés un proyecto en mente?
+        </h2>
+        <p class="text-xl text-gray-200 mb-8">
+          Contanos sobre tu necesidad y te asesoramos sin compromiso.
+          Presupuestos detallados con plazos de entrega.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4 justify-center">
+          <a href="/contacto/" class="btn btn-accent text-base">
+            Solicitar Cotización
+          </a>
+          <a href="https://wa.me/5491142815797" target="_blank" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-base">
+            WhatsApp Directo
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

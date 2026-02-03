@@ -1,0 +1,883 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { siteConfig, tbexProducts } from '../../config/site';
+
+const { company, contact } = siteConfig;
+const { lines, certifications, caseStudies } = tbexProducts;
+---
+
+<BaseLayout
+  title="Linea TBex - Gabinetes y Shelters Certificados INTI | IP66"
+  description="Gabinetes eléctricos y shelters con certificación INTI IP66 para industria petrolera, minería y telecomunicaciones. Proveedor de Pan American Energy desde 2010. Fabricación en Argentina."
+>
+  <!-- Hero Section with Real Image Background -->
+  <section class="relative min-h-[70vh] flex items-center">
+    <div class="absolute inset-0">
+      <img
+        src="/images/tbox/shelter-01.jpg"
+        alt="Shelter industrial certificado INTI - Metalurgica Boto Mariani"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/80 to-gray-900/60"></div>
+    </div>
+
+    <div class="container relative z-10 py-20">
+      <div class="max-w-3xl">
+        <!-- INTI Badge -->
+        <div class="inline-flex items-center space-x-2 bg-accent text-gray-900 px-4 py-2 rounded-full mb-6 font-bold text-sm">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+          </svg>
+          <span>CERTIFICACIÓN INTI - IP66</span>
+        </div>
+
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white">
+          LINEA TBex<br />
+          <span class="text-accent">Gabinetes y Shelters</span><br />
+          <span class="text-2xl md:text-3xl font-normal text-gray-300">Certificados para Industrias Críticas</span>
+        </h1>
+
+        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+          Fabricamos gabinetes eléctricos y shelters con <strong class="text-white">certificación INTI IP66</strong> para las
+          industrias más exigentes de Argentina y LATAM. Proveedor de <strong class="text-accent">YPF</strong> con contrato
+          marco para satélites de inyección y de <strong class="text-accent">Pan American Energy</strong> desde 2010.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4 mb-8">
+          <a href="#contacto" class="btn btn-accent text-base px-8">
+            Solicitar Cotización B2B
+          </a>
+          <a href="#shelters" class="btn btn-outline border-white text-white hover:bg-white hover:text-gray-900 text-base px-8">
+            Ver Shelters Industriales
+          </a>
+        </div>
+
+        <!-- Trust indicators -->
+        <div class="flex flex-wrap gap-6 pt-6 border-t border-white/20">
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+              <svg class="w-5 h-5 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+              </svg>
+            </div>
+            <span class="text-sm text-gray-300">Certificación INTI</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+              <span class="text-accent font-bold text-xs">YPF</span>
+            </div>
+            <span class="text-sm text-gray-300">+40 Satélites entregados</span>
+          </div>
+          <div class="flex items-center space-x-2">
+            <div class="w-10 h-10 bg-accent/20 rounded-full flex items-center justify-center">
+              <span class="text-accent font-bold text-sm">+30</span>
+            </div>
+            <span class="text-sm text-gray-300">Años de Experiencia</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Bar -->
+  <section class="bg-primary py-8">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">+40</div>
+          <div class="text-sm text-gray-300 mt-1">Satélites YPF entregados</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">IP66</div>
+          <div class="text-sm text-gray-300 mt-1">Protección certificada</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">+30</div>
+          <div class="text-sm text-gray-300 mt-1">Años de experiencia</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">100%</div>
+          <div class="text-sm text-gray-300 mt-1">Fabricación Argentina</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cliente Estrella: PAE -->
+  <section class="bg-accent/10 py-6">
+    <div class="container">
+      <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8">
+        <div class="flex items-center gap-3">
+          <div class="bg-white p-3 rounded-lg shadow-sm">
+            <span class="text-primary font-bold text-xl">PAE</span>
+          </div>
+          <div>
+            <div class="text-sm text-gray-600">Cliente estrella</div>
+            <div class="font-bold text-gray-900">Pan American Energy</div>
+          </div>
+        </div>
+        <div class="hidden md:block w-px h-12 bg-gray-300"></div>
+        <div class="text-center md:text-left">
+          <span class="inline-flex items-center gap-2 bg-primary text-white px-4 py-2 rounded-full text-sm font-medium">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+            </svg>
+            Más de 15 años como proveedor
+          </span>
+        </div>
+        <div class="text-sm text-gray-600 text-center md:text-left max-w-md">
+          Su exigencia en calidad impulsó nuestra <strong class="text-primary">certificación INTI</strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESTACADO: Contrato Marco YPF - 40 Satélites de Inyección -->
+  <section id="contrato-ypf" class="section bg-gradient-to-br from-primary via-primary to-gray-900 relative overflow-hidden">
+    <!-- Decorative elements -->
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-accent/5 rounded-l-[100px] transform translate-x-1/4"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-accent/10 rounded-full transform -translate-x-1/2 translate-y-1/2"></div>
+
+    <div class="container relative z-10">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <!-- Content -->
+        <div class="order-2 lg:order-1">
+          <div class="inline-flex items-center space-x-2 bg-accent text-gray-900 px-4 py-2 rounded-full text-sm font-bold mb-6 animate-pulse">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span>CONTRATO MARCO ACTIVO</span>
+          </div>
+
+          <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-6 leading-tight">
+            40 Satélites de Inyección<br />
+            <span class="text-accent">para YPF</span>
+          </h2>
+
+          <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+            Contrato marco para la fabricación y entrega de <strong class="text-white">40 satélites de inyección</strong>
+            completamente equipados para operaciones de producción petrolera de YPF en Argentina.
+          </p>
+
+          <div class="grid grid-cols-2 gap-6 mb-8">
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+              <div class="text-4xl font-bold text-accent mb-2">40</div>
+              <div class="text-sm text-gray-300">Satélites de inyección</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+              <div class="text-4xl font-bold text-accent mb-2">YPF</div>
+              <div class="text-sm text-gray-300">Cliente principal</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+              <div class="text-4xl font-bold text-accent mb-2">IP66</div>
+              <div class="text-sm text-gray-300">Protección certificada</div>
+            </div>
+            <div class="bg-white/10 backdrop-blur-sm rounded-xl p-5 border border-white/20">
+              <div class="text-4xl font-bold text-accent mb-2">INTI</div>
+              <div class="text-sm text-gray-300">Certificación oficial</div>
+            </div>
+          </div>
+
+          <div class="flex flex-col sm:flex-row gap-4">
+            <a href="#contacto" class="btn btn-accent text-base px-8 font-bold">
+              Solicitar Proyecto Similar
+            </a>
+            <a href="#shelters" class="btn btn-outline border-white text-white hover:bg-white hover:text-primary text-base px-8">
+              Ver Capacidades
+            </a>
+          </div>
+        </div>
+
+        <!-- Image -->
+        <div class="order-1 lg:order-2">
+          <div class="relative">
+            <div class="absolute -inset-4 bg-accent/20 rounded-2xl transform rotate-3"></div>
+            <img
+              src="/images/tbox/contrato-ypf-satelites.jpg"
+              alt="Contrato Marco YPF - 40 Satélites de Inyección - Control de calidad con equipo Fluke"
+              class="relative rounded-xl shadow-2xl w-full"
+            />
+            <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-xl shadow-xl">
+              <div class="flex items-center gap-3">
+                <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center">
+                  <span class="text-white font-bold text-sm">YPF</span>
+                </div>
+                <div>
+                  <div class="font-bold text-gray-900 text-sm">Contrato Marco</div>
+                  <div class="text-xs text-gray-500">Satélites de Inyección</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INTI Certification Section -->
+  <section id="certificacion" class="section bg-gray-50">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <div class="inline-flex items-center space-x-2 bg-accent/10 text-accent px-3 py-1 rounded-full text-sm font-semibold mb-4">
+            <span>CALIDAD CERTIFICADA</span>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Certificación INTI<br />
+            <span class="text-primary">Protección IP66</span>
+          </h2>
+          <p class="text-lg text-gray-600 mb-6">
+            Nuestros gabinetes y shelters cuentan con certificación del <strong>Instituto Nacional de Tecnología Industrial (INTI)</strong>,
+            garantizando la máxima protección contra polvo y agua según normas internacionales.
+          </p>
+
+          <div class="bg-white p-6 rounded-lg shadow-sm mb-6">
+            <h3 class="font-bold text-gray-900 mb-4">Ensayos realizados por INTI:</h3>
+            <ul class="space-y-3">
+              {certifications.inti.tests.map((test) => (
+                <li class="flex items-start">
+                  <svg class="w-5 h-5 text-accent mr-3 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+                  </svg>
+                  <span class="text-gray-600">{test}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div class="flex flex-wrap gap-4">
+            <div class="flex items-center space-x-3 bg-primary/5 px-4 py-2 rounded-lg">
+              <span class="text-2xl font-bold text-primary">IP66</span>
+              <div class="text-sm">
+                <div class="font-semibold text-gray-900">Protección Total</div>
+                <div class="text-gray-500">Polvo + Agua a presión</div>
+              </div>
+            </div>
+            <div class="flex items-center space-x-3 bg-primary/5 px-4 py-2 rounded-lg">
+              <span class="text-2xl font-bold text-primary">IEC</span>
+              <div class="text-sm">
+                <div class="font-semibold text-gray-900">Normas IRAM-IEC</div>
+                <div class="text-gray-500">Estándares internacionales</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <img
+            src="/images/tbox/certificado-inti.jpg"
+            alt="Certificado INTI - Gabinetes TBex"
+            class="rounded-lg shadow-xl w-full"
+          />
+          <div class="absolute -bottom-4 -right-4 bg-accent text-gray-900 px-6 py-3 rounded-lg font-bold shadow-lg">
+            Certificación Oficial INTI
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Lines Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Líneas de Producto</h2>
+        <p class="section-subtitle mx-auto">
+          Soluciones especializadas para diferentes aplicaciones industriales, todas con la calidad y respaldo de nuestra certificación INTI.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        {lines.map((line, index) => (
+          <div class="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow">
+            <div class="p-6">
+              <div class="flex items-start justify-between mb-4">
+                <div>
+                  <h3 class="text-xl font-bold text-gray-900">{line.name}</h3>
+                  <p class="text-sm text-primary font-medium">{line.norm}</p>
+                </div>
+                <span class="bg-primary/10 text-primary text-xs font-bold px-3 py-1 rounded-full">
+                  CERTIFICADO
+                </span>
+              </div>
+              <p class="text-gray-600">{line.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Shelters Section - SEO Optimized -->
+  <section id="shelters" class="section bg-gray-50">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center mb-16">
+        <div>
+          <div class="inline-flex items-center space-x-2 bg-primary/10 text-primary px-3 py-1 rounded-full text-sm font-semibold mb-4">
+            <span>SOLUCIONES PARA INDUSTRIAS CRÍTICAS</span>
+          </div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            Shelters Industriales<br />
+            <span class="text-primary">para Equipos Críticos</span>
+          </h2>
+          <p class="text-lg text-gray-600 mb-6">
+            Nuestros <strong>shelters certificados INTI IP66</strong> están diseñados para proteger equipos eléctricos,
+            electrónicos y computacionales en los ambientes más exigentes. Ideales para <strong>campamentos petroleros</strong>,
+            <strong>bases mineras</strong> y <strong>sitios de telecomunicaciones</strong> donde la confiabilidad es crítica.
+          </p>
+
+          <div class="space-y-4 mb-8">
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <strong class="text-gray-900">Protección IP66 certificada</strong>
+                <p class="text-gray-600 text-sm">Máxima protección contra polvo, arena, lluvia y presión de agua.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <strong class="text-gray-900">Diseño a medida</strong>
+                <p class="text-gray-600 text-sm">Configuración personalizada según equipos a proteger y condiciones del sitio.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <strong class="text-gray-900">Climatización integrada</strong>
+                <p class="text-gray-600 text-sm">Sistemas de ventilación y aire acondicionado para control de temperatura.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-3">
+              <svg class="w-6 h-6 text-accent mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <div>
+                <strong class="text-gray-900">Transporte y montaje</strong>
+                <p class="text-gray-600 text-sm">Estructuras diseñadas para fácil transporte e instalación en ubicaciones remotas.</p>
+              </div>
+            </div>
+          </div>
+
+          <a href="#contacto" class="btn btn-primary">
+            Cotizar Shelter a Medida
+          </a>
+        </div>
+
+        <div class="grid grid-cols-2 gap-4">
+          <img src="/images/tbox/shelter-01.jpg" alt="Shelter industrial para equipos petroleros" class="rounded-lg shadow-lg w-full h-48 object-cover" />
+          <img src="/images/tbox/shelter-02.jpg" alt="Shelter certificado INTI para minería" class="rounded-lg shadow-lg w-full h-48 object-cover" />
+          <img src="/images/tbox/shelter-03.jpg" alt="Shelter para telecomunicaciones" class="rounded-lg shadow-lg w-full h-48 object-cover" />
+          <img src="/images/tbox/shelter-04.jpg" alt="Shelter para campamentos petroleros" class="rounded-lg shadow-lg w-full h-48 object-cover" />
+        </div>
+      </div>
+
+      <!-- Aplicaciones de Shelters -->
+      <div class="bg-white rounded-2xl p-8 shadow-sm">
+        <h3 class="text-2xl font-bold text-gray-900 mb-6 text-center">Aplicaciones de Shelters Industriales</h3>
+        <div class="grid md:grid-cols-3 gap-8">
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+              </svg>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">Oil & Gas</h4>
+            <p class="text-gray-600 text-sm">
+              Protección de equipos de control, instrumentación y sistemas de bombeo en pozos petroleros y plantas de procesamiento.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+              </svg>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">Minería</h4>
+            <p class="text-gray-600 text-sm">
+              Shelters para equipos de comunicación, servidores y sistemas de control en campamentos y operaciones mineras remotas.
+            </p>
+          </div>
+          <div class="text-center">
+            <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+              <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+              </svg>
+            </div>
+            <h4 class="font-bold text-gray-900 mb-2">Telecomunicaciones</h4>
+            <p class="text-gray-600 text-sm">
+              Contenedores técnicos para equipos de radio, antenas y sistemas de transmisión en sitios remotos o de difícil acceso.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Galería de Shelters -->
+      <div class="mt-16">
+        <h3 class="text-2xl font-bold text-gray-900 mb-8 text-center">Galería de Shelters Fabricados</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-05.jpg" alt="Shelter para industria petrolera" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-06.jpg" alt="Shelter certificado IP66" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-07.jpg" alt="Shelter para equipos eléctricos" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-08.jpg" alt="Shelter industrial a medida" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-09.jpg" alt="Shelter para bases remotas" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-10.jpg" alt="Contenedor técnico industrial" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square">
+            <img src="/images/tbox/shelter-11.jpg" alt="Shelter para campamentos mineros" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+          </div>
+          <div class="relative group overflow-hidden rounded-lg aspect-square bg-primary flex items-center justify-center">
+            <a href="#contacto" class="text-center p-4">
+              <span class="text-white font-bold text-lg block mb-2">¿Necesita un shelter?</span>
+              <span class="text-accent text-sm">Cotizar ahora →</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Product Gallery -->
+  <section class="section bg-gray-900">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Galería de Productos</h2>
+        <p class="text-lg text-gray-400 max-w-2xl mx-auto">
+          Gabinetes, shelters y equipos fabricados en nuestras instalaciones con los más altos estándares de calidad.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/gabinete-01.jpg"
+            alt="Gabinete eléctrico TBex certificado INTI"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Gabinete eléctrico industrial</span>
+          </div>
+        </div>
+
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/gabinete-02.jpg"
+            alt="Gabinete TBex certificado IP66"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Gabinete certificado IP66</span>
+          </div>
+        </div>
+
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/gabinete-03.jpg"
+            alt="Gabinete eléctrico a medida"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Fabricación a medida</span>
+          </div>
+        </div>
+
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/producto-01.jpg"
+            alt="Producto industrial TBex"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Equipos industriales</span>
+          </div>
+        </div>
+
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/producto-02.jpg"
+            alt="Contenedor técnico TBex"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Contenedor técnico</span>
+          </div>
+        </div>
+
+        <div class="relative group overflow-hidden rounded-lg aspect-square">
+          <img
+            src="/images/tbox/certificado-inti.jpg"
+            alt="Certificación INTI IP66"
+            class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-gray-900/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+            <span class="text-white font-medium">Certificación INTI</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Industries Section -->
+  <section class="section">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Industrias que Confían en TBex</h2>
+        <p class="section-subtitle mx-auto">
+          Nuestros productos protegen equipos críticos en las industrias más exigentes de Argentina y Latinoamérica.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
+        <div class="bg-white border border-gray-200 p-6 rounded-xl text-center hover:shadow-lg hover:border-primary transition-all">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-1">Petrolera</h4>
+          <p class="text-sm text-gray-500">Oil & Gas</p>
+          <p class="text-xs text-primary font-medium mt-2">PAE (desde 2010), YPF</p>
+        </div>
+
+        <div class="bg-white border border-gray-200 p-6 rounded-xl text-center hover:shadow-lg hover:border-primary transition-all">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.111 16.404a5.5 5.5 0 017.778 0M12 20h.01m-7.08-7.071c3.904-3.905 10.236-3.905 14.141 0M1.394 9.393c5.857-5.857 15.355-5.857 21.213 0" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-1">Telecomunicaciones</h4>
+          <p class="text-sm text-gray-500">Infraestructura de red</p>
+          <p class="text-xs text-primary font-medium mt-2">Movistar, Motorola</p>
+        </div>
+
+        <div class="bg-white border border-gray-200 p-6 rounded-xl text-center hover:shadow-lg hover:border-primary transition-all">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-1">Minería</h4>
+          <p class="text-sm text-gray-500">Operaciones remotas</p>
+          <p class="text-xs text-primary font-medium mt-2">Campamentos y bases</p>
+        </div>
+
+        <div class="bg-white border border-gray-200 p-6 rounded-xl text-center hover:shadow-lg hover:border-primary transition-all">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-1">Seguridad</h4>
+          <p class="text-sm text-gray-500">Sector público</p>
+          <p class="text-xs text-primary font-medium mt-2">Policía de la Provincia</p>
+        </div>
+
+        <div class="bg-white border border-gray-200 p-6 rounded-xl text-center hover:shadow-lg hover:border-primary transition-all">
+          <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
+            <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+            </svg>
+          </div>
+          <h4 class="font-bold text-gray-900 mb-1">Infraestructura</h4>
+          <p class="text-sm text-gray-500">Vialidad y peajes</p>
+          <p class="text-xs text-primary font-medium mt-2">Corredores Viales</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Case Studies Section -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Casos de Éxito</h2>
+        <p class="section-subtitle mx-auto">
+          Proyectos ejecutados para las principales empresas de la industria.
+        </p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-8">
+        {caseStudies.map((study) => (
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-shadow">
+            <div class="aspect-video overflow-hidden">
+              <img
+                src={study.image}
+                alt={study.project}
+                class="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+              />
+            </div>
+            <div class="p-6">
+              <div class="flex items-center gap-2 mb-3">
+                <span class="bg-accent text-gray-900 text-xs font-bold px-2 py-1 rounded">{study.client}</span>
+              </div>
+              <h3 class="text-lg font-bold text-gray-900 mb-2">{study.project}</h3>
+              <p class="text-gray-600 text-sm">{study.description}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Us -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            ¿Por qué elegir TBex?
+          </h2>
+          <p class="text-lg text-gray-600 mb-8">
+            Con más de 30 años de experiencia, somos el socio estratégico que las industrias más exigentes eligen para proteger sus equipos críticos.
+          </p>
+
+          <div class="space-y-6">
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">Certificación INTI</h3>
+                <p class="text-gray-600">Productos ensayados y certificados por el Instituto Nacional de Tecnología Industrial.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">Fabricación Propia</h3>
+                <p class="text-gray-600">Control total del proceso productivo con tecnología de corte láser, plasma y plegadoras CNC.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">Experiencia Comprobada</h3>
+                <p class="text-gray-600">Proveedor de Pan American Energy desde 2010, nuestra relación comercial impulsó la certificación INTI.</p>
+              </div>
+            </div>
+
+            <div class="flex gap-4">
+              <div class="w-12 h-12 bg-accent/10 rounded-lg flex items-center justify-center shrink-0">
+                <svg class="w-6 h-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <div>
+                <h3 class="font-bold text-gray-900 mb-1">Entrega en Tiempo y Forma</h3>
+                <p class="text-gray-600">Compromiso con los plazos acordados y logística a todo el país.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="relative">
+          <img
+            src="/images/tbox/shelter-03.jpg"
+            alt="Shelter industrial certificado INTI - Metalurgica Boto Mariani"
+            class="rounded-xl shadow-2xl w-full"
+          />
+          <div class="absolute -bottom-6 -left-6 bg-white p-6 rounded-xl shadow-xl max-w-xs">
+            <div class="flex items-center gap-4 mb-3">
+              <div class="w-12 h-12 bg-accent rounded-full flex items-center justify-center">
+                <span class="text-gray-900 font-bold text-xs">PAE</span>
+              </div>
+              <div>
+                <div class="font-bold text-gray-900">Proveedor desde 2010</div>
+                <div class="text-sm text-gray-500">+15 años de confianza</div>
+              </div>
+            </div>
+            <p class="text-sm text-gray-600">Shelters y gabinetes para operaciones petroleras y campamentos de campo.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Form Section -->
+  <section id="contacto" class="section bg-primary">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Solicitar Cotización B2B</h2>
+          <p class="text-lg text-gray-300 max-w-2xl mx-auto">
+            Complete el formulario y nuestro equipo comercial se pondrá en contacto dentro de las próximas 24 horas hábiles.
+          </p>
+        </div>
+
+        <form class="bg-white p-8 md:p-10 rounded-2xl shadow-xl" action="https://formspree.io/f/mkozpjoy" method="POST">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="empresa" class="block text-sm font-semibold text-gray-700 mb-2">
+                Empresa *
+              </label>
+              <input
+                type="text"
+                id="empresa"
+                name="empresa"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="Nombre de la empresa"
+              />
+            </div>
+            <div>
+              <label for="cargo" class="block text-sm font-semibold text-gray-700 mb-2">
+                Cargo
+              </label>
+              <input
+                type="text"
+                id="cargo"
+                name="cargo"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="Su cargo en la empresa"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-2">
+                Nombre completo *
+              </label>
+              <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="Su nombre"
+              />
+            </div>
+            <div>
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">
+                Email corporativo *
+              </label>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="email@empresa.com"
+              />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">
+                Teléfono *
+              </label>
+              <input
+                type="tel"
+                id="telefono"
+                name="telefono"
+                required
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+                placeholder="+54 11 1234-5678"
+              />
+            </div>
+            <div>
+              <label for="industria" class="block text-sm font-semibold text-gray-700 mb-2">
+                Industria
+              </label>
+              <select
+                id="industria"
+                name="industria"
+                class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              >
+                <option value="">Seleccione una industria</option>
+                <option value="petrolera">Petrolera / Oil & Gas</option>
+                <option value="electrica">Eléctrica / Energía</option>
+                <option value="telecomunicaciones">Telecomunicaciones</option>
+                <option value="mineria">Minería</option>
+                <option value="datacenter">Data Center / IT</option>
+                <option value="otra">Otra</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="mensaje" class="block text-sm font-semibold text-gray-700 mb-2">
+              Descripción del requerimiento *
+            </label>
+            <textarea
+              id="mensaje"
+              name="mensaje"
+              required
+              rows="4"
+              class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all"
+              placeholder="Describa su proyecto, cantidades requeridas, especificaciones técnicas..."
+            ></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="Nueva consulta TBex B2B - Metalurgica Boto Mariani" />
+
+          <button
+            type="submit"
+            class="w-full btn btn-primary text-base py-4 font-bold"
+          >
+            Enviar Solicitud de Cotización
+          </button>
+
+          <p class="text-xs text-gray-500 text-center mt-4">
+            Al enviar este formulario, acepta que nos comuniquemos con usted respecto a su consulta comercial.
+          </p>
+        </form>
+
+        <!-- Contact alternatives -->
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <a
+            href={`https://wa.me/${contact.phoneWhatsApp}?text=${encodeURIComponent('Hola, estoy interesado en la línea TBex de gabinetes y shelters certificados INTI.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white px-6 py-4 rounded-xl transition-all"
+          >
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            <span class="font-medium">Contactar por WhatsApp</span>
+          </a>
+
+          <a
+            href={`mailto:${contact.email}?subject=Consulta%20Linea%20TBex`}
+            class="flex items-center justify-center gap-3 bg-white/10 hover:bg-white/20 text-white px-6 py-4 rounded-xl transition-all"
+          >
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            <span class="font-medium">{contact.email}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

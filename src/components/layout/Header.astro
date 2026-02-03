@@ -1,0 +1,214 @@
+---
+import { siteConfig, businessUnits } from '../../config/site';
+
+const { company } = siteConfig;
+
+// Generar navegación dinámicamente desde config centralizada
+const navigation = [
+  { name: 'Inicio', href: '/' },
+  {
+    name: 'Unidades de Negocio',
+    href: '#',
+    children: businessUnits.map(unit => ({
+      name: unit.name,
+      href: unit.slug,
+      badge: unit.badge,
+    })),
+  },
+  { name: 'Nosotros', href: '/nosotros/' },
+  { name: 'Contacto', href: '/contacto/' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<header class="bg-white shadow-sm sticky top-0 z-40">
+  <div class="container">
+    <div class="flex items-center justify-between h-20 md:h-24">
+      <!-- Logo + Nombre de la empresa -->
+      <a href="/" class="flex items-center gap-3 md:gap-4">
+        <!-- Isotipo -->
+        <div class="bg-white rounded-xl shadow-lg p-1.5 hover:shadow-xl transition-all hover:scale-105 flex-shrink-0">
+          <img
+            src="/logos/isotipo.svg"
+            alt="MBM"
+            class="h-12 w-12 md:h-14 md:w-14 lg:h-16 lg:w-16"
+          />
+        </div>
+        <!-- Texto -->
+        <div class="flex flex-col leading-tight">
+          <span class="font-questrial text-lg md:text-xl lg:text-2xl tracking-wide">
+            <span style="color: #102e46;">METALÚRGICA BOTO </span><span style="color: #3e94c6;">MARIANI</span>
+          </span>
+          <span class="text-xs text-gray-500 tracking-widest hidden md:block">ESTRUCTURA Y ARQUITECTURA METÁLICA</span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden lg:flex items-center space-x-1">
+        {navigation.map((item) => (
+          item.children ? (
+            <div class="relative group">
+              <button
+                class="flex items-center px-4 py-2 text-sm font-semibold text-gray-700 hover:text-primary transition-colors uppercase tracking-wide"
+              >
+                {item.name}
+                <svg class="ml-1 w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <!-- Dropdown -->
+              <div class="absolute left-0 mt-0 w-64 bg-white shadow-lg rounded-b-lg opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 border-t-2 border-primary">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="flex items-center justify-between px-4 py-3 text-sm text-gray-700 hover:bg-gray-50 hover:text-primary transition-colors first:rounded-t-lg last:rounded-b-lg"
+                  >
+                    <span>{child.name}</span>
+                    {child.badge && (
+                      <span class="bg-accent text-xs font-bold px-2 py-0.5 rounded text-gray-900">
+                        {child.badge}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class:list={[
+                'px-4 py-2 text-sm font-semibold uppercase tracking-wide transition-colors',
+                currentPath === item.href
+                  ? 'text-primary'
+                  : 'text-gray-700 hover:text-primary',
+              ]}
+            >
+              {item.name}
+            </a>
+          )
+        ))}
+
+        <!-- CTA Button -->
+        <a
+          href="/contacto/"
+          class="ml-4 btn btn-primary text-sm"
+        >
+          Cotizar
+        </a>
+      </nav>
+
+      <!-- Mobile Menu Button -->
+      <button
+        id="mobile-menu-button"
+        class="lg:hidden p-2 text-gray-700 hover:text-primary"
+        aria-label="Abrir menú"
+      >
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path
+            id="menu-icon-open"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 6h16M4 12h16M4 18h16"
+          />
+          <path
+            id="menu-icon-close"
+            class="hidden"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Navigation -->
+    <nav
+      id="mobile-menu"
+      class="lg:hidden hidden border-t border-gray-200"
+    >
+      <div class="py-4 space-y-1">
+        {navigation.map((item) => (
+          item.children ? (
+            <div class="mobile-dropdown">
+              <button
+                class="mobile-dropdown-button w-full flex items-center justify-between px-4 py-3 text-sm font-semibold text-gray-700 uppercase tracking-wide"
+              >
+                {item.name}
+                <svg class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                </svg>
+              </button>
+              <div class="mobile-dropdown-content hidden bg-gray-50 py-2">
+                {item.children.map((child) => (
+                  <a
+                    href={child.href}
+                    class="flex items-center justify-between px-8 py-2 text-sm text-gray-600 hover:text-primary"
+                  >
+                    <span>{child.name}</span>
+                    {child.badge && (
+                      <span class="bg-accent text-xs font-bold px-2 py-0.5 rounded text-gray-900">
+                        {child.badge}
+                      </span>
+                    )}
+                  </a>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <a
+              href={item.href}
+              class:list={[
+                'block px-4 py-3 text-sm font-semibold uppercase tracking-wide',
+                currentPath === item.href
+                  ? 'text-primary bg-gray-50'
+                  : 'text-gray-700 hover:text-primary hover:bg-gray-50',
+              ]}
+            >
+              {item.name}
+            </a>
+          )
+        ))}
+
+        <!-- Mobile CTA -->
+        <div class="px-4 pt-4">
+          <a
+            href="/contacto/"
+            class="btn btn-primary w-full text-sm"
+          >
+            Cotizar
+          </a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // Mobile menu toggle
+  const mobileMenuButton = document.getElementById('mobile-menu-button');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIconOpen = document.getElementById('menu-icon-open');
+  const menuIconClose = document.getElementById('menu-icon-close');
+
+  mobileMenuButton?.addEventListener('click', () => {
+    mobileMenu?.classList.toggle('hidden');
+    menuIconOpen?.classList.toggle('hidden');
+    menuIconClose?.classList.toggle('hidden');
+  });
+
+  // Mobile dropdown toggles
+  const mobileDropdowns = document.querySelectorAll('.mobile-dropdown');
+  mobileDropdowns.forEach((dropdown) => {
+    const button = dropdown.querySelector('.mobile-dropdown-button');
+    const content = dropdown.querySelector('.mobile-dropdown-content');
+    const icon = button?.querySelector('svg');
+
+    button?.addEventListener('click', () => {
+      content?.classList.toggle('hidden');
+      icon?.classList.toggle('rotate-180');
+    });
+  });
+</script>

@@ -1,0 +1,227 @@
+/* Fuentes - debe ir antes de tailwindcss */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Questrial&display=swap');
+
+@import "tailwindcss";
+
+/* Variables CSS - Colores Corporativos MBM */
+:root {
+  /* Colores principales (extraídos del logo) */
+  --color-primary: #1a4d6d;      /* Azul Petróleo */
+  --color-secondary: #5a5a5a;    /* Gris Acero */
+  --color-accent: #9acd32;       /* Verde Lima */
+
+  /* Variantes */
+  --color-primary-dark: #0f3347;
+  --color-primary-light: #2a6d8d;
+  --color-secondary-dark: #3a3a3a;
+  --color-secondary-light: #7a7a7a;
+
+  /* Neutros */
+  --color-white: #ffffff;
+  --color-black: #1a1a1a;
+  --color-gray-50: #f9fafb;
+  --color-gray-100: #f3f4f6;
+  --color-gray-200: #e5e7eb;
+  --color-gray-300: #d1d5db;
+  --color-gray-400: #9ca3af;
+  --color-gray-500: #6b7280;
+  --color-gray-600: #4b5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1f2937;
+  --color-gray-900: #111827;
+}
+
+/* Tema Tailwind personalizado */
+@theme {
+  --font-family-sans: 'Montserrat', system-ui, sans-serif;
+
+  /* Colores corporativos */
+  --color-primary: #1a4d6d;
+  --color-primary-dark: #0f3347;
+  --color-primary-light: #2a6d8d;
+  --color-secondary: #5a5a5a;
+  --color-secondary-dark: #3a3a3a;
+  --color-secondary-light: #7a7a7a;
+  --color-accent: #9acd32;
+  --color-accent-dark: #7aa828;
+  --color-accent-light: #b8e04a;
+}
+
+/* Reset y estilos base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Montserrat', system-ui, sans-serif;
+  color: var(--color-gray-800);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Tipografía */
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--color-gray-900);
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+h2 {
+  font-size: 2rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+}
+
+/* Links */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: var(--color-primary-light);
+}
+
+/* Botones base */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.025em;
+  border-radius: 0.25rem;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+.btn-primary:hover {
+  background-color: var(--color-primary-dark);
+}
+
+.btn-accent {
+  background-color: var(--color-accent);
+  color: var(--color-black);
+}
+
+.btn-accent:hover {
+  background-color: var(--color-accent-dark);
+}
+
+.btn-outline {
+  background-color: transparent;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+}
+
+.btn-outline:hover {
+  background-color: var(--color-primary);
+  color: var(--color-white);
+}
+
+/* Contenedor */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+@media (min-width: 640px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+/* Sección estándar */
+.section {
+  padding: 4rem 0;
+}
+
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  color: var(--color-primary);
+}
+
+.section-subtitle {
+  font-size: 1.125rem;
+  color: var(--color-gray-600);
+  max-width: 600px;
+}
+
+/* Utilidades */
+.text-primary {
+  color: var(--color-primary);
+}
+
+.text-accent {
+  color: var(--color-accent);
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-accent {
+  background-color: var(--color-accent);
+}
+
+/* Fuente Questrial para logo */
+.font-questrial {
+  font-family: 'Questrial', sans-serif;
+}
+
+/* Marcos estilo logo (decorativo) */
+.frame-decoration {
+  position: relative;
+}
+
+.frame-decoration::before {
+  content: '';
+  position: absolute;
+  top: -10px;
+  left: -10px;
+  right: 10px;
+  bottom: 10px;
+  border: 2px solid var(--color-secondary);
+  pointer-events: none;
+}
+
+.frame-decoration::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  right: -10px;
+  bottom: -10px;
+  border: 2px solid var(--color-primary);
+  pointer-events: none;
+}

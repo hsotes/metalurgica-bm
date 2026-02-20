@@ -1,5 +1,5 @@
 // ============================================================
-// LOCAL STORAGE for Calendar + Competitors
+// LOCAL STORAGE for Calendar + Scraper Sites
 // ============================================================
 
 export interface CalendarEntry {
@@ -10,33 +10,17 @@ export interface CalendarEntry {
   contentType: string;
   status: 'suggested' | 'planned' | 'draft' | 'published';
   notes: string;
-  competitorRef?: string;
+  sourceUrl?: string;
 }
 
-export interface Competitor {
+export interface ScraperSite {
   id: string;
   name: string;
-  website: string;
-  country: string;
-  language: string;
-  notes: string;
-  addedAt: string;
-}
-
-export interface CompetitorPost {
-  id: string;
-  competitorId: string;
-  title: string;
-  url: string;
-  date: string;
-  topic: string;
-  notes: string;
-  used: boolean;
+  blogUrl: string;
 }
 
 const CALENDAR_KEY = 'mbm_calendar';
-const COMPETITORS_KEY = 'mbm_competitors';
-const COMPETITOR_POSTS_KEY = 'mbm_competitor_posts';
+const SCRAPER_SITES_KEY = 'mbm_scraper_sites';
 
 // --- Calendar ---
 
@@ -72,60 +56,27 @@ export function deleteCalendarEntry(id: string) {
   saveCalendar(entries);
 }
 
-// --- Competitors ---
+// --- Scraper Sites ---
 
-export function getCompetitors(): Competitor[] {
-  const data = localStorage.getItem(COMPETITORS_KEY);
+export function getScraperSites(): ScraperSite[] {
+  const data = localStorage.getItem(SCRAPER_SITES_KEY);
   return data ? JSON.parse(data) : [];
 }
 
-export function saveCompetitors(competitors: Competitor[]) {
-  localStorage.setItem(COMPETITORS_KEY, JSON.stringify(competitors));
+export function saveScraperSites(sites: ScraperSite[]) {
+  localStorage.setItem(SCRAPER_SITES_KEY, JSON.stringify(sites));
 }
 
-export function addCompetitor(comp: Omit<Competitor, 'id' | 'addedAt'>): Competitor {
-  const competitors = getCompetitors();
-  const newComp = { ...comp, id: crypto.randomUUID(), addedAt: new Date().toISOString() };
-  competitors.push(newComp);
-  saveCompetitors(competitors);
-  return newComp;
+export function addScraperSite(site: Omit<ScraperSite, 'id'>): ScraperSite {
+  const sites = getScraperSites();
+  const newSite = { ...site, id: crypto.randomUUID() };
+  sites.push(newSite);
+  saveScraperSites(sites);
+  return newSite;
 }
 
-export function deleteCompetitor(id: string) {
-  saveCompetitors(getCompetitors().filter(c => c.id !== id));
-  saveCompetitorPosts(getCompetitorPosts().filter(p => p.competitorId !== id));
-}
-
-// --- Competitor Posts ---
-
-export function getCompetitorPosts(): CompetitorPost[] {
-  const data = localStorage.getItem(COMPETITOR_POSTS_KEY);
-  return data ? JSON.parse(data) : [];
-}
-
-export function saveCompetitorPosts(posts: CompetitorPost[]) {
-  localStorage.setItem(COMPETITOR_POSTS_KEY, JSON.stringify(posts));
-}
-
-export function addCompetitorPost(post: Omit<CompetitorPost, 'id' | 'used'>): CompetitorPost {
-  const posts = getCompetitorPosts();
-  const newPost = { ...post, id: crypto.randomUUID(), used: false };
-  posts.push(newPost);
-  saveCompetitorPosts(posts);
-  return newPost;
-}
-
-export function markPostUsed(id: string) {
-  const posts = getCompetitorPosts();
-  const idx = posts.findIndex(p => p.id === id);
-  if (idx >= 0) {
-    posts[idx].used = true;
-    saveCompetitorPosts(posts);
-  }
-}
-
-export function deleteCompetitorPost(id: string) {
-  saveCompetitorPosts(getCompetitorPosts().filter(p => p.id !== id));
+export function deleteScraperSite(id: string) {
+  saveScraperSites(getScraperSites().filter(s => s.id !== id));
 }
 
 // ============================================================

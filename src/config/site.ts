@@ -49,7 +49,7 @@ export const siteConfig = {
   urls: {
     site: 'https://bmmetalurgica.com.ar',
     whatsapp: 'https://wa.me/5491140896202',
-    linkedin: '#', // TODO: Agregar cuando esté disponible
+    linkedin: 'https://www.linkedin.com/company/metal%C3%BArgica-boto-mariani',
     instagram: 'https://www.instagram.com/mbm_metalurgica/', // Instagram oficial
   },
 

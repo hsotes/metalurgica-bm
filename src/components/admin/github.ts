@@ -62,6 +62,21 @@ async function githubFetch(path: string, options: RequestInit = {}) {
   return res.json();
 }
 
+function decodeBase64UTF8(base64: string): string {
+  const cleaned = base64.replace(/\n/g, '');
+  const bytes = Uint8Array.from(atob(cleaned), c => c.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
+function encodeUTF8Base64(text: string): string {
+  const bytes = new TextEncoder().encode(text);
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return btoa(binary);
+}
+
 export async function listArticles(): Promise<ArticleMeta[]> {
   const files: GitHubFile[] = await githubFetch(
     `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}`
@@ -77,7 +92,7 @@ export async function listArticles(): Promise<ArticleMeta[]> {
         `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${file.name}`
       );
 
-      const content = atob(fileData.content);
+      const content = decodeBase64UTF8(fileData.content);
       const meta = parseFrontmatter(content);
 
       articles.push({
@@ -88,7 +103,7 @@ export async function listArticles(): Promise<ArticleMeta[]> {
         category: meta.category || '',
         tags: meta.tags || [],
         image: meta.image || '',
-        author: meta.author || 'Metalúrgica Boto Mariani',
+        author: meta.author || 'Metalurgica Boto Mariani',
         sha: fileData.sha,
         content: meta.body || '',
       });
@@ -106,7 +121,7 @@ export async function createArticle(
   markdownBody: string
 ): Promise<void> {
   const content = buildMarkdownFile(frontmatter, markdownBody);
-  const encoded = btoa(unescape(encodeURIComponent(content)));
+  const encoded = encodeUTF8Base64(content);
 
   await githubFetch(
     `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${filename}`,
@@ -127,7 +142,7 @@ export async function updateArticle(
   sha: string
 ): Promise<void> {
   const content = buildMarkdownFile(frontmatter, markdownBody);
-  const encoded = btoa(unescape(encodeURIComponent(content)));
+  const encoded = encodeUTF8Base64(content);
 
   await githubFetch(
     `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${filename}`,
@@ -182,7 +197,7 @@ function buildMarkdownFile(frontmatter: Record<string, any>, body: string): stri
 }
 
 function parseFrontmatter(content: string): Record<string, any> & { body: string } {
-  const match = content.match(/^---\n([\s\S]*?)\n---\n([\s\S]*)$/);
+  const match = content.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
   if (!match) return { body: content };
 
   const frontmatterStr = match[1];
@@ -196,21 +211,16 @@ function parseFrontmatter(content: string): Record<string, any> & { body: string
     const key = line.slice(0, colonIdx).trim();
     let value = line.slice(colonIdx + 1).trim();
 
-    // Handle arrays
     if (value.startsWith('[') && value.endsWith(']')) {
       const inner = value.slice(1, -1);
       meta[key] = inner
         .split(',')
         .map(v => v.trim().replace(/^["']|["']$/g, ''))
         .filter(Boolean);
-    }
-    // Handle quoted strings
-    else if ((value.startsWith('"') && value.endsWith('"')) ||
-             (value.startsWith("'") && value.endsWith("'"))) {
+    } else if ((value.startsWith('"') && value.endsWith('"')) ||
+               (value.startsWith("'") && value.endsWith("'"))) {
       meta[key] = value.slice(1, -1);
-    }
-    // Raw value
-    else {
+    } else {
       meta[key] = value;
     }
   }

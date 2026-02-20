@@ -9,7 +9,9 @@ import { contentTemplates, categories, slugify } from './templates';
 import {
   getCalendar, addCalendarEntry, updateCalendarEntry, deleteCalendarEntry,
   getScraperSites, addScraperSite, deleteScraperSite,
-  type CalendarEntry, type ScraperSite,
+  getBanco, addToBanco, markBancoPostUsed, removeBancoPost, clearBanco, autoplanFromBanco,
+  getAiKey, setAiKey, hasAiKey,
+  type CalendarEntry, type ScraperSite, type BancoPost,
 } from './storage';
 
 type View = 'dashboard' | 'editor' | 'calendar' | 'settings';
@@ -19,14 +21,6 @@ interface EditorInit {
   category?: string;
   contentType?: string;
   sourceUrl?: string;
-}
-
-interface ScrapedPost {
-  title: string;
-  url: string;
-  image: string;
-  excerpt: string;
-  date: string;
 }
 
 export default function AdminApp() {
@@ -55,31 +49,19 @@ export default function AdminApp() {
 
   function flash(type: 'ok' | 'err', text: string) {
     setMsg({ type, text });
-    setTimeout(() => setMsg(null), 5000);
+    setTimeout(() => setMsg(null), 6000);
   }
 
-  function goEdit(article: ArticleMeta | null) {
-    setEditingArticle(article);
-    setEditorInit(null);
-    setView('editor');
-  }
-
+  function goEdit(article: ArticleMeta | null) { setEditingArticle(article); setEditorInit(null); setView('editor'); }
   function goEditFromCalendar(entry: CalendarEntry) {
     setEditingArticle(null);
-    setEditorInit({
-      title: entry.title,
-      category: entry.category,
-      contentType: entry.contentType,
-      sourceUrl: entry.sourceUrl,
-    });
+    setEditorInit({ title: entry.title, category: entry.category, contentType: entry.contentType, sourceUrl: entry.sourceUrl });
     setView('editor');
   }
-
   function goDash() { setEditingArticle(null); setEditorInit(null); setView('dashboard'); loadArticles(); }
 
   return (
     <div style={{ display: 'flex', minHeight: '100vh', fontFamily: "'Montserrat', system-ui, sans-serif" }}>
-      {/* ---- SIDEBAR ---- */}
       <aside style={{ width: 240, backgroundColor: '#111827', color: '#fff', display: 'flex', flexDirection: 'column' as const, flexShrink: 0 }}>
         <div style={{ padding: '20px 16px', borderBottom: '1px solid #1f2937' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -106,20 +88,18 @@ export default function AdminApp() {
         </div>
       </aside>
 
-      {/* ---- MAIN ---- */}
       <main style={{ flex: 1, backgroundColor: '#f3f4f6', overflow: 'auto', minHeight: '100vh' }}>
         {msg && <div style={{ padding: '10px 24px', backgroundColor: msg.type === 'ok' ? '#065f46' : '#991b1b', color: '#fff', fontSize: 13, fontWeight: 500 }}>{msg.text}</div>}
-
         {!tokenReady && view !== 'settings' ? (
-          <SettingsPanel onSave={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); } else { clearToken(); flash('err', 'Token invalido'); } }} />
+          <SettingsPanel onSaveGit={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); } else { clearToken(); flash('err', 'Token invalido'); } }} />
         ) : view === 'settings' ? (
-          <SettingsPanel onSave={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); flash('ok', 'Token OK'); } else { clearToken(); flash('err', 'Token invalido'); } }} />
+          <SettingsPanel onSaveGit={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); flash('ok', 'Token GitHub OK'); } else { clearToken(); flash('err', 'Token invalido'); } }} />
         ) : view === 'dashboard' ? (
           <DashboardPanel articles={articles} loading={loading} onNew={() => goEdit(null)} onEdit={a => goEdit(a)}
-            onDelete={async a => { if (!confirm(`Eliminar "${a.title}"?`)) return; try { await deleteArticle(a.filename, a.sha); flash('ok', 'Eliminado. Redesplegando...'); loadArticles(); } catch (e: any) { flash('err', e.message); } }} />
+            onDelete={async a => { if (!confirm(`Eliminar "${a.title}"?`)) return; try { await deleteArticle(a.filename, a.sha); flash('ok', 'Eliminado'); loadArticles(); } catch (e: any) { flash('err', e.message); } }} />
         ) : view === 'editor' ? (
           <EditorPanel article={editingArticle} initialData={editorInit} onBack={goDash}
-            onPublish={async (fn, fm, body, sha) => { try { if (sha) { await updateArticle(fn, fm, body, sha); flash('ok', 'Actualizado'); } else { await createArticle(fn, fm, body); flash('ok', 'Publicado'); } goDash(); } catch (e: any) { flash('err', e.message); } }} />
+            onPublish={async (fn, fm, body, sha) => { try { if (sha) { await updateArticle(fn, fm, body, sha); flash('ok', 'Actualizado'); } else { await createArticle(fn, fm, body); flash('ok', 'Publicado! Vercel redesplegando...'); } goDash(); } catch (e: any) { flash('err', e.message); } }} />
         ) : view === 'calendar' ? (
           <CalendarPanel onCreateArticle={goEditFromCalendar} />
         ) : null}
@@ -131,17 +111,35 @@ export default function AdminApp() {
 // ============================================================
 // SETTINGS
 // ============================================================
-function SettingsPanel({ onSave }: { onSave: (t: string) => void }) {
-  const [t, setT] = useState('');
+function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
+  const [gitToken, setGitToken] = useState('');
+  const [aiKey, setAiKeyLocal] = useState('');
   const [saving, setSaving] = useState(false);
+  const hasGit = hasToken();
+  const hasAi = hasAiKey();
+
   return (
-    <div style={{ maxWidth: 560, margin: '0 auto', padding: '60px 24px' }}>
+    <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px' }}>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 24 }}>Configuracion</h1>
-      <div style={card}>
-        <label style={labelSt}>GitHub Personal Access Token</label>
+
+      <div style={{ ...card, marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <label style={{ ...labelSt, margin: 0 }}>GitHub Personal Access Token</label>
+          {hasGit && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONECTADO</span>}
+        </div>
         <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>GitHub → Settings → Developer settings → Fine-grained tokens.<br />Permiso: <b>Contents: Read and Write</b> para <code>hsotes/metalurgica-bm</code>.</p>
-        <input type="password" value={t} onChange={e => setT(e.target.value)} placeholder="github_pat_..." style={inputSt} />
-        <button onClick={async () => { setSaving(true); await onSave(t.trim()); setSaving(false); }} disabled={saving || !t.trim()} style={{ ...btnPrimary, marginTop: 12 }}>{saving ? 'Verificando...' : 'Guardar'}</button>
+        <input type="password" value={gitToken} onChange={e => setGitToken(e.target.value)} placeholder="github_pat_..." style={inputSt} />
+        <button onClick={async () => { setSaving(true); await onSaveGit(gitToken.trim()); setSaving(false); }} disabled={saving || !gitToken.trim()} style={{ ...btnPrimary, marginTop: 10 }}>{saving ? 'Verificando...' : 'Guardar token GitHub'}</button>
+      </div>
+
+      <div style={card}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <label style={{ ...labelSt, margin: 0 }}>Anthropic API Key (Claude IA)</label>
+          {hasAi && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONFIGURADA</span>}
+        </div>
+        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Necesaria para traduccion automatica, generacion SEO y posts de LinkedIn.<br />Obtene tu key en <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#1a4d6d', fontWeight: 600 }}>console.anthropic.com</a></p>
+        <input type="password" value={aiKey} onChange={e => setAiKeyLocal(e.target.value)} placeholder="sk-ant-..." style={inputSt} />
+        <button onClick={() => { if (aiKey.trim()) { setAiKey(aiKey.trim()); setAiKeyLocal(''); alert('API key guardada'); } }} disabled={!aiKey.trim()} style={{ ...btnPrimary, marginTop: 10 }}>Guardar API key</button>
       </div>
     </div>
   );
@@ -152,15 +150,17 @@ function SettingsPanel({ onSave }: { onSave: (t: string) => void }) {
 // ============================================================
 function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articles: ArticleMeta[]; loading: boolean; onNew: () => void; onEdit: (a: ArticleMeta) => void; onDelete: (a: ArticleMeta) => void }) {
   const cats = [...new Set(articles.map(a => a.category))];
+  const banco = getBanco();
   return (
     <div style={{ padding: '28px 32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div><h1 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>Dashboard</h1><p style={{ color: '#6b7280', marginTop: 2, fontSize: 13 }}>Gestion de contenido</p></div>
         <button onClick={onNew} style={btnAccent}>+ Nuevo Articulo</button>
       </div>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 12, marginBottom: 24 }}>
-        <StatBox label="Articulos" value={articles.length} />
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
+        <StatBox label="Publicados" value={articles.length} />
         <StatBox label="Categorias" value={cats.length} />
+        <StatBox label="En banco" value={banco.filter(b => !b.used).length} />
         <StatBox label="Ultimo" value={articles[0]?.date ? new Date(articles[0].date).toLocaleDateString('es-AR', { day: 'numeric', month: 'short' }) : '-'} />
       </div>
       <div style={card}>
@@ -193,7 +193,7 @@ function StatBox({ label, value }: { label: string; value: any }) {
 }
 
 // ============================================================
-// EDITOR
+// EDITOR (with AI import + LinkedIn)
 // ============================================================
 function EditorPanel({ article, initialData, onBack, onPublish }: {
   article: ArticleMeta | null;
@@ -212,22 +212,90 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   const [body, setBody] = useState(article?.content || tpl?.markdown || '');
   const [pub, setPub] = useState(false);
   const [preview, setPreview] = useState(false);
-  const [importing, setImporting] = useState(false);
 
-  async function handleImportSource() {
+  // AI states
+  const [aiLoading, setAiLoading] = useState(false);
+  const [aiStatus, setAiStatus] = useState('');
+  const [linkedinPost, setLinkedinPost] = useState('');
+  const [showLinkedin, setShowLinkedin] = useState(false);
+  const [linkedinLoading, setLinkedinLoading] = useState(false);
+  const [sourceImages, setSourceImages] = useState<string[]>([]);
+  const [published, setPublished] = useState(false);
+
+  async function handleAiImport() {
     if (!initialData?.sourceUrl) return;
-    setImporting(true);
+    const aiKey = getAiKey();
+    if (!aiKey) { alert('Configura tu Anthropic API Key en Configuracion para usar la traduccion automatica.'); return; }
+
+    setAiLoading(true);
     try {
-      const res = await fetch(`/api/scrape?url=${encodeURIComponent(initialData.sourceUrl)}&mode=full`);
-      if (!res.ok) throw new Error('Error al importar');
-      const data = await res.json();
-      if (data.title && !title) setTitle(data.title);
-      if (data.content) setBody(data.content);
-      if (data.images?.length > 0 && !img) setImg(data.images[0]);
+      // Step 1: Scrape full article
+      setAiStatus('Scrapeando articulo original...');
+      const scrapeRes = await fetch(`/api/scrape?url=${encodeURIComponent(initialData.sourceUrl)}&mode=full`);
+      if (!scrapeRes.ok) throw new Error('Error al scrapear el articulo');
+      const scraped = await scrapeRes.json();
+
+      if (scraped.images?.length) setSourceImages(scraped.images);
+
+      // Step 2: AI translation + SEO
+      setAiStatus('IA traduciendo, reescribiendo y optimizando SEO...');
+      const aiRes = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          apiKey: aiKey,
+          action: 'import_article',
+          data: { title: scraped.title || initialData.title, content: scraped.content || '', sourceUrl: initialData.sourceUrl },
+        }),
+      });
+      if (!aiRes.ok) {
+        const err = await aiRes.json().catch(() => ({}));
+        throw new Error(err.error || 'Error de IA');
+      }
+      const ai = await aiRes.json();
+
+      // Fill fields
+      if (ai.title) setTitle(ai.title);
+      if (ai.description) setDesc(ai.description);
+      if (ai.category) setCat(ai.category);
+      if (ai.tags) setTags(ai.tags.join(', '));
+      if (ai.content) setBody(ai.content);
+      if (ai.slug && !article) setImg(scraped.images?.[0] || '');
+
+      setAiStatus('Articulo listo! Revisa y publica.');
+      setTimeout(() => setAiStatus(''), 4000);
     } catch (e: any) {
-      alert('Error importando contenido: ' + e.message);
+      setAiStatus('');
+      alert('Error: ' + e.message);
     }
-    setImporting(false);
+    setAiLoading(false);
+  }
+
+  async function handleGenerateLinkedin() {
+    const aiKey = getAiKey();
+    if (!aiKey) { alert('Configura tu Anthropic API Key en Configuracion.'); return; }
+    if (!title || !body) { alert('El articulo necesita titulo y contenido.'); return; }
+
+    setLinkedinLoading(true);
+    try {
+      const slug = slugify(title);
+      const blogUrl = `https://www.metalurgicabotomariani.com.ar/blog/${slug}/`;
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: aiKey, action: 'linkedin', data: { title, content: body, blogUrl } }),
+      });
+      if (!res.ok) {
+        const err = await res.json().catch(() => ({}));
+        throw new Error(err.error || 'Error generando LinkedIn');
+      }
+      const data = await res.json();
+      setLinkedinPost(data.post);
+      setShowLinkedin(true);
+    } catch (e: any) {
+      alert('Error: ' + e.message);
+    }
+    setLinkedinLoading(false);
   }
 
   if (step === 'tpl') return (
@@ -252,44 +320,89 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   const html = marked.parse(body) as string;
   return (
     <div style={{ display: 'flex', flexDirection: 'column', height: '100vh' }}>
-      <div style={{ padding: '10px 20px', backgroundColor: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0 }}>
+      {/* Top bar */}
+      <div style={{ padding: '10px 20px', backgroundColor: '#fff', borderBottom: '1px solid #e5e7eb', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexShrink: 0, flexWrap: 'wrap', gap: 6 }}>
         <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
           <button onClick={onBack} style={linkBtn}>← Dashboard</button>
           <span style={{ fontSize: 13, fontWeight: 600, color: '#374151' }}>{article ? 'Editando' : 'Nuevo'}: {title || 'Sin titulo'}</span>
         </div>
-        <div style={{ display: 'flex', gap: 6 }}>
+        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
           {initialData?.sourceUrl && (
-            <>
-              <button onClick={handleImportSource} disabled={importing} style={{ ...btnSmall, backgroundColor: '#eff6ff', color: '#1e40af', border: '1px solid #bfdbfe' }}>
-                {importing ? 'Importando...' : 'Importar contenido original'}
-              </button>
-              <a href={initialData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ ...btnSmall, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>Ver original →</a>
-            </>
+            <button onClick={handleAiImport} disabled={aiLoading}
+              style={{ ...btnSmall, backgroundColor: '#7c3aed', color: '#fff', border: 'none', fontWeight: 700 }}>
+              {aiLoading ? aiStatus : 'Importar y traducir (IA)'}
+            </button>
           )}
-          <button onClick={() => setPreview(!preview)} style={{ ...btnSmall, backgroundColor: preview ? '#1a4d6d' : '#fff', color: preview ? '#fff' : '#374151', border: '1px solid #d1d5db' }}>{preview ? 'Ocultar preview' : 'Preview'}</button>
-          <button onClick={async () => { if (!title.trim() || !desc.trim() || !img.trim()) { alert('Completa titulo, descripcion e imagen'); return; } setPub(true); await onPublish(article?.filename || `${slugify(title)}.md`, { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: img.trim(), category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) }, body, article?.sha); setPub(false); }} disabled={pub} style={btnAccent}>{pub ? 'Publicando...' : article ? 'Actualizar' : 'Publicar'}</button>
+          {initialData?.sourceUrl && (
+            <a href={initialData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ ...btnSmall, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>Ver original →</a>
+          )}
+          <button onClick={handleGenerateLinkedin} disabled={linkedinLoading || !body.trim()}
+            style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none' }}>
+            {linkedinLoading ? 'Generando...' : 'Generar LinkedIn'}
+          </button>
+          <button onClick={() => setPreview(!preview)} style={{ ...btnSmall, backgroundColor: preview ? '#1a4d6d' : '#fff', color: preview ? '#fff' : '#374151', border: '1px solid #d1d5db' }}>{preview ? 'Editor' : 'Preview'}</button>
+          <button onClick={async () => {
+            if (!title.trim() || !desc.trim()) { alert('Completa titulo y descripcion'); return; }
+            setPub(true);
+            await onPublish(
+              article?.filename || `${slugify(title)}.md`,
+              { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: img.trim(), category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) },
+              body, article?.sha
+            );
+            setPub(false);
+            setPublished(true);
+          }} disabled={pub} style={btnAccent}>{pub ? 'Publicando...' : article ? 'Actualizar' : 'Publicar'}</button>
         </div>
       </div>
+
+      {/* AI status bar */}
+      {aiStatus && (
+        <div style={{ padding: '8px 20px', backgroundColor: '#f5f3ff', borderBottom: '1px solid #ddd6fe', display: 'flex', alignItems: 'center', gap: 8 }}>
+          {aiLoading && <div style={{ width: 14, height: 14, border: '2px solid #7c3aed', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />}
+          <span style={{ fontSize: 12, fontWeight: 600, color: '#7c3aed' }}>{aiStatus}</span>
+        </div>
+      )}
+
       <div style={{ flex: 1, display: 'flex', overflow: 'hidden' }}>
         <div style={{ flex: 1, overflow: 'auto', padding: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
+          {/* Metadata */}
           <div style={card}>
             <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
-              <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Titulo</label><input value={title} onChange={e => setTitle(e.target.value)} placeholder="Titulo..." style={inputSt} /></div>
-              <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Descripcion</label><textarea value={desc} onChange={e => setDesc(e.target.value)} rows={2} placeholder="Descripcion SEO..." style={{ ...inputSt, resize: 'vertical' }} /></div>
+              <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Titulo SEO</label><input value={title} onChange={e => setTitle(e.target.value)} placeholder="Titulo optimizado para SEO..." style={inputSt} /></div>
+              <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Meta Descripcion SEO</label><textarea value={desc} onChange={e => setDesc(e.target.value)} rows={2} placeholder="150-160 caracteres, persuasiva..." style={{ ...inputSt, resize: 'vertical' }} /><div style={{ fontSize: 10, color: desc.length > 160 ? '#dc2626' : '#9ca3af', marginTop: 2 }}>{desc.length}/160</div></div>
               <div><label style={labelSt}>Categoria</label><select value={cat} onChange={e => setCat(e.target.value)} style={inputSt}>{categories.map(c => <option key={c}>{c}</option>)}</select></div>
               <div><label style={labelSt}>Fecha</label><input type="date" value={date} onChange={e => setDate(e.target.value)} style={inputSt} /></div>
-              <div><label style={labelSt}>Tags (coma)</label><input value={tags} onChange={e => setTags(e.target.value)} placeholder="tag1, tag2" style={inputSt} /></div>
-              <div><label style={labelSt}>Imagen portada</label><input value={img} onChange={e => setImg(e.target.value)} placeholder="/images/..." style={inputSt} /></div>
+              <div><label style={labelSt}>Keywords / Tags</label><input value={tags} onChange={e => setTags(e.target.value)} placeholder="keyword1, keyword2, keyword3" style={inputSt} /></div>
+              <div><label style={labelSt}>Imagen portada URL</label><input value={img} onChange={e => setImg(e.target.value)} placeholder="/images/..." style={inputSt} /></div>
+              <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Slug URL</label><div style={{ fontSize: 12, color: '#6b7280', padding: '8px 12px', backgroundColor: '#f9fafb', borderRadius: 6, border: '1px solid #e5e7eb' }}>/blog/<b>{slugify(title) || 'slug-del-articulo'}</b>/</div></div>
             </div>
           </div>
+
+          {/* Source images */}
+          {sourceImages.length > 0 && (
+            <div style={card}>
+              <label style={labelSt}>Imagenes del articulo original (click para usar como portada)</label>
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 8 }}>
+                {sourceImages.slice(0, 8).map((src, i) => (
+                  <div key={i} onClick={() => setImg(src)} style={{ width: 100, height: 70, borderRadius: 6, overflow: 'hidden', cursor: 'pointer', border: img === src ? '3px solid #9acd32' : '2px solid #e5e7eb' }}>
+                    <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Markdown editor */}
           <div style={{ ...card, flex: 1, display: 'flex', flexDirection: 'column' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
               <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>Contenido (Markdown)</span>
-              <span style={{ fontSize: 11, color: '#9ca3af' }}>{body.length} chars</span>
+              <span style={{ fontSize: 11, color: '#9ca3af' }}>{body.length} chars | ~{Math.round(body.split(/\s+/).length)} palabras</span>
             </div>
-            <textarea value={body} onChange={e => setBody(e.target.value)} placeholder="Contenido..." style={{ flex: 1, minHeight: 350, border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, fontFamily: "'Courier New', monospace", fontSize: 13, lineHeight: 1.7, resize: 'none', outline: 'none', width: '100%', boxSizing: 'border-box' }} />
+            <textarea value={body} onChange={e => setBody(e.target.value)} placeholder="Contenido del articulo..." style={{ flex: 1, minHeight: 350, border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, fontFamily: "'Courier New', monospace", fontSize: 13, lineHeight: 1.7, resize: 'none', outline: 'none', width: '100%', boxSizing: 'border-box' }} />
           </div>
         </div>
+
+        {/* Preview */}
         {preview && (
           <div style={{ flex: 1, overflow: 'auto', padding: 24, borderLeft: '1px solid #e5e7eb', backgroundColor: '#fff' }}>
             <div style={{ maxWidth: 640, margin: '0 auto' }}>
@@ -303,15 +416,41 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
           </div>
         )}
       </div>
+
+      {/* LinkedIn modal */}
+      {showLinkedin && (
+        <div style={overlay} onClick={() => setShowLinkedin(false)}>
+          <div style={{ ...card, maxWidth: 560, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
+                <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
+              </div>
+              <button onClick={() => setShowLinkedin(false)} style={linkBtn}>✕</button>
+            </div>
+            <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
+              style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
+            <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }}
+                style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
+              <button onClick={handleGenerateLinkedin} disabled={linkedinLoading} style={{ ...btnSmall, flex: 0 }}>
+                {linkedinLoading ? '...' : 'Regenerar'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }
 
 // ============================================================
-// CALENDAR + SCRAPER
+// CALENDAR + SCRAPER + BANCO
 // ============================================================
 function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarEntry) => void }) {
-  // Calendar state
   const [entries, setEntries] = useState<CalendarEntry[]>([]);
   const [monthOffset, setMonthOffset] = useState(0);
   const [selected, setSelected] = useState<CalendarEntry | null>(null);
@@ -322,22 +461,28 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   const [newType, setNewType] = useState('articulo');
   const [moveDate, setMoveDate] = useState('');
 
-  // Scraper state
+  // Scraper
   const [sites, setSites] = useState<ScraperSite[]>([]);
   const [showAddSite, setShowAddSite] = useState(false);
   const [siteForm, setSiteForm] = useState({ name: '', blogUrl: '' });
   const [scraping, setScraping] = useState(false);
   const [scrapingId, setScrapingId] = useState('');
-  const [scrapedPosts, setScrapedPosts] = useState<ScrapedPost[]>([]);
-  const [scrapedFrom, setScrapedFrom] = useState('');
-  const [scrapeError, setScrapeError] = useState('');
-  const [usePost, setUsePost] = useState<ScrapedPost | null>(null);
+
+  // Banco
+  const [banco, setBanco] = useState<BancoPost[]>([]);
+  const [bancoFilter, setBancoFilter] = useState('all');
+  const [showAutoplan, setShowAutoplan] = useState(false);
+  const [autoplanDate, setAutoplanDate] = useState(new Date().toISOString().split('T')[0]);
+
+  // Use post modal
+  const [usePost, setUsePost] = useState<BancoPost | null>(null);
   const [useDate, setUseDate] = useState('');
   const [useCat, setUseCat] = useState(categories[0]);
 
   useEffect(() => {
     setEntries(getCalendar());
     setSites(getScraperSites());
+    setBanco(getBanco());
   }, []);
 
   const today = new Date();
@@ -390,12 +535,12 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   }
 
   function resetCalendar() {
-    if (!confirm('Regenerar calendario sugerido? Se perderan los cambios manuales.')) return;
+    if (!confirm('Regenerar calendario? Se perderan los cambios manuales.')) return;
     localStorage.removeItem('mbm_calendar');
     setEntries(getCalendar());
   }
 
-  // Scraper functions
+  // Scraper
   function handleAddSite() {
     if (!siteForm.name.trim() || !siteForm.blogUrl.trim()) return;
     let url = siteForm.blogUrl.trim();
@@ -414,44 +559,66 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   async function handleScrape(site: ScraperSite) {
     setScraping(true);
     setScrapingId(site.id);
-    setScrapedPosts([]);
-    setScrapedFrom(site.name);
-    setScrapeError('');
     try {
       const res = await fetch(`/api/scrape?url=${encodeURIComponent(site.blogUrl)}`);
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || `Error ${res.status}`);
-      }
+      if (!res.ok) throw new Error(`Error ${res.status}`);
       const data = await res.json();
-      if (!data.posts || data.posts.length === 0) {
-        setScrapeError('No se encontraron publicaciones en esta URL.');
+      if (data.posts?.length > 0) {
+        const added = addToBanco(data.posts.map((p: any) => ({
+          sourceUrl: p.url,
+          sourceSiteName: site.name,
+          title: p.title,
+          image: p.image || '',
+          excerpt: p.excerpt || '',
+          date: p.date || '',
+        })));
+        setBanco(getBanco());
+        alert(`${added} publicaciones nuevas agregadas al banco de ${site.name}. (${data.posts.length - added} duplicadas ignoradas)`);
       } else {
-        setScrapedPosts(data.posts);
+        alert('No se encontraron publicaciones en esta URL.');
       }
     } catch (e: any) {
-      setScrapeError(e.message || 'Error al scrapear');
+      alert('Error scrapeando: ' + e.message);
     }
     setScraping(false);
     setScrapingId('');
   }
 
+  // Banco actions
   function handleUsePost() {
     if (!usePost || !useDate) return;
     addCalendarEntry({
-      date: useDate,
-      title: usePost.title,
-      category: useCat,
-      contentType: 'articulo',
-      status: 'planned',
-      notes: usePost.excerpt || '',
-      sourceUrl: usePost.url,
+      date: useDate, title: usePost.title, category: useCat, contentType: 'articulo',
+      status: 'planned', notes: usePost.excerpt || '', sourceUrl: usePost.sourceUrl,
     });
+    markBancoPostUsed(usePost.id);
     setEntries(getCalendar());
+    setBanco(getBanco());
     setUsePost(null);
     setUseDate('');
   }
 
+  function handleAutoplan() {
+    const result = autoplanFromBanco(autoplanDate);
+    setEntries(getCalendar());
+    setBanco(getBanco());
+    setShowAutoplan(false);
+    if (result.planned > 0) {
+      alert(`Planificadas ${result.planned} publicaciones en ${result.weeks} semanas.\nContenido hasta: ${new Date(result.endDate).toLocaleDateString('es-AR', { day: 'numeric', month: 'long', year: 'numeric' })}`);
+    } else {
+      alert('No hay publicaciones en el banco para planificar.');
+    }
+  }
+
+  function handleClearBanco() {
+    if (!confirm('Vaciar el banco de contenido? Se eliminaran todas las publicaciones scrapeadas.')) return;
+    clearBanco();
+    setBanco([]);
+  }
+
+  const unusedBanco = banco.filter(p => !p.used);
+  const filteredBanco = bancoFilter === 'all' ? banco : bancoFilter === 'unused' ? unusedBanco : banco.filter(p => p.sourceSiteName === bancoFilter);
+  const sourceNames = [...new Set(banco.map(p => p.sourceSiteName))];
   const totalThisMonth = entries.filter(e => e.date.startsWith(`${year}-${String(month + 1).padStart(2, '0')}`)).length;
   const publishedThisMonth = entries.filter(e => e.date.startsWith(`${year}-${String(month + 1).padStart(2, '0')}`) && e.status === 'published').length;
 
@@ -467,10 +634,11 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
       </div>
 
       {/* Stats */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginBottom: 20 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 10, marginBottom: 20 }}>
         <StatBox label="Este mes" value={totalThisMonth} />
         <StatBox label="Publicados" value={publishedThisMonth} />
         <StatBox label="Pendientes" value={totalThisMonth - publishedThisMonth} />
+        <StatBox label="En banco" value={unusedBanco.length} />
         <StatBox label="Total plan" value={entries.length} />
       </div>
 
@@ -511,84 +679,106 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
         </div>
       </div>
 
-      {/* ---- SCRAPER SECTION ---- */}
+      {/* SCRAPER */}
       <div style={{ ...card, marginBottom: 20 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
           <div>
             <h2 style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>Scraper de Competidores</h2>
-            <p style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>Agrega URLs de blogs de la competencia y escrapeamos sus publicaciones para que las adaptes</p>
+            <p style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>Scrapea blogs de la competencia. Los resultados se acumulan en el Banco de Contenido.</p>
           </div>
           <button onClick={() => setShowAddSite(true)} style={btnAccent}>+ Agregar URL</button>
         </div>
-
         {sites.length === 0 ? (
-          <div style={{ padding: 20, textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>
-            No hay sitios de competidores configurados. Agrega URLs de blogs metalurgicos para scrapear sus publicaciones.
-          </div>
+          <div style={{ padding: 16, textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>Agrega URLs de blogs para empezar a scrapear.</div>
         ) : (
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {sites.map(site => (
               <div key={site.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', backgroundColor: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb' }}>
                 <div style={{ width: 8, height: 8, borderRadius: 99, backgroundColor: '#9acd32', flexShrink: 0 }} />
                 <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontWeight: 600, fontSize: 13, color: '#111827' }}>{site.name}</div>
+                  <div style={{ fontWeight: 600, fontSize: 13 }}>{site.name}</div>
                   <div style={{ fontSize: 11, color: '#6b7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{site.blogUrl}</div>
                 </div>
                 <button onClick={() => handleScrape(site)} disabled={scraping}
                   style={{ ...btnSmall, backgroundColor: '#1a4d6d', color: '#fff', border: 'none', opacity: scraping && scrapingId === site.id ? 0.6 : 1 }}>
                   {scraping && scrapingId === site.id ? 'Scrapeando...' : 'Scrapear'}
                 </button>
-                <button onClick={() => handleDeleteSite(site.id)} style={{ ...linkBtn, color: '#dc2626', fontSize: 11 }}>✕</button>
+                <button onClick={() => handleDeleteSite(site.id)} style={{ ...linkBtn, color: '#dc2626' }}>✕</button>
               </div>
             ))}
           </div>
         )}
       </div>
 
-      {/* Scraped results */}
-      {(scrapedPosts.length > 0 || scrapeError) && (
-        <div style={{ ...card, marginBottom: 20 }}>
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-            <h3 style={{ fontSize: 15, fontWeight: 700, margin: 0 }}>
-              Resultados de {scrapedFrom}
-              <span style={{ fontSize: 12, fontWeight: 400, color: '#6b7280', marginLeft: 8 }}>{scrapedPosts.length} publicaciones encontradas</span>
-            </h3>
-            <button onClick={() => { setScrapedPosts([]); setScrapeError(''); }} style={linkBtn}>Cerrar</button>
+      {/* BANCO DE CONTENIDO */}
+      <div style={{ ...card, marginBottom: 20 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 16 }}>
+          <div>
+            <h2 style={{ fontSize: 18, fontWeight: 700, margin: 0 }}>
+              Banco de Contenido
+              <span style={{ fontSize: 13, fontWeight: 400, color: '#6b7280', marginLeft: 8 }}>{banco.length} total / {unusedBanco.length} sin usar</span>
+            </h2>
           </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            {unusedBanco.length > 0 && (
+              <button onClick={() => setShowAutoplan(true)} style={{ ...btnAccent, fontSize: 12 }}>Planificar 3/semana</button>
+            )}
+            {banco.length > 0 && (
+              <button onClick={handleClearBanco} style={{ ...btnSmall, color: '#dc2626', fontSize: 11 }}>Vaciar banco</button>
+            )}
+          </div>
+        </div>
 
-          {scrapeError ? (
-            <div style={{ padding: 16, backgroundColor: '#fef2f2', borderRadius: 8, color: '#991b1b', fontSize: 13 }}>{scrapeError}</div>
-          ) : (
-            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))', gap: 12 }}>
-              {scrapedPosts.map((post, i) => (
-                <div key={i} style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden', backgroundColor: '#fff' }}>
+        {banco.length === 0 ? (
+          <div style={{ padding: 16, textAlign: 'center', color: '#9ca3af', fontSize: 13 }}>El banco esta vacio. Scrapea sitios de competidores para llenarlo.</div>
+        ) : (
+          <>
+            {/* Filters */}
+            <div style={{ display: 'flex', gap: 4, marginBottom: 12, flexWrap: 'wrap' }}>
+              <button onClick={() => setBancoFilter('all')} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === 'all' ? '#1a4d6d' : '#fff', color: bancoFilter === 'all' ? '#fff' : '#374151' }}>Todos ({banco.length})</button>
+              <button onClick={() => setBancoFilter('unused')} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === 'unused' ? '#1a4d6d' : '#fff', color: bancoFilter === 'unused' ? '#fff' : '#374151' }}>Sin usar ({unusedBanco.length})</button>
+              {sourceNames.map(name => {
+                const count = banco.filter(p => p.sourceSiteName === name).length;
+                return (
+                  <button key={name} onClick={() => setBancoFilter(name)} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === name ? '#1a4d6d' : '#fff', color: bancoFilter === name ? '#fff' : '#374151' }}>
+                    {name} ({count})
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Post grid */}
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: 10, maxHeight: 500, overflow: 'auto' }}>
+              {filteredBanco.map(post => (
+                <div key={post.id} style={{ border: '1px solid #e5e7eb', borderRadius: 8, overflow: 'hidden', backgroundColor: post.used ? '#f9fafb' : '#fff', opacity: post.used ? 0.6 : 1 }}>
                   {post.image && (
                     <div style={{ aspectRatio: '16/9', overflow: 'hidden', backgroundColor: '#f3f4f6' }}>
-                      <img src={post.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                        onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
+                      <img src={post.image} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
                     </div>
                   )}
-                  <div style={{ padding: 12 }}>
-                    <h4 style={{ fontSize: 13, fontWeight: 700, margin: '0 0 6px', lineHeight: 1.3, color: '#111827' }}>{post.title}</h4>
-                    {post.excerpt && <p style={{ fontSize: 11, color: '#6b7280', margin: '0 0 8px', lineHeight: 1.4 }}>{post.excerpt.slice(0, 120)}...</p>}
-                    {post.date && <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 8 }}>{post.date}</div>}
-                    <div style={{ display: 'flex', gap: 6 }}>
-                      <button onClick={() => { setUsePost(post); setUseDate(new Date().toISOString().split('T')[0]); }} style={{ ...btnSmall, backgroundColor: '#9acd32', color: '#111827', border: 'none', fontWeight: 700, fontSize: 11 }}>
-                        Usar publicacion
-                      </button>
-                      <a href={post.url} target="_blank" rel="noopener noreferrer" style={{ ...btnSmall, textDecoration: 'none', fontSize: 11 }}>Ver original</a>
+                  <div style={{ padding: 10 }}>
+                    <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 4 }}>{post.sourceSiteName}{post.used && ' — USADO'}</div>
+                    <h4 style={{ fontSize: 12, fontWeight: 700, margin: '0 0 6px', lineHeight: 1.3, color: '#111827' }}>{post.title}</h4>
+                    <div style={{ display: 'flex', gap: 4 }}>
+                      {!post.used && (
+                        <button onClick={() => { setUsePost(post); setUseDate(new Date().toISOString().split('T')[0]); }} style={{ ...btnSmall, fontSize: 10, backgroundColor: '#9acd32', color: '#111827', border: 'none', fontWeight: 700, padding: '4px 8px' }}>
+                          Usar
+                        </button>
+                      )}
+                      <a href={post.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ ...btnSmall, textDecoration: 'none', fontSize: 10, padding: '4px 8px' }}>Original</a>
+                      <button onClick={() => { removeBancoPost(post.id); setBanco(getBanco()); }} style={{ ...linkBtn, color: '#dc2626', fontSize: 10 }}>✕</button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
-          )}
-        </div>
-      )}
+          </>
+        )}
+      </div>
 
       {/* ---- MODALS ---- */}
 
-      {/* Entry detail modal */}
+      {/* Entry detail */}
       {selected && (
         <div style={overlay} onClick={() => setSelected(null)}>
           <div style={{ ...card, maxWidth: 500, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
@@ -597,8 +787,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
               <button onClick={() => setSelected(null)} style={linkBtn}>✕</button>
             </div>
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>{selected.title}</h3>
-            <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>Categoria: <b>{selected.category}</b></p>
-            <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>Tipo: <b>{selected.contentType}</b></p>
+            <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>Categoria: <b>{selected.category}</b> | Tipo: <b>{selected.contentType}</b></p>
             <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 4 }}>Fecha: <b>{selected.date}</b></p>
             {selected.sourceUrl && (
               <p style={{ fontSize: 12, marginBottom: 4 }}>
@@ -606,39 +795,28 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
                 <a href={selected.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#1a4d6d', fontSize: 12 }}>ver original →</a>
               </p>
             )}
-
-            {/* Move date */}
             <div style={{ marginTop: 12, padding: 12, backgroundColor: '#f9fafb', borderRadius: 8 }}>
               <label style={{ ...labelSt, marginBottom: 6 }}>Mover a otra fecha</label>
               <div style={{ display: 'flex', gap: 6 }}>
                 <input type="date" value={moveDate} onChange={e => setMoveDate(e.target.value)} style={{ ...inputSt, flex: 1 }} />
-                <button onClick={handleMoveEntry} disabled={!moveDate || moveDate === selected.date} style={{ ...btnSmall, backgroundColor: moveDate && moveDate !== selected.date ? '#1a4d6d' : '#e5e7eb', color: moveDate && moveDate !== selected.date ? '#fff' : '#9ca3af', border: 'none' }}>
-                  Mover
-                </button>
+                <button onClick={handleMoveEntry} disabled={!moveDate || moveDate === selected.date} style={{ ...btnSmall, backgroundColor: moveDate && moveDate !== selected.date ? '#1a4d6d' : '#e5e7eb', color: moveDate && moveDate !== selected.date ? '#fff' : '#9ca3af', border: 'none' }}>Mover</button>
               </div>
             </div>
-
-            {/* Status buttons */}
             <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginTop: 12 }}>
               {(['suggested', 'planned', 'draft', 'published'] as const).map(s => (
-                <button key={s} onClick={() => handleStatusChange(selected, s)} style={{ ...btnSmall, backgroundColor: selected.status === s ? statusColors[s].bg : '#f3f4f6', color: selected.status === s ? statusColors[s].fg : '#6b7280', fontWeight: selected.status === s ? 700 : 400 }}>
-                  {statusLabels[s]}
-                </button>
+                <button key={s} onClick={() => handleStatusChange(selected, s)} style={{ ...btnSmall, backgroundColor: selected.status === s ? statusColors[s].bg : '#f3f4f6', color: selected.status === s ? statusColors[s].fg : '#6b7280', fontWeight: selected.status === s ? 700 : 400 }}>{statusLabels[s]}</button>
               ))}
             </div>
-
             <hr style={{ margin: '16px 0', border: 'none', borderTop: '1px solid #e5e7eb' }} />
             <div style={{ display: 'flex', gap: 6 }}>
-              <button onClick={() => { onCreateArticle(selected); setSelected(null); }} style={{ ...btnAccent, fontSize: 12 }}>
-                Crear articulo
-              </button>
+              <button onClick={() => { onCreateArticle(selected); setSelected(null); }} style={{ ...btnAccent, fontSize: 12 }}>Crear articulo{selected.sourceUrl ? ' (con IA)' : ''}</button>
               <button onClick={() => handleDeleteEntry(selected.id)} style={{ ...btnSmall, color: '#dc2626' }}>Eliminar</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* Add entry modal */}
+      {/* Add entry */}
       {showAdd && (
         <div style={overlay} onClick={() => setShowAdd(false)}>
           <div style={{ ...card, maxWidth: 440, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
@@ -658,37 +836,52 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
         </div>
       )}
 
-      {/* Add scraper site modal */}
+      {/* Add site */}
       {showAddSite && (
         <div style={overlay} onClick={() => setShowAddSite(false)}>
           <div style={{ ...card, maxWidth: 440, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 16 }}>Agregar sitio de competidor</h3>
             <label style={labelSt}>Nombre</label>
-            <input value={siteForm.name} onChange={e => setSiteForm({ ...siteForm, name: e.target.value })} placeholder="Ej: Metalurgica Martin" style={{ ...inputSt, marginBottom: 10 }} />
-            <label style={labelSt}>URL del blog / noticias</label>
-            <input value={siteForm.blogUrl} onChange={e => setSiteForm({ ...siteForm, blogUrl: e.target.value })} placeholder="https://www.ejemplo.com/blog" style={{ ...inputSt, marginBottom: 6 }} />
-            <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 16 }}>Ingresa la URL de la pagina de blog o noticias del competidor. El scraper buscara automaticamente las publicaciones.</p>
+            <input value={siteForm.name} onChange={e => setSiteForm({ ...siteForm, name: e.target.value })} placeholder="Ej: Ampla Estruturas" style={{ ...inputSt, marginBottom: 10 }} />
+            <label style={labelSt}>URL del blog</label>
+            <input value={siteForm.blogUrl} onChange={e => setSiteForm({ ...siteForm, blogUrl: e.target.value })} placeholder="https://www.ejemplo.com/blog" style={{ ...inputSt, marginBottom: 16 }} />
             <button onClick={handleAddSite} disabled={!siteForm.name.trim() || !siteForm.blogUrl.trim()} style={btnAccent}>Agregar</button>
           </div>
         </div>
       )}
 
-      {/* Use scraped post modal */}
+      {/* Use post */}
       {usePost && (
         <div style={overlay} onClick={() => setUsePost(null)}>
           <div style={{ ...card, maxWidth: 480, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
             <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 4 }}>Programar en el calendario</h3>
-            <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>Esta publicacion se agregara al calendario. Luego podras crear el articulo desde ahi.</p>
+            <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 16 }}>Se agregara al calendario. Despues desde ahi creas el articulo con IA.</p>
             <div style={{ padding: 12, backgroundColor: '#f9fafb', borderRadius: 8, marginBottom: 16 }}>
               <div style={{ fontWeight: 700, fontSize: 14, marginBottom: 4 }}>{usePost.title}</div>
-              {usePost.excerpt && <div style={{ fontSize: 12, color: '#6b7280' }}>{usePost.excerpt.slice(0, 150)}...</div>}
-              <a href={usePost.url} target="_blank" rel="noopener noreferrer" style={{ fontSize: 11, color: '#1a4d6d', marginTop: 4, display: 'inline-block' }}>Ver original →</a>
+              <div style={{ fontSize: 11, color: '#9ca3af' }}>Fuente: {usePost.sourceSiteName}</div>
             </div>
             <label style={labelSt}>Fecha de publicacion</label>
             <input type="date" value={useDate} onChange={e => setUseDate(e.target.value)} style={{ ...inputSt, marginBottom: 10 }} />
             <label style={labelSt}>Categoria</label>
             <select value={useCat} onChange={e => setUseCat(e.target.value)} style={{ ...inputSt, marginBottom: 16 }}>{categories.map(c => <option key={c}>{c}</option>)}</select>
             <button onClick={handleUsePost} disabled={!useDate} style={btnAccent}>Agregar al calendario</button>
+          </div>
+        </div>
+      )}
+
+      {/* Auto-plan */}
+      {showAutoplan && (
+        <div style={overlay} onClick={() => setShowAutoplan(false)}>
+          <div style={{ ...card, maxWidth: 440, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
+            <h3 style={{ fontSize: 18, fontWeight: 700, marginBottom: 8 }}>Planificacion automatica</h3>
+            <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 16 }}>
+              Hay <b>{unusedBanco.length}</b> publicaciones sin usar en el banco.<br />
+              Se planificaran 3 por semana (Mar/Mie/Jue).<br />
+              Esto da contenido para <b>~{Math.ceil(unusedBanco.length / 3)} semanas</b>.
+            </p>
+            <label style={labelSt}>Empezar desde</label>
+            <input type="date" value={autoplanDate} onChange={e => setAutoplanDate(e.target.value)} style={{ ...inputSt, marginBottom: 16 }} />
+            <button onClick={handleAutoplan} style={btnAccent}>Planificar {unusedBanco.length} publicaciones</button>
           </div>
         </div>
       )}

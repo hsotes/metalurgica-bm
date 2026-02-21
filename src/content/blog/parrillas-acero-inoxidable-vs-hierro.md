@@ -1,9 +1,9 @@
 ---
 title: "Parrillas de Acero Inoxidable vs. Hierro: Cuál Elegir para tu Quincho"
 description: "Comparativa técnica entre parrillas de acero inoxidable y hierro fundido. Ventajas, desventajas y recomendaciones para elegir la mejor opción según tu uso."
-date: 2026-02-15
-author: "Metalúrgica Boto Mariani"
-image: "/images/griglia/WhatsApp Image 2026-02-02 at 08.45.35.jpeg"
+date: "2026-02-15"
+author: "Metalurgica Boto Mariani"
+image: "/images/griglia/WhatsApp Image 2026-02-20 at 14.21.11.jpeg"
 category: "Griglia"
 tags: ["parrillas", "acero inoxidable", "hierro", "quincho", "asado"]
 ---

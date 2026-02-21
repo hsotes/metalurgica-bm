@@ -3,7 +3,7 @@ title: "Beneficios de las estructuras metálicas"
 description: "Descubrí las ventajas y aplicaciones de las estructuras metálicas en construcción industrial y residencial."
 date: "2026-02-21"
 author: "Metalurgica Boto Mariani"
-image: ""
+image: "/blog/beneficios-de-las-estructuras-metalicas-1771710370814.jpg"
 category: "Estructuras"
 tags: ["estructuras metálicas", "construcción", "arquitectura", "acero", "diseño"]
 ---

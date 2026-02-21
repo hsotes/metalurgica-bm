@@ -23,6 +23,8 @@ const trabajos = defineCollection({
     category: z.string(),
     image: z.string(),
     images: z.array(z.string()).default([]),
+    cliente: z.string().default(''),
+    pesoKg: z.number().default(0),
   }),
 });
 

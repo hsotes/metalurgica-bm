@@ -520,6 +520,8 @@ function TrabajoPanel() {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState(categories[0]);
+  const [cliente, setCliente] = useState('');
+  const [pesoKg, setPesoKg] = useState('');
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
   const [publishing, setPublishing] = useState(false);
@@ -573,6 +575,8 @@ function TrabajoPanel() {
         category,
         image: urls[0],
         images: urls,
+        cliente: cliente.trim(),
+        pesoKg: parseInt(pesoKg) || 0,
       };
       await createTrabajo(filename, frontmatter, description.trim());
       setUploadedUrls(urls);
@@ -606,6 +610,7 @@ function TrabajoPanel() {
 
   function handleReset() {
     setProjectName(''); setDescription(''); setCategory(categories[0]);
+    setCliente(''); setPesoKg('');
     setPhotoFiles([]); setPhotoPreviews([]); setUploadedUrls([]);
     setPublished(false); setLinkedinPost(''); setShowLinkedin(false);
   }
@@ -660,6 +665,12 @@ function TrabajoPanel() {
 
         <label style={labelSt}>Categoria / Unidad de negocio</label>
         <select value={category} onChange={e => setCategory(e.target.value)} style={{ ...inputSt, marginBottom: 12 }}>{categories.map(c => <option key={c}>{c}</option>)}</select>
+
+        <label style={labelSt}>Cliente</label>
+        <input value={cliente} onChange={e => setCliente(e.target.value)} placeholder="Ej: Constructora Perez, YPF, cliente particular..." style={{ ...inputSt, marginBottom: 12 }} />
+
+        <label style={labelSt}>Peso aproximado (Kg)</label>
+        <input type="number" value={pesoKg} onChange={e => setPesoKg(e.target.value)} placeholder="Ej: 1200" style={{ ...inputSt, marginBottom: 12 }} />
 
         <label style={labelSt}>Descripcion del trabajo</label>
         <textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} placeholder="Describe brevemente el proyecto: que se hizo, para quien, caracteristicas principales..." style={{ ...inputSt, resize: 'vertical', marginBottom: 12 }} />

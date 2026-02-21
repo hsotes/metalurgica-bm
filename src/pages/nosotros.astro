@@ -10,11 +10,21 @@ const trabajos = allTrabajos.slice(0, 10);
 
 // KPIs
 const currentYear = new Date().getFullYear();
-const trabajosEsteAno = allTrabajos.filter(t => t.data.date.getFullYear() === currentYear).length;
+const BASE_PROYECTOS = 36; // proyectos historicos antes del sistema
+const BASE_CLIENTES = 24; // clientes historicos antes del sistema
 
-// Kg trabajados: heuristico basado en cantidad de proyectos totales
-// Estimacion: promedio 2.500 kg por proyecto (estructuras, gabinetes, etc.)
-const kgEstimado = Math.round((allTrabajos.length * 2500 + 850000) / 1000) * 1000; // base historica + proyectos publicados
+const trabajosEsteAno = BASE_PROYECTOS + allTrabajos.filter(t => t.data.date.getFullYear() === currentYear).length;
+
+// Kg trabajados este ano: suma real de pesoKg de proyectos del ano actual
+const kgEsteAno = allTrabajos
+  .filter(t => t.data.date.getFullYear() === currentYear)
+  .reduce((sum, t) => sum + (t.data.pesoKg || 0), 0);
+
+// Clientes satisfechos: base + clientes unicos del sistema
+const clientesSistema = new Set(
+  allTrabajos.filter(t => t.data.cliente).map(t => t.data.cliente.toLowerCase().trim())
+);
+const totalClientes = BASE_CLIENTES + clientesSistema.size;
 ---
 
 <BaseLayout
@@ -166,16 +176,16 @@ const kgEstimado = Math.round((allTrabajos.length * 2500 + 850000) / 1000) * 100
       <!-- KPIs -->
       <div class="grid grid-cols-3 gap-6 mb-12 max-w-2xl mx-auto">
         <div class="text-center bg-white p-6 rounded-xl shadow-sm">
-          <div class="text-3xl md:text-4xl font-bold text-primary">{trabajosEsteAno}</div>
-          <div class="text-sm text-gray-500 mt-1">Proyectos en {currentYear}</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary">+{trabajosEsteAno}</div>
+          <div class="text-sm text-gray-500 mt-1">Proyectos entregados</div>
         </div>
         <div class="text-center bg-white p-6 rounded-xl shadow-sm">
-          <div class="text-3xl md:text-4xl font-bold text-primary">{(kgEstimado / 1000).toLocaleString('es-AR')}t</div>
-          <div class="text-sm text-gray-500 mt-1">Toneladas trabajadas</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary">{kgEsteAno > 0 ? kgEsteAno.toLocaleString('es-AR') : '—'}</div>
+          <div class="text-sm text-gray-500 mt-1">Kg procesados en {currentYear}</div>
         </div>
         <div class="text-center bg-white p-6 rounded-xl shadow-sm">
-          <div class="text-3xl md:text-4xl font-bold text-accent">+30</div>
-          <div class="text-sm text-gray-500 mt-1">Anos de experiencia</div>
+          <div class="text-3xl md:text-4xl font-bold text-accent">+{totalClientes}</div>
+          <div class="text-sm text-gray-500 mt-1">Clientes satisfechos</div>
         </div>
       </div>
 

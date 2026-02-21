@@ -20,6 +20,8 @@ export default async function handler(req: any, res: any) {
       return res.json(await importArticle(callAI, apiKey, data));
     } else if (action === 'linkedin') {
       return res.json(await generateLinkedIn(callAI, apiKey, data));
+    } else if (action === 'linkedin_trabajo') {
+      return res.json(await generateLinkedInTrabajo(callAI, apiKey, data));
     } else {
       return res.status(400).json({ error: 'Accion desconocida' });
     }
@@ -152,6 +154,39 @@ REGLAS:
 - SI menciona que es de Metalurgica Boto Mariani
 - Usa emojis con moderacion (max 3-4 en todo el post)
 - El link al blog va en el CTA
+
+RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
+
+  const post = await callAI(apiKey, prompt, 1024);
+  return { post: post.trim() };
+}
+
+async function generateLinkedInTrabajo(callAI: AICall, apiKey: string, data: { projectName: string; description: string; category: string; photos: string[] }) {
+  const prompt = `Genera un post de LinkedIn profesional en español argentino para Metalurgica Boto Mariani, anunciando la entrega de un proyecto completado.
+
+DATOS DEL PROYECTO:
+Nombre: ${data.projectName}
+Categoria: ${data.category}
+Descripcion: ${data.description}
+Cantidad de fotos que acompanan el post: ${data.photos.length}
+
+FORMATO DEL POST:
+1. GANCHO: Dato impactante o frase que genere orgullo profesional (1 linea)
+2. Linea en blanco
+3. DESCRIPCION: Que se hizo, para quien, caracteristicas tecnicas relevantes (3-5 lineas)
+4. Linea en blanco
+5. CIERRE: Frase de orgullo + invitar a contactar para proyectos similares
+6. Linea en blanco
+7. HASHTAGS: 5-6 hashtags relevantes
+
+REGLAS:
+- Maximo 1300 caracteres total
+- Tono profesional pero cercano, con orgullo por el trabajo realizado
+- NO uses "Hola red!" ni cliches de LinkedIn
+- SI menciona que es de Metalurgica Boto Mariani
+- Usa emojis con moderacion (max 3-4)
+- ${data.photos.length > 0 ? 'Menciona que las fotos muestran el resultado final' : 'No menciones fotos'}
+- Incluye datos tecnicos si la descripcion los proporciona
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
 

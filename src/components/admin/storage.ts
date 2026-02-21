@@ -31,12 +31,28 @@ export interface BancoPost {
   used: boolean;
 }
 
+export interface EditorDraft {
+  title: string;
+  description: string;
+  category: string;
+  tags: string;
+  image: string;
+  date: string;
+  body: string;
+  sourceImages: string[];
+  savedAt: string;
+  editingFilename?: string;
+  editingSha?: string;
+  sourceUrl?: string;
+}
+
 const CALENDAR_KEY = 'mbm_calendar';
 const SCRAPER_SITES_KEY = 'mbm_scraper_sites';
 const BANCO_KEY = 'mbm_banco';
 const AI_KEY = 'mbm_ai_key';
 const GPT_KEY = 'mbm_gpt_key';
 const AI_PROVIDER_KEY = 'mbm_ai_provider';
+const DRAFT_KEY = 'mbm_editor_draft';
 
 // --- AI Keys ---
 
@@ -80,6 +96,25 @@ export function getActiveAiKey(): { key: string; provider: 'anthropic' | 'openai
   if (getGptKey()) return { key: getGptKey()!, provider: 'openai' };
   if (getAiKey()) return { key: getAiKey()!, provider: 'anthropic' };
   return null;
+}
+
+// --- Editor Draft ---
+
+export function saveDraft(draft: EditorDraft): void {
+  localStorage.setItem(DRAFT_KEY, JSON.stringify(draft));
+}
+
+export function getDraft(): EditorDraft | null {
+  const data = localStorage.getItem(DRAFT_KEY);
+  return data ? JSON.parse(data) : null;
+}
+
+export function clearDraft(): void {
+  localStorage.removeItem(DRAFT_KEY);
+}
+
+export function hasDraft(): boolean {
+  return !!localStorage.getItem(DRAFT_KEY);
 }
 
 // --- Calendar ---

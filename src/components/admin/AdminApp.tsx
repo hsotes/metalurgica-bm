@@ -13,10 +13,11 @@ import {
   getAiKey, setAiKey, hasAiKey,
   getGptKey, setGptKey, hasGptKey,
   getAiProvider, setAiProvider, getActiveAiKey,
-  type CalendarEntry, type ScraperSite, type BancoPost,
+  saveDraft, getDraft, clearDraft, hasDraft,
+  type CalendarEntry, type ScraperSite, type BancoPost, type EditorDraft,
 } from './storage';
 
-type View = 'dashboard' | 'editor' | 'calendar' | 'settings';
+type View = 'dashboard' | 'editor' | 'calendar' | 'settings' | 'trabajo';
 
 interface EditorInit {
   title?: string;
@@ -75,6 +76,7 @@ export default function AdminApp() {
           {([
             ['dashboard', 'Dashboard', 'M3 3h7v7H3zM14 3h7v7h-7zM3 14h7v7H3zM14 14h7v7h-7z'],
             ['editor', 'Nuevo Articulo', 'M12 5v14M5 12h14'],
+            ['trabajo', 'Trabajo Entregado', 'M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z'],
             ['calendar', 'Calendario', 'M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z'],
             ['settings', 'Configuracion', 'M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.066 2.573c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.573 1.066c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.066-2.573c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z M15 12a3 3 0 11-6 0 3 3 0 016 0z'],
           ] as const).map(([v, label, path]) => (
@@ -101,7 +103,9 @@ export default function AdminApp() {
             onDelete={async a => { if (!confirm(`Eliminar "${a.title}"?`)) return; try { await deleteArticle(a.filename, a.sha); flash('ok', 'Eliminado'); loadArticles(); } catch (e: any) { flash('err', e.message); } }} />
         ) : view === 'editor' ? (
           <EditorPanel article={editingArticle} initialData={editorInit} onBack={goDash}
-            onPublish={async (fn, fm, body, sha) => { try { if (sha) { await updateArticle(fn, fm, body, sha); flash('ok', 'Actualizado'); } else { await createArticle(fn, fm, body); flash('ok', 'Publicado! Vercel redesplegando...'); } goDash(); } catch (e: any) { flash('err', e.message); } }} />
+            onPublish={async (fn, fm, body, sha) => { try { if (sha) { await updateArticle(fn, fm, body, sha); flash('ok', 'Actualizado'); goDash(); } else { await createArticle(fn, fm, body); clearDraft(); } return true; } catch (e: any) { flash('err', e.message); return false; } }} />
+        ) : view === 'trabajo' ? (
+          <TrabajoPanel />
         ) : view === 'calendar' ? (
           <CalendarPanel onCreateArticle={goEditFromCalendar} />
         ) : null}
@@ -188,12 +192,28 @@ function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
 function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articles: ArticleMeta[]; loading: boolean; onNew: () => void; onEdit: (a: ArticleMeta) => void; onDelete: (a: ArticleMeta) => void }) {
   const cats = [...new Set(articles.map(a => a.category))];
   const banco = getBanco();
+  const [, forceUpdate] = useState(0);
+  const draft = getDraft();
   return (
     <div style={{ padding: '28px 32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
         <div><h1 style={{ fontSize: 24, fontWeight: 700, margin: 0 }}>Dashboard</h1><p style={{ color: '#6b7280', marginTop: 2, fontSize: 13 }}>Gestion de contenido</p></div>
         <button onClick={onNew} style={btnAccent}>+ Nuevo Articulo</button>
       </div>
+
+      {draft && (
+        <div style={{ ...card, marginBottom: 16, borderLeft: '4px solid #f59e0b', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+          <div>
+            <div style={{ fontWeight: 700, fontSize: 14, color: '#92400e' }}>Borrador sin publicar</div>
+            <div style={{ fontSize: 12, color: '#6b7280', marginTop: 2 }}>"{draft.title || 'Sin titulo'}" — guardado {draft.savedAt ? new Date(draft.savedAt).toLocaleString('es-AR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' }) : ''}</div>
+          </div>
+          <div style={{ display: 'flex', gap: 6 }}>
+            <button onClick={onNew} style={btnAccent}>Continuar editando</button>
+            <button onClick={() => { clearDraft(); forceUpdate(n => n + 1); }} style={{ ...linkBtn, color: '#dc2626' }}>Descartar</button>
+          </div>
+        </div>
+      )}
+
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12, marginBottom: 24 }}>
         <StatBox label="Publicados" value={articles.length} />
         <StatBox label="Categorias" value={cats.length} />
@@ -236,17 +256,18 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   article: ArticleMeta | null;
   initialData: EditorInit | null;
   onBack: () => void;
-  onPublish: (fn: string, fm: Record<string, any>, body: string, sha?: string) => Promise<void>;
+  onPublish: (fn: string, fm: Record<string, any>, body: string, sha?: string) => Promise<boolean>;
 }) {
   const tpl = initialData?.contentType ? contentTemplates.find(t => t.id === initialData.contentType) : null;
-  const [step, setStep] = useState<'tpl' | 'edit'>(article || initialData ? 'edit' : 'tpl');
-  const [title, setTitle] = useState(article?.title || initialData?.title || '');
-  const [desc, setDesc] = useState(article?.description || '');
-  const [cat, setCat] = useState(article?.category || initialData?.category || categories[0]);
-  const [tags, setTags] = useState(article?.tags.join(', ') || '');
-  const [img, setImg] = useState(article?.image || '');
-  const [date, setDate] = useState(article?.date || new Date().toISOString().split('T')[0]);
-  const [body, setBody] = useState(article?.content || tpl?.markdown || '');
+  const draft = (!article && !initialData) ? getDraft() : null;
+  const [step, setStep] = useState<'tpl' | 'edit'>(article || initialData || draft ? 'edit' : 'tpl');
+  const [title, setTitle] = useState(article?.title || initialData?.title || draft?.title || '');
+  const [desc, setDesc] = useState(article?.description || draft?.description || '');
+  const [cat, setCat] = useState(article?.category || initialData?.category || draft?.category || categories[0]);
+  const [tags, setTags] = useState(article?.tags.join(', ') || draft?.tags || '');
+  const [img, setImg] = useState(article?.image || draft?.image || '');
+  const [date, setDate] = useState(article?.date || draft?.date || new Date().toISOString().split('T')[0]);
+  const [body, setBody] = useState(article?.content || tpl?.markdown || draft?.body || '');
   const [pub, setPub] = useState(false);
   const [preview, setPreview] = useState(false);
 
@@ -256,8 +277,19 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   const [linkedinPost, setLinkedinPost] = useState('');
   const [showLinkedin, setShowLinkedin] = useState(false);
   const [linkedinLoading, setLinkedinLoading] = useState(false);
-  const [sourceImages, setSourceImages] = useState<string[]>([]);
+  const [sourceImages, setSourceImages] = useState<string[]>(draft?.sourceImages || []);
   const [published, setPublished] = useState(false);
+
+  // Auto-save draft (debounced)
+  useEffect(() => {
+    if (article || published) return; // Don't save drafts when editing existing or after publish
+    const timer = setTimeout(() => {
+      if (title || body) {
+        saveDraft({ title, description: desc, category: cat, tags, image: img, date, body, sourceImages, savedAt: new Date().toISOString(), editingFilename: undefined, editingSha: undefined, sourceUrl: initialData?.sourceUrl });
+      }
+    }, 800);
+    return () => clearTimeout(timer);
+  }, [title, desc, cat, tags, img, date, body, sourceImages]);
 
   async function handleAiImport() {
     if (!initialData?.sourceUrl) return;
@@ -266,7 +298,6 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
     setAiLoading(true);
     try {
-      // Step 1: Scrape full article
       setAiStatus('Scrapeando articulo original...');
       const scrapeRes = await fetch(`/api/scrape?url=${encodeURIComponent(initialData.sourceUrl)}&mode=full`);
       if (!scrapeRes.ok) throw new Error('Error al scrapear el articulo');
@@ -274,25 +305,18 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
       if (scraped.images?.length) setSourceImages(scraped.images);
 
-      // Step 2: AI translation + SEO
       setAiStatus(`IA (${active.provider === 'openai' ? 'GPT-4o' : 'Claude'}) traduciendo y optimizando SEO...`);
       const aiRes = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiKey: active.key,
-          provider: active.provider,
-          action: 'import_article',
+          apiKey: active.key, provider: active.provider, action: 'import_article',
           data: { title: scraped.title || initialData.title, content: scraped.content || '', sourceUrl: initialData.sourceUrl },
         }),
       });
-      if (!aiRes.ok) {
-        const err = await aiRes.json().catch(() => ({}));
-        throw new Error(err.error || 'Error de IA');
-      }
+      if (!aiRes.ok) { const err = await aiRes.json().catch(() => ({})); throw new Error(err.error || 'Error de IA'); }
       const ai = await aiRes.json();
 
-      // Fill fields
       if (ai.title) setTitle(ai.title);
       if (ai.description) setDesc(ai.description);
       if (ai.category) setCat(ai.category);
@@ -302,10 +326,7 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
       setAiStatus('Articulo listo! Revisa y publica.');
       setTimeout(() => setAiStatus(''), 4000);
-    } catch (e: any) {
-      setAiStatus('');
-      alert('Error: ' + e.message);
-    }
+    } catch (e: any) { setAiStatus(''); alert('Error: ' + e.message); }
     setAiLoading(false);
   }
 
@@ -323,17 +344,52 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ apiKey: active.key, provider: active.provider, action: 'linkedin', data: { title, content: body, blogUrl } }),
       });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.error || 'Error generando LinkedIn');
-      }
+      if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando LinkedIn'); }
       const data = await res.json();
       setLinkedinPost(data.post);
       setShowLinkedin(true);
-    } catch (e: any) {
-      alert('Error: ' + e.message);
-    }
+    } catch (e: any) { alert('Error: ' + e.message); }
     setLinkedinLoading(false);
+  }
+
+  // --- POST-PUBLISH SUCCESS SCREEN ---
+  if (published && !article) {
+    const publishedSlug = slugify(title);
+    const publishedUrl = `https://www.metalurgicabotomariani.com.ar/blog/${publishedSlug}/`;
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', padding: 32 }}>
+        <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+          <svg width="32" height="32" fill="none" stroke="#065f46" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, textAlign: 'center' }}>Articulo publicado!</h2>
+        <p style={{ color: '#6b7280', marginBottom: 4, textAlign: 'center' }}>Vercel esta redesplegando. Disponible en 1-2 minutos.</p>
+        <a href={publishedUrl} target="_blank" rel="noopener noreferrer" style={{ color: '#1a4d6d', fontWeight: 600, fontSize: 14, marginBottom: 24 }}>{publishedUrl}</a>
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <button onClick={handleGenerateLinkedin} disabled={linkedinLoading}
+            style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none', padding: '10px 20px', fontSize: 14, fontWeight: 700 }}>
+            {linkedinLoading ? 'Generando...' : 'Generar post LinkedIn'}
+          </button>
+          <button onClick={onBack} style={{ ...btnSmall, padding: '10px 20px', fontSize: 14 }}>Volver al Dashboard</button>
+        </div>
+
+        {showLinkedin && (
+          <div style={{ ...card, maxWidth: 560, width: '100%', marginTop: 24, padding: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
+            </div>
+            <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
+              style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
+            <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }} style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
+              <button onClick={handleGenerateLinkedin} disabled={linkedinLoading} style={{ ...btnSmall, flex: 0 }}>{linkedinLoading ? '...' : 'Regenerar'}</button>
+            </div>
+          </div>
+        )}
+        <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      </div>
+    );
   }
 
   if (step === 'tpl') return (
@@ -374,21 +430,17 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
           {initialData?.sourceUrl && (
             <a href={initialData.sourceUrl} target="_blank" rel="noopener noreferrer" style={{ ...btnSmall, textDecoration: 'none', display: 'inline-flex', alignItems: 'center' }}>Ver original →</a>
           )}
-          <button onClick={handleGenerateLinkedin} disabled={linkedinLoading || !body.trim()}
-            style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none' }}>
-            {linkedinLoading ? 'Generando...' : 'Generar LinkedIn'}
-          </button>
           <button onClick={() => setPreview(!preview)} style={{ ...btnSmall, backgroundColor: preview ? '#1a4d6d' : '#fff', color: preview ? '#fff' : '#374151', border: '1px solid #d1d5db' }}>{preview ? 'Editor' : 'Preview'}</button>
           <button onClick={async () => {
             if (!title.trim() || !desc.trim()) { alert('Completa titulo y descripcion'); return; }
             setPub(true);
-            await onPublish(
+            const ok = await onPublish(
               article?.filename || `${slugify(title)}.md`,
               { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: img.trim(), category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) },
               body, article?.sha
             );
             setPub(false);
-            setPublished(true);
+            if (ok && !article) setPublished(true);
           }} disabled={pub} style={btnAccent}>{pub ? 'Publicando...' : article ? 'Actualizar' : 'Publicar'}</button>
         </div>
       </div>
@@ -455,32 +507,102 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
         )}
       </div>
 
-      {/* LinkedIn modal */}
-      {showLinkedin && (
-        <div style={overlay} onClick={() => setShowLinkedin(false)}>
-          <div style={{ ...card, maxWidth: 560, width: '90%', padding: 28 }} onClick={e => e.stopPropagation()}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
-                <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+    </div>
+  );
+}
+
+// ============================================================
+// TRABAJO ENTREGADO (LinkedIn-only)
+// ============================================================
+function TrabajoPanel() {
+  const [projectName, setProjectName] = useState('');
+  const [description, setDescription] = useState('');
+  const [category, setCategory] = useState(categories[0]);
+  const [photos, setPhotos] = useState<string[]>(['']);
+  const [linkedinPost, setLinkedinPost] = useState('');
+  const [showResult, setShowResult] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  async function handleGenerate() {
+    const active = getActiveAiKey();
+    if (!active) { alert('Configura tu API Key en Configuracion.'); return; }
+    if (!projectName.trim() || !description.trim()) { alert('Completa nombre del proyecto y descripcion.'); return; }
+
+    setLoading(true);
+    try {
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          apiKey: active.key, provider: active.provider, action: 'linkedin_trabajo',
+          data: { projectName: projectName.trim(), description: description.trim(), category, photos: photos.filter(Boolean) },
+        }),
+      });
+      if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando post'); }
+      const data = await res.json();
+      setLinkedinPost(data.post);
+      setShowResult(true);
+    } catch (e: any) { alert('Error: ' + e.message); }
+    setLoading(false);
+  }
+
+  return (
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
+      <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Trabajo Entregado</h1>
+      <p style={{ color: '#6b7280', marginBottom: 24, fontSize: 13 }}>Genera un post de LinkedIn para compartir un proyecto terminado. Solo para LinkedIn, no se publica en el blog.</p>
+
+      <div style={card}>
+        <label style={labelSt}>Nombre del proyecto</label>
+        <input value={projectName} onChange={e => setProjectName(e.target.value)} placeholder="Ej: Galpon industrial 500m2 en Pilar" style={{ ...inputSt, marginBottom: 12 }} />
+
+        <label style={labelSt}>Categoria / Unidad de negocio</label>
+        <select value={category} onChange={e => setCategory(e.target.value)} style={{ ...inputSt, marginBottom: 12 }}>{categories.map(c => <option key={c}>{c}</option>)}</select>
+
+        <label style={labelSt}>Descripcion del trabajo</label>
+        <textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} placeholder="Describe brevemente el proyecto: que se hizo, para quien, caracteristicas principales..." style={{ ...inputSt, resize: 'vertical', marginBottom: 12 }} />
+
+        <label style={labelSt}>Fotos del proyecto (URLs)</label>
+        {photos.map((url, i) => (
+          <div key={i} style={{ display: 'flex', gap: 6, marginBottom: 6 }}>
+            <input value={url} onChange={e => { const next = [...photos]; next[i] = e.target.value; setPhotos(next); }} placeholder="https://..." style={inputSt} />
+            {photos.length > 1 && <button onClick={() => setPhotos(photos.filter((_, j) => j !== i))} style={{ ...linkBtn, color: '#dc2626' }}>✕</button>}
+          </div>
+        ))}
+        <button onClick={() => setPhotos([...photos, ''])} style={{ ...btnSmall, marginBottom: 16, fontSize: 11 }}>+ Agregar foto</button>
+
+        {/* Photo previews */}
+        {photos.filter(Boolean).length > 0 && (
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+            {photos.filter(Boolean).map((src, i) => (
+              <div key={i} style={{ width: 80, height: 60, borderRadius: 6, overflow: 'hidden', border: '2px solid #e5e7eb' }}>
+                <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
               </div>
-              <button onClick={() => setShowLinkedin(false)} style={linkBtn}>✕</button>
-            </div>
-            <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
-              style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
-            <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
-            <div style={{ display: 'flex', gap: 8 }}>
-              <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }}
-                style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
-              <button onClick={handleGenerateLinkedin} disabled={linkedinLoading} style={{ ...btnSmall, flex: 0 }}>
-                {linkedinLoading ? '...' : 'Regenerar'}
-              </button>
-            </div>
+            ))}
+          </div>
+        )}
+
+        <button onClick={handleGenerate} disabled={loading || !projectName.trim() || !description.trim()}
+          style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none', padding: '10px 20px', fontSize: 14, fontWeight: 700, width: '100%' }}>
+          {loading ? 'Generando post LinkedIn...' : 'Generar post LinkedIn'}
+        </button>
+      </div>
+
+      {showResult && (
+        <div style={{ ...card, marginTop: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+            <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
+            <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
+          </div>
+          <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
+            style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
+          <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }} style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
+            <button onClick={handleGenerate} disabled={loading} style={{ ...btnSmall, flex: 0 }}>{loading ? '...' : 'Regenerar'}</button>
           </div>
         </div>
       )}
-
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

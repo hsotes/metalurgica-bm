@@ -1,5 +1,7 @@
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
-const MODEL = 'claude-sonnet-4-20250514';
+const OPENAI_API = 'https://api.openai.com/v1/chat/completions';
+const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+const GPT_MODEL = 'gpt-4o';
 
 export default async function handler(req: any, res: any) {
   res.setHeader('Access-Control-Allow-Origin', '*');
@@ -8,14 +10,16 @@ export default async function handler(req: any, res: any) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { apiKey, action, data } = req.body;
-  if (!apiKey) return res.status(400).json({ error: 'API key requerida. Configura tu Anthropic API key en Configuracion.' });
+  const { apiKey, provider, action, data } = req.body;
+  if (!apiKey) return res.status(400).json({ error: 'API key requerida. Configura tu API key en Configuracion.' });
+
+  const callAI = provider === 'openai' ? callGPT : callClaude;
 
   try {
     if (action === 'import_article') {
-      return res.json(await importArticle(apiKey, data));
+      return res.json(await importArticle(callAI, apiKey, data));
     } else if (action === 'linkedin') {
-      return res.json(await generateLinkedIn(apiKey, data));
+      return res.json(await generateLinkedIn(callAI, apiKey, data));
     } else {
       return res.status(400).json({ error: 'Accion desconocida' });
     }
@@ -23,6 +27,8 @@ export default async function handler(req: any, res: any) {
     return res.status(500).json({ error: error.message || 'Error de IA' });
   }
 }
+
+type AICall = (apiKey: string, prompt: string, maxTokens: number) => Promise<string>;
 
 async function callClaude(apiKey: string, prompt: string, maxTokens = 4096): Promise<string> {
   const r = await fetch(ANTHROPIC_API, {
@@ -33,22 +39,41 @@ async function callClaude(apiKey: string, prompt: string, maxTokens = 4096): Pro
       'content-type': 'application/json',
     },
     body: JSON.stringify({
-      model: MODEL,
+      model: CLAUDE_MODEL,
       max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }],
     }),
   });
-
   if (!r.ok) {
     const err = await r.json().catch(() => ({}));
     throw new Error(err.error?.message || `Anthropic API error: ${r.status}`);
   }
-
   const data = await r.json();
   return data.content[0].text;
 }
 
-async function importArticle(apiKey: string, data: { title: string; content: string; sourceUrl: string }) {
+async function callGPT(apiKey: string, prompt: string, maxTokens = 4096): Promise<string> {
+  const r = await fetch(OPENAI_API, {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${apiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      model: GPT_MODEL,
+      max_tokens: maxTokens,
+      messages: [{ role: 'user', content: prompt }],
+    }),
+  });
+  if (!r.ok) {
+    const err = await r.json().catch(() => ({}));
+    throw new Error(err.error?.message || `OpenAI API error: ${r.status}`);
+  }
+  const data = await r.json();
+  return data.choices[0].message.content;
+}
+
+async function importArticle(callAI: AICall, apiKey: string, data: { title: string; content: string; sourceUrl: string }) {
   const prompt = `Eres el editor jefe de Metalurgica Boto Mariani, una empresa metalurgica argentina con mas de 30 años de experiencia en estructuras metalicas, arquitectura metalica, parrillas de acero inoxidable (marca Griglia), vivienda modular y gabinetes industriales (TBex).
 
 Tu tarea: tomar el siguiente articulo de un competidor y crear una version COMPLETAMENTE NUEVA, profesional y optimizada para SEO, en español argentino.
@@ -91,7 +116,7 @@ RESPONDE UNICAMENTE con JSON valido (sin code blocks ni explicaciones). Estructu
   "content": "articulo completo en markdown"
 }`;
 
-  const response = await callClaude(apiKey, prompt, 8192);
+  const response = await callAI(apiKey, prompt, 8192);
 
   try {
     const jsonMatch = response.match(/\{[\s\S]*\}/);
@@ -102,7 +127,7 @@ RESPONDE UNICAMENTE con JSON valido (sin code blocks ni explicaciones). Estructu
   }
 }
 
-async function generateLinkedIn(apiKey: string, data: { title: string; content: string; blogUrl: string }) {
+async function generateLinkedIn(callAI: AICall, apiKey: string, data: { title: string; content: string; blogUrl: string }) {
   const prompt = `Genera un post de LinkedIn profesional en español argentino para Metalurgica Boto Mariani.
 
 ARTICULO DE BLOG:
@@ -130,6 +155,6 @@ REGLAS:
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
 
-  const post = await callClaude(apiKey, prompt, 1024);
+  const post = await callAI(apiKey, prompt, 1024);
   return { post: post.trim() };
 }

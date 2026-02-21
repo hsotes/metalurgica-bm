@@ -11,6 +11,8 @@ import {
   getScraperSites, addScraperSite, deleteScraperSite,
   getBanco, addToBanco, markBancoPostUsed, removeBancoPost, clearBanco, autoplanFromBanco,
   getAiKey, setAiKey, hasAiKey,
+  getGptKey, setGptKey, hasGptKey,
+  getAiProvider, setAiProvider, getActiveAiKey,
   type CalendarEntry, type ScraperSite, type BancoPost,
 } from './storage';
 
@@ -114,9 +116,12 @@ export default function AdminApp() {
 function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
   const [gitToken, setGitToken] = useState('');
   const [aiKey, setAiKeyLocal] = useState('');
+  const [gptKey, setGptKeyLocal] = useState('');
+  const [provider, setProviderLocal] = useState<'anthropic' | 'openai'>(getAiProvider());
   const [saving, setSaving] = useState(false);
   const hasGit = hasToken();
   const hasAi = hasAiKey();
+  const hasGpt = hasGptKey();
 
   return (
     <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px' }}>
@@ -132,14 +137,46 @@ function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
         <button onClick={async () => { setSaving(true); await onSaveGit(gitToken.trim()); setSaving(false); }} disabled={saving || !gitToken.trim()} style={{ ...btnPrimary, marginTop: 10 }}>{saving ? 'Verificando...' : 'Guardar token GitHub'}</button>
       </div>
 
+      {/* AI Provider selector */}
+      <div style={{ ...card, marginBottom: 16 }}>
+        <label style={{ ...labelSt, margin: '0 0 12px' }}>Proveedor de IA</label>
+        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 12 }}>Selecciona que modelo de IA usar para traduccion, SEO y LinkedIn.</p>
+        <div style={{ display: 'flex', gap: 8 }}>
+          <button onClick={() => { setProviderLocal('openai'); setAiProvider('openai'); }}
+            style={{ flex: 1, padding: '12px 16px', borderRadius: 8, border: provider === 'openai' ? '2px solid #10a37f' : '2px solid #e5e7eb', backgroundColor: provider === 'openai' ? '#f0fdf4' : '#fff', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' as const }}>
+            <div style={{ fontWeight: 700, fontSize: 14, color: provider === 'openai' ? '#10a37f' : '#374151' }}>OpenAI GPT-4o</div>
+            <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>Rapido, versatil</div>
+            {provider === 'openai' && <div style={{ fontSize: 10, fontWeight: 700, color: '#10a37f', marginTop: 4 }}>ACTIVO</div>}
+          </button>
+          <button onClick={() => { setProviderLocal('anthropic'); setAiProvider('anthropic'); }}
+            style={{ flex: 1, padding: '12px 16px', borderRadius: 8, border: provider === 'anthropic' ? '2px solid #7c3aed' : '2px solid #e5e7eb', backgroundColor: provider === 'anthropic' ? '#f5f3ff' : '#fff', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' as const }}>
+            <div style={{ fontWeight: 700, fontSize: 14, color: provider === 'anthropic' ? '#7c3aed' : '#374151' }}>Anthropic Claude</div>
+            <div style={{ fontSize: 11, color: '#6b7280', marginTop: 2 }}>Preciso, profesional</div>
+            {provider === 'anthropic' && <div style={{ fontSize: 10, fontWeight: 700, color: '#7c3aed', marginTop: 4 }}>ACTIVO</div>}
+          </button>
+        </div>
+      </div>
+
+      {/* OpenAI GPT key */}
+      <div style={{ ...card, marginBottom: 16 }}>
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
+          <label style={{ ...labelSt, margin: 0 }}>OpenAI API Key (GPT-4o)</label>
+          {hasGpt && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONFIGURADA</span>}
+        </div>
+        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Obtene tu key en <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" style={{ color: '#10a37f', fontWeight: 600 }}>platform.openai.com/api-keys</a></p>
+        <input type="password" value={gptKey} onChange={e => setGptKeyLocal(e.target.value)} placeholder="sk-..." style={inputSt} />
+        <button onClick={() => { if (gptKey.trim()) { setGptKey(gptKey.trim()); setGptKeyLocal(''); alert('API key de OpenAI guardada'); } }} disabled={!gptKey.trim()} style={{ ...btnPrimary, marginTop: 10, backgroundColor: '#10a37f' }}>Guardar API key OpenAI</button>
+      </div>
+
+      {/* Anthropic key */}
       <div style={card}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <label style={{ ...labelSt, margin: 0 }}>Anthropic API Key (Claude IA)</label>
+          <label style={{ ...labelSt, margin: 0 }}>Anthropic API Key (Claude)</label>
           {hasAi && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONFIGURADA</span>}
         </div>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Necesaria para traduccion automatica, generacion SEO y posts de LinkedIn.<br />Obtene tu key en <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#1a4d6d', fontWeight: 600 }}>console.anthropic.com</a></p>
+        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Obtene tu key en <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed', fontWeight: 600 }}>console.anthropic.com</a></p>
         <input type="password" value={aiKey} onChange={e => setAiKeyLocal(e.target.value)} placeholder="sk-ant-..." style={inputSt} />
-        <button onClick={() => { if (aiKey.trim()) { setAiKey(aiKey.trim()); setAiKeyLocal(''); alert('API key guardada'); } }} disabled={!aiKey.trim()} style={{ ...btnPrimary, marginTop: 10 }}>Guardar API key</button>
+        <button onClick={() => { if (aiKey.trim()) { setAiKey(aiKey.trim()); setAiKeyLocal(''); alert('API key de Anthropic guardada'); } }} disabled={!aiKey.trim()} style={{ ...btnPrimary, marginTop: 10, backgroundColor: '#7c3aed' }}>Guardar API key Anthropic</button>
       </div>
     </div>
   );
@@ -224,8 +261,8 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
   async function handleAiImport() {
     if (!initialData?.sourceUrl) return;
-    const aiKey = getAiKey();
-    if (!aiKey) { alert('Configura tu Anthropic API Key en Configuracion para usar la traduccion automatica.'); return; }
+    const active = getActiveAiKey();
+    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion para usar la traduccion automatica.'); return; }
 
     setAiLoading(true);
     try {
@@ -238,12 +275,13 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
       if (scraped.images?.length) setSourceImages(scraped.images);
 
       // Step 2: AI translation + SEO
-      setAiStatus('IA traduciendo, reescribiendo y optimizando SEO...');
+      setAiStatus(`IA (${active.provider === 'openai' ? 'GPT-4o' : 'Claude'}) traduciendo y optimizando SEO...`);
       const aiRes = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiKey: aiKey,
+          apiKey: active.key,
+          provider: active.provider,
           action: 'import_article',
           data: { title: scraped.title || initialData.title, content: scraped.content || '', sourceUrl: initialData.sourceUrl },
         }),
@@ -272,8 +310,8 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   }
 
   async function handleGenerateLinkedin() {
-    const aiKey = getAiKey();
-    if (!aiKey) { alert('Configura tu Anthropic API Key en Configuracion.'); return; }
+    const active = getActiveAiKey();
+    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion.'); return; }
     if (!title || !body) { alert('El articulo necesita titulo y contenido.'); return; }
 
     setLinkedinLoading(true);
@@ -283,7 +321,7 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
       const res = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: aiKey, action: 'linkedin', data: { title, content: body, blogUrl } }),
+        body: JSON.stringify({ apiKey: active.key, provider: active.provider, action: 'linkedin', data: { title, content: body, blogUrl } }),
       });
       if (!res.ok) {
         const err = await res.json().catch(() => ({}));

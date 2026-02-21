@@ -1,6 +1,7 @@
 const REPO_OWNER = 'hsotes';
 const REPO_NAME = 'metalurgica-bm';
 const BLOG_PATH = 'src/content/blog';
+const TRABAJOS_PATH = 'src/content/trabajos';
 const API_BASE = 'https://api.github.com';
 
 export interface GitHubFile {
@@ -164,6 +165,84 @@ export async function deleteArticle(filename: string, sha: string): Promise<void
       method: 'DELETE',
       body: JSON.stringify({
         message: `blog: eliminar ${filename}`,
+        sha,
+      }),
+    }
+  );
+}
+
+// --- Trabajos Entregados ---
+
+export async function createTrabajo(
+  filename: string,
+  frontmatter: Record<string, any>,
+  markdownBody: string
+): Promise<void> {
+  const content = buildMarkdownFile(frontmatter, markdownBody);
+  const encoded = encodeUTF8Base64(content);
+
+  await githubFetch(
+    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${filename}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `trabajo: ${frontmatter.title || filename}`,
+        content: encoded,
+      }),
+    }
+  );
+}
+
+export async function listTrabajos(): Promise<ArticleMeta[]> {
+  let files: GitHubFile[];
+  try {
+    files = await githubFetch(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}`
+    );
+  } catch {
+    return [];
+  }
+
+  const items: ArticleMeta[] = [];
+
+  for (const file of files) {
+    if (!file.name.endsWith('.md')) continue;
+
+    try {
+      const fileData = await githubFetch(
+        `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${file.name}`
+      );
+
+      const content = decodeBase64UTF8(fileData.content);
+      const meta = parseFrontmatter(content);
+
+      items.push({
+        filename: file.name,
+        title: meta.title || file.name,
+        description: meta.description || '',
+        date: meta.date || '',
+        category: meta.category || '',
+        tags: meta.images || [],
+        image: meta.image || '',
+        author: '',
+        sha: fileData.sha,
+        content: meta.body || '',
+      });
+    } catch (e) {
+      console.error(`Error reading trabajo ${file.name}:`, e);
+    }
+  }
+
+  return items.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+}
+
+export async function deleteTrabajo(filename: string, sha: string): Promise<void> {
+  await githubFetch(
+    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${filename}`,
+    {
+      method: 'DELETE',
+      body: JSON.stringify({
+        message: `trabajo: eliminar ${filename}`,
         sha,
       }),
     }

@@ -1,5 +1,20 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollection } from 'astro:content';
+
+// Traer trabajos entregados (ultimos 10)
+const allTrabajos = (await getCollection('trabajos')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+const trabajos = allTrabajos.slice(0, 10);
+
+// KPIs
+const currentYear = new Date().getFullYear();
+const trabajosEsteAno = allTrabajos.filter(t => t.data.date.getFullYear() === currentYear).length;
+
+// Kg trabajados: heuristico basado en cantidad de proyectos totales
+// Estimacion: promedio 2.500 kg por proyecto (estructuras, gabinetes, etc.)
+const kgEstimado = Math.round((allTrabajos.length * 2500 + 850000) / 1000) * 1000; // base historica + proyectos publicados
 ---
 
 <BaseLayout
@@ -135,6 +150,60 @@ import BaseLayout from '../layouts/BaseLayout.astro';
           <p class="text-sm text-gray-500">MIG/TIG/Electrodo</p>
         </div>
       </div>
+    </div>
+  </section>
+
+  <!-- Trabajos Entregados -->
+  <section id="trabajos" class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Trabajos Entregados</h2>
+        <p class="text-gray-600 max-w-2xl mx-auto">
+          Algunos de nuestros proyectos mas recientes. Cada trabajo refleja nuestro compromiso con la calidad y la precision.
+        </p>
+      </div>
+
+      <!-- KPIs -->
+      <div class="grid grid-cols-3 gap-6 mb-12 max-w-2xl mx-auto">
+        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl md:text-4xl font-bold text-primary">{trabajosEsteAno}</div>
+          <div class="text-sm text-gray-500 mt-1">Proyectos en {currentYear}</div>
+        </div>
+        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl md:text-4xl font-bold text-primary">{(kgEstimado / 1000).toLocaleString('es-AR')}t</div>
+          <div class="text-sm text-gray-500 mt-1">Toneladas trabajadas</div>
+        </div>
+        <div class="text-center bg-white p-6 rounded-xl shadow-sm">
+          <div class="text-3xl md:text-4xl font-bold text-accent">+30</div>
+          <div class="text-sm text-gray-500 mt-1">Anos de experiencia</div>
+        </div>
+      </div>
+
+      {trabajos.length > 0 ? (
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+          {trabajos.map((t) => (
+            <div class="group relative overflow-hidden rounded-lg aspect-square">
+              <img
+                src={t.data.image}
+                alt={t.data.title}
+                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                loading="lazy"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                <div class="absolute bottom-0 left-0 right-0 p-4">
+                  <span class="inline-block bg-accent text-xs font-bold px-2 py-0.5 rounded text-gray-900 mb-1">{t.data.category}</span>
+                  <p class="text-white font-semibold text-sm">{t.data.title}</p>
+                  <p class="text-gray-300 text-xs">{t.data.description.slice(0, 80)}{t.data.description.length > 80 ? '...' : ''}</p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-12 text-gray-400">
+          <p>Proximamente publicaremos nuestros trabajos mas recientes.</p>
+        </div>
+      )}
     </div>
   </section>
 

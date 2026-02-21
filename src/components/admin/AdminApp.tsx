@@ -3,6 +3,7 @@ import { marked } from 'marked';
 import {
   hasToken, setToken, clearToken, validateToken,
   listArticles, createArticle, updateArticle, deleteArticle,
+  createTrabajo,
   type ArticleMeta,
 } from './github';
 import { contentTemplates, categories, slugify } from './templates';
@@ -513,23 +514,48 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 }
 
 // ============================================================
-// TRABAJO ENTREGADO (LinkedIn-only)
+// TRABAJO ENTREGADO (Publish to website + LinkedIn)
 // ============================================================
 function TrabajoPanel() {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState(categories[0]);
   const [photos, setPhotos] = useState<string[]>(['']);
-  const [linkedinPost, setLinkedinPost] = useState('');
-  const [showResult, setShowResult] = useState(false);
-  const [loading, setLoading] = useState(false);
+  const [publishing, setPublishing] = useState(false);
+  const [published, setPublished] = useState(false);
 
-  async function handleGenerate() {
+  // LinkedIn (post-publish)
+  const [linkedinPost, setLinkedinPost] = useState('');
+  const [showLinkedin, setShowLinkedin] = useState(false);
+  const [linkedinLoading, setLinkedinLoading] = useState(false);
+
+  async function handlePublish() {
+    if (!projectName.trim() || !description.trim()) { alert('Completa nombre del proyecto y descripcion.'); return; }
+    const validPhotos = photos.filter(Boolean);
+    if (validPhotos.length === 0) { alert('Agrega al menos una foto del proyecto.'); return; }
+
+    setPublishing(true);
+    try {
+      const filename = `${slugify(projectName)}.md`;
+      const frontmatter: Record<string, any> = {
+        title: projectName.trim(),
+        description: description.trim(),
+        date: new Date().toISOString().split('T')[0],
+        category,
+        image: validPhotos[0],
+        images: validPhotos,
+      };
+      await createTrabajo(filename, frontmatter, description.trim());
+      setPublished(true);
+    } catch (e: any) { alert('Error publicando: ' + e.message); }
+    setPublishing(false);
+  }
+
+  async function handleGenerateLinkedin() {
     const active = getActiveAiKey();
     if (!active) { alert('Configura tu API Key en Configuracion.'); return; }
-    if (!projectName.trim() || !description.trim()) { alert('Completa nombre del proyecto y descripcion.'); return; }
 
-    setLoading(true);
+    setLinkedinLoading(true);
     try {
       const res = await fetch('/api/ai', {
         method: 'POST',
@@ -542,15 +568,58 @@ function TrabajoPanel() {
       if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando post'); }
       const data = await res.json();
       setLinkedinPost(data.post);
-      setShowResult(true);
+      setShowLinkedin(true);
     } catch (e: any) { alert('Error: ' + e.message); }
-    setLoading(false);
+    setLinkedinLoading(false);
+  }
+
+  function handleReset() {
+    setProjectName(''); setDescription(''); setCategory(categories[0]); setPhotos(['']);
+    setPublished(false); setLinkedinPost(''); setShowLinkedin(false);
+  }
+
+  // --- POST-PUBLISH SUCCESS SCREEN ---
+  if (published) {
+    return (
+      <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', minHeight: '80vh', padding: 32 }}>
+        <div style={{ width: 64, height: 64, borderRadius: '50%', backgroundColor: '#d1fae5', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20 }}>
+          <svg width="32" height="32" fill="none" stroke="#065f46" strokeWidth="3" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" /></svg>
+        </div>
+        <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, textAlign: 'center' }}>Trabajo publicado!</h2>
+        <p style={{ color: '#6b7280', marginBottom: 4, textAlign: 'center' }}>"{projectName}" se publico en la web.</p>
+        <p style={{ color: '#9ca3af', marginBottom: 24, textAlign: 'center', fontSize: 13 }}>Vercel esta redesplegando. Visible en /nosotros/ en 1-2 minutos.</p>
+
+        <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
+          <button onClick={handleGenerateLinkedin} disabled={linkedinLoading}
+            style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none', padding: '10px 20px', fontSize: 14, fontWeight: 700 }}>
+            {linkedinLoading ? 'Generando...' : 'Generar post LinkedIn'}
+          </button>
+          <button onClick={handleReset} style={{ ...btnSmall, padding: '10px 20px', fontSize: 14 }}>Nuevo proyecto</button>
+        </div>
+
+        {showLinkedin && (
+          <div style={{ ...card, maxWidth: 560, width: '100%', marginTop: 24, padding: 24 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
+            </div>
+            <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
+              style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
+            <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
+            <div style={{ display: 'flex', gap: 8 }}>
+              <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }} style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
+              <button onClick={handleGenerateLinkedin} disabled={linkedinLoading} style={{ ...btnSmall, flex: 0 }}>{linkedinLoading ? '...' : 'Regenerar'}</button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
   }
 
   return (
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '48px 24px' }}>
       <h1 style={{ fontSize: 24, fontWeight: 700, marginBottom: 4 }}>Trabajo Entregado</h1>
-      <p style={{ color: '#6b7280', marginBottom: 24, fontSize: 13 }}>Genera un post de LinkedIn para compartir un proyecto terminado. Solo para LinkedIn, no se publica en el blog.</p>
+      <p style={{ color: '#6b7280', marginBottom: 24, fontSize: 13 }}>Publica un proyecto terminado en la web y genera un post de LinkedIn.</p>
 
       <div style={card}>
         <label style={labelSt}>Nombre del proyecto</label>
@@ -582,27 +651,11 @@ function TrabajoPanel() {
           </div>
         )}
 
-        <button onClick={handleGenerate} disabled={loading || !projectName.trim() || !description.trim()}
-          style={{ ...btnSmall, backgroundColor: '#0077b5', color: '#fff', border: 'none', padding: '10px 20px', fontSize: 14, fontWeight: 700, width: '100%' }}>
-          {loading ? 'Generando post LinkedIn...' : 'Generar post LinkedIn'}
+        <button onClick={handlePublish} disabled={publishing || !projectName.trim() || !description.trim()}
+          style={{ ...btnAccent, padding: '10px 20px', fontSize: 14, fontWeight: 700, width: '100%' }}>
+          {publishing ? 'Publicando en la web...' : 'Publicar trabajo en la web'}
         </button>
       </div>
-
-      {showResult && (
-        <div style={{ ...card, marginTop: 20 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 12 }}>
-            <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
-            <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>Post para LinkedIn</h3>
-          </div>
-          <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={12}
-            style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
-          <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
-          <div style={{ display: 'flex', gap: 8 }}>
-            <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles!'); }} style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
-            <button onClick={handleGenerate} disabled={loading} style={{ ...btnSmall, flex: 0 }}>{loading ? '...' : 'Regenerar'}</button>
-          </div>
-        </div>
-      )}
     </div>
   );
 }

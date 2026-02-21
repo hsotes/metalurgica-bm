@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import {
   hasToken, setToken, clearToken, validateToken,
   listArticles, createArticle, updateArticle, deleteArticle,
-  createTrabajo,
+  createTrabajo, uploadImage,
   type ArticleMeta,
 } from './github';
 import { contentTemplates, categories, slugify } from './templates';
@@ -520,35 +520,66 @@ function TrabajoPanel() {
   const [projectName, setProjectName] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState(categories[0]);
-  const [photos, setPhotos] = useState<string[]>(['']);
+  const [photoFiles, setPhotoFiles] = useState<File[]>([]);
+  const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
   const [publishing, setPublishing] = useState(false);
+  const [publishStatus, setPublishStatus] = useState('');
   const [published, setPublished] = useState(false);
+  const [uploadedUrls, setUploadedUrls] = useState<string[]>([]);
 
   // LinkedIn (post-publish)
   const [linkedinPost, setLinkedinPost] = useState('');
   const [showLinkedin, setShowLinkedin] = useState(false);
   const [linkedinLoading, setLinkedinLoading] = useState(false);
 
+  function handleFileSelect(e: React.ChangeEvent<HTMLInputElement>) {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+    setPhotoFiles(prev => [...prev, ...files]);
+    files.forEach(file => {
+      const reader = new FileReader();
+      reader.onload = () => setPhotoPreviews(prev => [...prev, reader.result as string]);
+      reader.readAsDataURL(file);
+    });
+    e.target.value = '';
+  }
+
+  function removePhoto(index: number) {
+    setPhotoFiles(prev => prev.filter((_, i) => i !== index));
+    setPhotoPreviews(prev => prev.filter((_, i) => i !== index));
+  }
+
   async function handlePublish() {
     if (!projectName.trim() || !description.trim()) { alert('Completa nombre del proyecto y descripcion.'); return; }
-    const validPhotos = photos.filter(Boolean);
-    if (validPhotos.length === 0) { alert('Agrega al menos una foto del proyecto.'); return; }
+    if (photoFiles.length === 0) { alert('Selecciona al menos una foto del proyecto.'); return; }
 
     setPublishing(true);
     try {
-      const filename = `${slugify(projectName)}.md`;
+      const slug = slugify(projectName);
+      const urls: string[] = [];
+
+      for (let i = 0; i < photoFiles.length; i++) {
+        setPublishStatus(`Subiendo foto ${i + 1} de ${photoFiles.length}...`);
+        const url = await uploadImage(photoFiles[i], slug);
+        urls.push(url);
+      }
+
+      setPublishStatus('Publicando proyecto...');
+      const filename = `${slug}.md`;
       const frontmatter: Record<string, any> = {
         title: projectName.trim(),
         description: description.trim(),
         date: new Date().toISOString().split('T')[0],
         category,
-        image: validPhotos[0],
-        images: validPhotos,
+        image: urls[0],
+        images: urls,
       };
       await createTrabajo(filename, frontmatter, description.trim());
+      setUploadedUrls(urls);
       setPublished(true);
     } catch (e: any) { alert('Error publicando: ' + e.message); }
     setPublishing(false);
+    setPublishStatus('');
   }
 
   async function handleGenerateLinkedin() {
@@ -562,7 +593,7 @@ function TrabajoPanel() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           apiKey: active.key, provider: active.provider, action: 'linkedin_trabajo',
-          data: { projectName: projectName.trim(), description: description.trim(), category, photos: photos.filter(Boolean) },
+          data: { projectName: projectName.trim(), description: description.trim(), category, photos: uploadedUrls },
         }),
       });
       if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando post'); }
@@ -574,7 +605,8 @@ function TrabajoPanel() {
   }
 
   function handleReset() {
-    setProjectName(''); setDescription(''); setCategory(categories[0]); setPhotos(['']);
+    setProjectName(''); setDescription(''); setCategory(categories[0]);
+    setPhotoFiles([]); setPhotoPreviews([]); setUploadedUrls([]);
     setPublished(false); setLinkedinPost(''); setShowLinkedin(false);
   }
 
@@ -587,7 +619,8 @@ function TrabajoPanel() {
         </div>
         <h2 style={{ fontSize: 28, fontWeight: 700, marginBottom: 8, textAlign: 'center' }}>Trabajo publicado!</h2>
         <p style={{ color: '#6b7280', marginBottom: 4, textAlign: 'center' }}>"{projectName}" se publico en la web.</p>
-        <p style={{ color: '#9ca3af', marginBottom: 24, textAlign: 'center', fontSize: 13 }}>Vercel esta redesplegando. Visible en /nosotros/ en 1-2 minutos.</p>
+        <p style={{ color: '#9ca3af', marginBottom: 8, textAlign: 'center', fontSize: 13 }}>Vercel esta redesplegando. Visible en /nosotros/ en 1-2 minutos.</p>
+        <p style={{ color: '#6b7280', marginBottom: 24, textAlign: 'center', fontSize: 12 }}>{uploadedUrls.length} foto{uploadedUrls.length !== 1 ? 's' : ''} subida{uploadedUrls.length !== 1 ? 's' : ''}</p>
 
         <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', justifyContent: 'center' }}>
           <button onClick={handleGenerateLinkedin} disabled={linkedinLoading}
@@ -631,31 +664,55 @@ function TrabajoPanel() {
         <label style={labelSt}>Descripcion del trabajo</label>
         <textarea value={description} onChange={e => setDescription(e.target.value)} rows={4} placeholder="Describe brevemente el proyecto: que se hizo, para quien, caracteristicas principales..." style={{ ...inputSt, resize: 'vertical', marginBottom: 12 }} />
 
-        <label style={labelSt}>Fotos del proyecto (URLs)</label>
-        {photos.map((url, i) => (
-          <div key={i} style={{ display: 'flex', gap: 6, marginBottom: 6 }}>
-            <input value={url} onChange={e => { const next = [...photos]; next[i] = e.target.value; setPhotos(next); }} placeholder="https://..." style={inputSt} />
-            {photos.length > 1 && <button onClick={() => setPhotos(photos.filter((_, j) => j !== i))} style={{ ...linkBtn, color: '#dc2626' }}>✕</button>}
-          </div>
-        ))}
-        <button onClick={() => setPhotos([...photos, ''])} style={{ ...btnSmall, marginBottom: 16, fontSize: 11 }}>+ Agregar foto</button>
+        <label style={labelSt}>Fotos del proyecto</label>
+        <div
+          onClick={() => document.getElementById('trabajo-photos')?.click()}
+          style={{ border: '2px dashed #d1d5db', borderRadius: 8, padding: 24, textAlign: 'center', cursor: 'pointer', marginBottom: 12, backgroundColor: '#f9fafb', transition: 'border-color 0.2s' }}
+          onMouseEnter={e => { e.currentTarget.style.borderColor = '#9acd32'; }}
+          onMouseLeave={e => { e.currentTarget.style.borderColor = '#d1d5db'; }}
+        >
+          <svg style={{ width: 32, height: 32, color: '#9ca3af', margin: '0 auto 8px' }} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+          </svg>
+          <p style={{ fontSize: 13, fontWeight: 600, color: '#374151', margin: '0 0 4px' }}>Click para seleccionar fotos</p>
+          <p style={{ fontSize: 11, color: '#9ca3af', margin: 0 }}>JPG, PNG o WebP. Podes seleccionar varias a la vez.</p>
+        </div>
+        <input id="trabajo-photos" type="file" accept="image/*" multiple onChange={handleFileSelect} style={{ display: 'none' }} />
 
         {/* Photo previews */}
-        {photos.filter(Boolean).length > 0 && (
+        {photoPreviews.length > 0 && (
           <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
-            {photos.filter(Boolean).map((src, i) => (
-              <div key={i} style={{ width: 80, height: 60, borderRadius: 6, overflow: 'hidden', border: '2px solid #e5e7eb' }}>
-                <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} onError={e => { (e.target as HTMLImageElement).parentElement!.style.display = 'none'; }} />
+            {photoPreviews.map((src, i) => (
+              <div key={i} style={{ position: 'relative', width: 100, height: 75, borderRadius: 8, overflow: 'hidden', border: i === 0 ? '3px solid #9acd32' : '2px solid #e5e7eb' }}>
+                <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                {i === 0 && <div style={{ position: 'absolute', top: 0, left: 0, backgroundColor: '#9acd32', color: '#111827', fontSize: 9, fontWeight: 700, padding: '1px 6px' }}>PORTADA</div>}
+                <button onClick={() => removePhoto(i)} style={{ position: 'absolute', top: 2, right: 2, width: 20, height: 20, borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.6)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
               </div>
             ))}
           </div>
         )}
 
-        <button onClick={handlePublish} disabled={publishing || !projectName.trim() || !description.trim()}
-          style={{ ...btnAccent, padding: '10px 20px', fontSize: 14, fontWeight: 700, width: '100%' }}>
-          {publishing ? 'Publicando en la web...' : 'Publicar trabajo en la web'}
+        {photoPreviews.length > 0 && (
+          <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 16 }}>
+            {photoPreviews.length} foto{photoPreviews.length !== 1 ? 's' : ''} seleccionada{photoPreviews.length !== 1 ? 's' : ''}. La primera sera la portada.
+          </p>
+        )}
+
+        {/* Publish status */}
+        {publishStatus && (
+          <div style={{ padding: '10px 14px', backgroundColor: '#eff6ff', borderRadius: 8, marginBottom: 12, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <div style={{ width: 14, height: 14, border: '2px solid #1a4d6d', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite', flexShrink: 0 }} />
+            <span style={{ fontSize: 12, fontWeight: 600, color: '#1a4d6d' }}>{publishStatus}</span>
+          </div>
+        )}
+
+        <button onClick={handlePublish} disabled={publishing || !projectName.trim() || !description.trim() || photoFiles.length === 0}
+          style={{ ...btnAccent, padding: '10px 20px', fontSize: 14, fontWeight: 700, width: '100%', opacity: publishing || !projectName.trim() || !description.trim() || photoFiles.length === 0 ? 0.6 : 1 }}>
+          {publishing ? 'Publicando...' : 'Publicar trabajo en la web'}
         </button>
       </div>
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   );
 }

@@ -249,6 +249,37 @@ export async function deleteTrabajo(filename: string, sha: string): Promise<void
   );
 }
 
+const IMAGES_PATH = 'public/trabajos';
+
+export async function uploadImage(file: File, projectSlug: string): Promise<string> {
+  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+  const timestamp = Date.now();
+  const filename = `${projectSlug}-${timestamp}.${ext}`;
+
+  const base64 = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(',')[1]); // Remove data:image/...;base64, prefix
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  await githubFetch(
+    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGES_PATH}/${filename}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `img: ${projectSlug}`,
+        content: base64,
+      }),
+    }
+  );
+
+  return `/trabajos/${filename}`;
+}
+
 export async function validateToken(): Promise<boolean> {
   try {
     await githubFetch(`/repos/${REPO_OWNER}/${REPO_NAME}`);

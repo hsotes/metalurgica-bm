@@ -3,7 +3,7 @@ import { marked } from 'marked';
 import {
   hasToken, setToken, clearToken, validateToken,
   listArticles, createArticle, updateArticle, deleteArticle,
-  createTrabajo, uploadImage,
+  createTrabajo, uploadImage, uploadBlogImage,
   type ArticleMeta,
 } from './github';
 import { contentTemplates, categories, slugify } from './templates';
@@ -280,6 +280,8 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   const [linkedinLoading, setLinkedinLoading] = useState(false);
   const [sourceImages, setSourceImages] = useState<string[]>(draft?.sourceImages || []);
   const [published, setPublished] = useState(false);
+  const [imgFile, setImgFile] = useState<File | null>(null);
+  const [imgPreview, setImgPreview] = useState('');
 
   // Auto-save draft (debounced)
   useEffect(() => {
@@ -435,9 +437,15 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
           <button onClick={async () => {
             if (!title.trim() || !desc.trim()) { alert('Completa titulo y descripcion'); return; }
             setPub(true);
+            let finalImg = img.trim();
+            if (imgFile) {
+              try {
+                finalImg = await uploadBlogImage(imgFile, slugify(title));
+              } catch (e: any) { alert('Error subiendo imagen: ' + e.message); setPub(false); return; }
+            }
             const ok = await onPublish(
               article?.filename || `${slugify(title)}.md`,
-              { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: img.trim(), category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) },
+              { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: finalImg, category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) },
               body, article?.sha
             );
             setPub(false);
@@ -464,7 +472,23 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
               <div><label style={labelSt}>Categoria</label><select value={cat} onChange={e => setCat(e.target.value)} style={inputSt}>{categories.map(c => <option key={c}>{c}</option>)}</select></div>
               <div><label style={labelSt}>Fecha</label><input type="date" value={date} onChange={e => setDate(e.target.value)} style={inputSt} /></div>
               <div><label style={labelSt}>Keywords / Tags</label><input value={tags} onChange={e => setTags(e.target.value)} placeholder="keyword1, keyword2, keyword3" style={inputSt} /></div>
-              <div><label style={labelSt}>Imagen portada URL</label><input value={img} onChange={e => setImg(e.target.value)} placeholder="/images/..." style={inputSt} /></div>
+              <div>
+                <label style={labelSt}>Imagen portada</label>
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <input value={img} onChange={e => { setImg(e.target.value); setImgFile(null); setImgPreview(''); }} placeholder="URL o subi desde tu PC →" style={{ ...inputSt, flex: 1 }} />
+                  <button type="button" onClick={() => document.getElementById('blog-cover-upload')?.click()} style={{ ...btnSmall, whiteSpace: 'nowrap', flexShrink: 0, backgroundColor: '#f9fafb' }}>Subir foto</button>
+                  <input id="blog-cover-upload" type="file" accept="image/*" style={{ display: 'none' }} onChange={e => {
+                    const file = e.target.files?.[0];
+                    if (!file) return;
+                    setImgFile(file);
+                    const reader = new FileReader();
+                    reader.onload = () => { setImgPreview(reader.result as string); setImg(file.name); };
+                    reader.readAsDataURL(file);
+                    e.target.value = '';
+                  }} />
+                </div>
+                {imgPreview && <div style={{ marginTop: 6, width: 120, height: 70, borderRadius: 6, overflow: 'hidden', border: '3px solid #9acd32' }}><img src={imgPreview} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} /></div>}
+              </div>
               <div style={{ gridColumn: '1/-1' }}><label style={labelSt}>Slug URL</label><div style={{ fontSize: 12, color: '#6b7280', padding: '8px 12px', backgroundColor: '#f9fafb', borderRadius: 6, border: '1px solid #e5e7eb' }}>/blog/<b>{slugify(title) || 'slug-del-articulo'}</b>/</div></div>
             </div>
           </div>

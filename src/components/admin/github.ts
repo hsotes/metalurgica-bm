@@ -280,6 +280,37 @@ export async function uploadImage(file: File, projectSlug: string): Promise<stri
   return `/trabajos/${filename}`;
 }
 
+const BLOG_IMAGES_PATH = 'public/blog';
+
+export async function uploadBlogImage(file: File, slug: string): Promise<string> {
+  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
+  const timestamp = Date.now();
+  const filename = `${slug}-${timestamp}.${ext}`;
+
+  const base64 = await new Promise<string>((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      resolve(result.split(',')[1]);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+
+  await githubFetch(
+    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_IMAGES_PATH}/${filename}`,
+    {
+      method: 'PUT',
+      body: JSON.stringify({
+        message: `blog-img: ${slug}`,
+        content: base64,
+      }),
+    }
+  );
+
+  return `/blog/${filename}`;
+}
+
 export async function validateToken(): Promise<boolean> {
   try {
     await githubFetch(`/repos/${REPO_OWNER}/${REPO_NAME}`);

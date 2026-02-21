@@ -15,10 +15,11 @@ const BASE_CLIENTES = 24; // clientes historicos antes del sistema
 
 const trabajosEsteAno = BASE_PROYECTOS + allTrabajos.filter(t => t.data.date.getFullYear() === currentYear).length;
 
-// Kg trabajados este ano: suma real de pesoKg de proyectos del ano actual
-const kgEsteAno = allTrabajos
-  .filter(t => t.data.date.getFullYear() === currentYear)
-  .reduce((sum, t) => sum + (t.data.pesoKg || 0), 0);
+// Kg procesados: base historica + suma real de pesoKg de proyectos del sistema
+// Base: ~45 sets parrilla+frente (50kg + 15kg = 65kg × 45 = 2925 ≈ 3000 kg)
+const BASE_KG = 3000;
+const kgSistema = allTrabajos.reduce((sum, t) => sum + (t.data.pesoKg || 0), 0);
+const kgTotal = BASE_KG + kgSistema;
 
 // Clientes satisfechos: base + clientes unicos del sistema
 const clientesSistema = new Set(
@@ -180,8 +181,8 @@ const totalClientes = BASE_CLIENTES + clientesSistema.size;
           <div class="text-sm text-gray-500 mt-1">Proyectos entregados</div>
         </div>
         <div class="text-center bg-white p-6 rounded-xl shadow-sm">
-          <div class="text-3xl md:text-4xl font-bold text-primary">{kgEsteAno > 0 ? kgEsteAno.toLocaleString('es-AR') : '—'}</div>
-          <div class="text-sm text-gray-500 mt-1">Kg procesados en {currentYear}</div>
+          <div class="text-3xl md:text-4xl font-bold text-primary">{kgTotal.toLocaleString('es-AR')}</div>
+          <div class="text-sm text-gray-500 mt-1">Kg procesados</div>
         </div>
         <div class="text-center bg-white p-6 rounded-xl shadow-sm">
           <div class="text-3xl md:text-4xl font-bold text-accent">+{totalClientes}</div>
@@ -190,24 +191,34 @@ const totalClientes = BASE_CLIENTES + clientesSistema.size;
       </div>
 
       {trabajos.length > 0 ? (
-        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-          {trabajos.map((t) => (
-            <div class="group relative overflow-hidden rounded-lg aspect-square">
-              <img
-                src={t.data.image}
-                alt={t.data.title}
-                class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                loading="lazy"
-              />
-              <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <div class="absolute bottom-0 left-0 right-0 p-4">
-                  <span class="inline-block bg-accent text-xs font-bold px-2 py-0.5 rounded text-gray-900 mb-1">{t.data.category}</span>
-                  <p class="text-white font-semibold text-sm">{t.data.title}</p>
-                  <p class="text-gray-300 text-xs">{t.data.description.slice(0, 80)}{t.data.description.length > 80 ? '...' : ''}</p>
+        <div class="flex flex-col gap-10">
+          {trabajos.map((t) => {
+            const fotos = t.data.images?.length > 0 ? t.data.images : [t.data.image];
+            return (
+              <div class="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div class="p-5 pb-3">
+                  <div class="flex items-center gap-3 mb-2">
+                    <span class="inline-block bg-accent text-xs font-bold px-2.5 py-1 rounded text-gray-900">{t.data.category}</span>
+                    <span class="text-xs text-gray-400">{t.data.date.toLocaleDateString('es-AR', { day: 'numeric', month: 'short', year: 'numeric' })}</span>
+                  </div>
+                  <h3 class="text-lg font-bold text-gray-900 mb-1">{t.data.title}</h3>
+                  <p class="text-sm text-gray-600">{t.data.description}</p>
+                </div>
+                <div class="trabajo-carousel flex gap-3 overflow-x-auto px-5 pb-5 scroll-smooth" style="scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch;">
+                  {fotos.map((img: string, i: number) => (
+                    <div class="flex-shrink-0 rounded-lg overflow-hidden" style="scroll-snap-align: start; width: 280px; height: 200px;">
+                      <img
+                        src={img}
+                        alt={`${t.data.title} - foto ${i + 1}`}
+                        class="w-full h-full object-cover"
+                        loading="lazy"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       ) : (
         <div class="text-center py-12 text-gray-400">
@@ -229,4 +240,8 @@ const totalClientes = BASE_CLIENTES + clientesSistema.size;
       </a>
     </div>
   </section>
+  <style>
+    .trabajo-carousel::-webkit-scrollbar { display: none; }
+    .trabajo-carousel { scrollbar-width: none; }
+  </style>
 </BaseLayout>

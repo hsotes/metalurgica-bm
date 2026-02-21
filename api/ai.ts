@@ -130,66 +130,70 @@ RESPONDE UNICAMENTE con JSON valido (sin code blocks ni explicaciones). Estructu
 }
 
 async function generateLinkedIn(callAI: AICall, apiKey: string, data: { title: string; content: string; blogUrl: string }) {
-  const prompt = `Genera un post de LinkedIn profesional en español argentino para Metalurgica Boto Mariani.
+  const prompt = `Genera un post CORTO de LinkedIn en español argentino para Metalurgica Boto Mariani.
+
+OBJETIVO: Que la gente haga click y lea el articulo completo en nuestro blog. NO des toda la informacion en el post.
 
 ARTICULO DE BLOG:
 Titulo: ${data.title}
 URL: ${data.blogUrl}
-Contenido (resumen):
-${data.content.slice(0, 3000)}
+Contenido:
+${data.content.slice(0, 2000)}
 
-FORMATO DEL POST:
-1. GANCHO: Pregunta provocadora o dato impactante (1 linea)
+FORMATO OBLIGATORIO:
+1. GANCHO: Pregunta intrigante o dato que genere curiosidad (1 linea)
 2. Linea en blanco
-3. DESARROLLO: 3-4 puntos clave del articulo, cada uno en su linea
+3. RESUMEN: 2-3 lineas que resuman el tema SIN dar todos los detalles. Dejar al lector con ganas de saber mas.
 4. Linea en blanco
-5. CTA: Invitar a leer el articulo completo con el link
+5. CTA OBLIGATORIO: "Lee el articulo completo aca:" seguido del link ${data.blogUrl}
 6. Linea en blanco
-7. HASHTAGS: 5-6 hashtags relevantes
+7. HASHTAGS: 4-5 hashtags
 
-REGLAS:
-- Maximo 1300 caracteres total
-- Tono profesional pero cercano, NO corporativo aburrido
-- NO uses "Hola red!" ni "Les comparto" ni cliches de LinkedIn
-- SI menciona que es de Metalurgica Boto Mariani
-- Usa emojis con moderacion (max 3-4 en todo el post)
-- El link al blog va en el CTA
+REGLAS CRITICAS:
+- Maximo 600 caracteres (es un resumen, NO un articulo completo)
+- NO reveles toda la informacion del articulo, solo lo suficiente para intrigar
+- El objetivo es ATRAER TRAFICO al blog, no reemplazarlo
+- Tono profesional pero cercano
+- NO uses "Hola red!", "Les comparto" ni cliches de LinkedIn
+- Usa maximo 2 emojis
+- SIEMPRE incluir el link al blog
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
 
-  const post = await callAI(apiKey, prompt, 1024);
+  const post = await callAI(apiKey, prompt, 512);
   return { post: post.trim() };
 }
 
 async function generateLinkedInTrabajo(callAI: AICall, apiKey: string, data: { projectName: string; description: string; category: string; photos: string[] }) {
-  const prompt = `Genera un post de LinkedIn profesional en español argentino para Metalurgica Boto Mariani, anunciando la entrega de un proyecto completado.
+  const nosotrosUrl = 'https://www.metalurgicabotomariani.com.ar/nosotros/#trabajos';
+  const prompt = `Genera un post CORTO de LinkedIn en español argentino para Metalurgica Boto Mariani, anunciando un proyecto entregado.
+
+OBJETIVO: Generar interes y que la gente visite nuestra pagina web para ver todos nuestros proyectos.
 
 DATOS DEL PROYECTO:
 Nombre: ${data.projectName}
 Categoria: ${data.category}
 Descripcion: ${data.description}
-Cantidad de fotos que acompanan el post: ${data.photos.length}
 
-FORMATO DEL POST:
-1. GANCHO: Dato impactante o frase que genere orgullo profesional (1 linea)
+FORMATO OBLIGATORIO:
+1. GANCHO: Frase corta de orgullo por el trabajo entregado (1 linea)
 2. Linea en blanco
-3. DESCRIPCION: Que se hizo, para quien, caracteristicas tecnicas relevantes (3-5 lineas)
+3. RESUMEN: 2-3 lineas describiendo brevemente que se hizo. NO des todos los detalles.
 4. Linea en blanco
-5. CIERRE: Frase de orgullo + invitar a contactar para proyectos similares
+5. CTA OBLIGATORIO: "Mira todos nuestros proyectos entregados:" seguido del link ${nosotrosUrl}
 6. Linea en blanco
-7. HASHTAGS: 5-6 hashtags relevantes
+7. HASHTAGS: 4-5 hashtags
 
-REGLAS:
-- Maximo 1300 caracteres total
-- Tono profesional pero cercano, con orgullo por el trabajo realizado
+REGLAS CRITICAS:
+- Maximo 600 caracteres (resumen corto, NO descripcion completa)
+- El objetivo es ATRAER TRAFICO a la web, no contar todo en LinkedIn
+- Tono profesional con orgullo por el trabajo
 - NO uses "Hola red!" ni cliches de LinkedIn
-- SI menciona que es de Metalurgica Boto Mariani
-- Usa emojis con moderacion (max 3-4)
-- ${data.photos.length > 0 ? 'Menciona que las fotos muestran el resultado final' : 'No menciones fotos'}
-- Incluye datos tecnicos si la descripcion los proporciona
+- Usa maximo 2 emojis
+- SIEMPRE incluir el link a la pagina web
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
 
-  const post = await callAI(apiKey, prompt, 1024);
+  const post = await callAI(apiKey, prompt, 512);
   return { post: post.trim() };
 }

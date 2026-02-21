@@ -244,4 +244,27 @@ const totalClientes = BASE_CLIENTES + clientesSistema.size;
     .trabajo-carousel::-webkit-scrollbar { display: none; }
     .trabajo-carousel { scrollbar-width: none; }
   </style>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const carousels = document.querySelectorAll<HTMLDivElement>('.trabajo-carousel');
+      carousels.forEach(c => {
+        if (c.children.length <= 1) return;
+        const itemW = 280 + 12; // width + gap
+        let paused = false;
+        c.addEventListener('pointerdown', () => { paused = true; });
+        c.addEventListener('pointerup', () => { setTimeout(() => { paused = false; }, 3000); });
+        c.addEventListener('touchstart', () => { paused = true; }, { passive: true });
+        c.addEventListener('touchend', () => { setTimeout(() => { paused = false; }, 3000); });
+        setInterval(() => {
+          if (paused) return;
+          const maxScroll = c.scrollWidth - c.clientWidth;
+          if (c.scrollLeft >= maxScroll - 5) {
+            c.scrollTo({ left: 0, behavior: 'smooth' });
+          } else {
+            c.scrollBy({ left: itemW, behavior: 'smooth' });
+          }
+        }, 3000);
+      });
+    });
+  </script>
 </BaseLayout>

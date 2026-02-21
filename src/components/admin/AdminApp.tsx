@@ -195,6 +195,28 @@ function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articl
   const banco = getBanco();
   const [, forceUpdate] = useState(0);
   const draft = getDraft();
+  const [linkedinArticle, setLinkedinArticle] = useState<ArticleMeta | null>(null);
+  const [linkedinPost, setLinkedinPost] = useState('');
+  const [linkedinLoading, setLinkedinLoading] = useState(false);
+
+  async function handleLinkedin(a: ArticleMeta) {
+    const active = getActiveAiKey();
+    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion.'); return; }
+    setLinkedinArticle(a);
+    setLinkedinLoading(true);
+    try {
+      const blogUrl = `https://www.metalurgicabotomariani.com.ar/blog/${a.filename.replace('.md', '')}/`;
+      const res = await fetch('/api/ai', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ apiKey: active.key, provider: active.provider, action: 'linkedin', data: { title: a.title, content: a.content, blogUrl } }),
+      });
+      if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando LinkedIn'); }
+      const data = await res.json();
+      setLinkedinPost(data.post);
+    } catch (e: any) { alert('Error: ' + e.message); setLinkedinArticle(null); }
+    setLinkedinLoading(false);
+  }
   return (
     <div style={{ padding: '28px 32px' }}>
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 24 }}>
@@ -234,7 +256,8 @@ function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articl
                 <td style={td}><span style={{ backgroundColor: '#f0fdf4', color: '#166534', fontSize: 11, fontWeight: 600, padding: '3px 8px', borderRadius: 99 }}>{a.category}</span></td>
                 <td style={{ ...td, color: '#6b7280', fontSize: 12 }}>{a.date ? new Date(a.date).toLocaleDateString('es-AR') : '-'}</td>
                 <td style={{ ...td, textAlign: 'right' }}>
-                  <button onClick={() => onEdit(a)} style={linkBtn}>Editar</button>
+                  <button onClick={() => handleLinkedin(a)} style={{ ...linkBtn, color: '#0077b5' }}>LinkedIn</button>
+                  <button onClick={() => onEdit(a)} style={{ ...linkBtn, marginLeft: 6 }}>Editar</button>
                   <button onClick={() => onDelete(a)} style={{ ...linkBtn, color: '#dc2626', marginLeft: 6 }}>Eliminar</button>
                 </td>
               </tr>
@@ -242,6 +265,36 @@ function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articl
           </table>
         )}
       </div>
+
+      {/* LinkedIn modal for published articles */}
+      {linkedinArticle && (
+        <div style={{ ...card, marginTop: 20 }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 12 }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div style={{ width: 28, height: 28, borderRadius: 4, backgroundColor: '#0077b5', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#fff', fontWeight: 800, fontSize: 14 }}>in</div>
+              <h3 style={{ fontSize: 16, fontWeight: 700, margin: 0 }}>LinkedIn: {linkedinArticle.title}</h3>
+            </div>
+            <button onClick={() => { setLinkedinArticle(null); setLinkedinPost(''); }} style={{ ...linkBtn, color: '#6b7280' }}>Cerrar</button>
+          </div>
+          {linkedinLoading ? (
+            <div style={{ display: 'flex', alignItems: 'center', gap: 8, padding: 16 }}>
+              <div style={{ width: 14, height: 14, border: '2px solid #0077b5', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite' }} />
+              <span style={{ fontSize: 13, color: '#0077b5', fontWeight: 600 }}>Generando post de LinkedIn...</span>
+            </div>
+          ) : (
+            <>
+              <textarea value={linkedinPost} onChange={e => setLinkedinPost(e.target.value)} rows={10}
+                style={{ width: '100%', padding: 16, borderRadius: 8, border: '1px solid #e5e7eb', fontSize: 13, lineHeight: 1.6, fontFamily: 'inherit', resize: 'vertical', boxSizing: 'border-box', outline: 'none' }} />
+              <div style={{ fontSize: 11, color: linkedinPost.length > 1300 ? '#dc2626' : '#9ca3af', marginTop: 4, marginBottom: 12 }}>{linkedinPost.length}/1300 caracteres</div>
+              <div style={{ display: 'flex', gap: 8 }}>
+                <button onClick={() => { navigator.clipboard.writeText(linkedinPost); alert('Copiado al portapapeles! Ahora pegalo en LinkedIn.'); }} style={{ ...btnAccent, flex: 1 }}>Copiar al portapapeles</button>
+                <button onClick={() => handleLinkedin(linkedinArticle)} disabled={linkedinLoading} style={{ ...btnSmall, flex: 0 }}>Regenerar</button>
+              </div>
+            </>
+          )}
+          <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+        </div>
+      )}
     </div>
   );
 }

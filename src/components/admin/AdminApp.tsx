@@ -524,6 +524,7 @@ function TrabajoPanel() {
   const [pesoKg, setPesoKg] = useState('');
   const [photoFiles, setPhotoFiles] = useState<File[]>([]);
   const [photoPreviews, setPhotoPreviews] = useState<string[]>([]);
+  const [coverIndex, setCoverIndex] = useState(0);
   const [publishing, setPublishing] = useState(false);
   const [publishStatus, setPublishStatus] = useState('');
   const [published, setPublished] = useState(false);
@@ -549,6 +550,11 @@ function TrabajoPanel() {
   function removePhoto(index: number) {
     setPhotoFiles(prev => prev.filter((_, i) => i !== index));
     setPhotoPreviews(prev => prev.filter((_, i) => i !== index));
+    setCoverIndex(prev => index < prev ? prev - 1 : index === prev ? 0 : prev);
+  }
+
+  function setCoverPhoto(index: number) {
+    setCoverIndex(index);
   }
 
   async function handlePublish() {
@@ -573,7 +579,7 @@ function TrabajoPanel() {
         description: description.trim(),
         date: new Date().toISOString().split('T')[0],
         category,
-        image: urls[0],
+        image: urls[coverIndex] || urls[0],
         images: urls,
         cliente: cliente.trim(),
         pesoKg: parseInt(pesoKg) || 0,
@@ -611,7 +617,7 @@ function TrabajoPanel() {
   function handleReset() {
     setProjectName(''); setDescription(''); setCategory(categories[0]);
     setCliente(''); setPesoKg('');
-    setPhotoFiles([]); setPhotoPreviews([]); setUploadedUrls([]);
+    setPhotoFiles([]); setPhotoPreviews([]); setCoverIndex(0); setUploadedUrls([]);
     setPublished(false); setLinkedinPost(''); setShowLinkedin(false);
   }
 
@@ -692,12 +698,13 @@ function TrabajoPanel() {
 
         {/* Photo previews */}
         {photoPreviews.length > 0 && (
-          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 8 }}>
             {photoPreviews.map((src, i) => (
-              <div key={i} style={{ position: 'relative', width: 100, height: 75, borderRadius: 8, overflow: 'hidden', border: i === 0 ? '3px solid #9acd32' : '2px solid #e5e7eb' }}>
+              <div key={i} onClick={() => setCoverPhoto(i)}
+                style={{ position: 'relative', width: 100, height: 75, borderRadius: 8, overflow: 'hidden', cursor: 'pointer', border: i === coverIndex ? '3px solid #9acd32' : '2px solid #e5e7eb', transition: 'border-color 0.2s' }}>
                 <img src={src} alt="" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                {i === 0 && <div style={{ position: 'absolute', top: 0, left: 0, backgroundColor: '#9acd32', color: '#111827', fontSize: 9, fontWeight: 700, padding: '1px 6px' }}>PORTADA</div>}
-                <button onClick={() => removePhoto(i)} style={{ position: 'absolute', top: 2, right: 2, width: 20, height: 20, borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.6)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
+                {i === coverIndex && <div style={{ position: 'absolute', top: 0, left: 0, backgroundColor: '#9acd32', color: '#111827', fontSize: 9, fontWeight: 700, padding: '1px 6px' }}>PORTADA</div>}
+                <button onClick={(e) => { e.stopPropagation(); removePhoto(i); }} style={{ position: 'absolute', top: 2, right: 2, width: 20, height: 20, borderRadius: '50%', backgroundColor: 'rgba(0,0,0,0.6)', color: '#fff', border: 'none', cursor: 'pointer', fontSize: 11, fontWeight: 700, display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 0 }}>✕</button>
               </div>
             ))}
           </div>
@@ -705,7 +712,7 @@ function TrabajoPanel() {
 
         {photoPreviews.length > 0 && (
           <p style={{ fontSize: 11, color: '#9ca3af', marginBottom: 16 }}>
-            {photoPreviews.length} foto{photoPreviews.length !== 1 ? 's' : ''} seleccionada{photoPreviews.length !== 1 ? 's' : ''}. La primera sera la portada.
+            {photoPreviews.length} foto{photoPreviews.length !== 1 ? 's' : ''} seleccionada{photoPreviews.length !== 1 ? 's' : ''}. Hace click en una foto para elegirla como portada.
           </p>
         )}
 

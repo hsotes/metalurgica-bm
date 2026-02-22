@@ -155,7 +155,7 @@ REGLAS CRITICAS:
 - El objetivo es ATRAER TRAFICO al blog, no reemplazarlo
 - Tono profesional pero cercano
 - NO uses "Hola red!", "Les comparto" ni cliches de LinkedIn
-- Usa maximo 2 emojis
+- NO uses emojis, ni iconos, ni simbolos decorativos. Solo texto plano.
 - SIEMPRE incluir el link al blog
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;
@@ -189,7 +189,7 @@ REGLAS CRITICAS:
 - El objetivo es ATRAER TRAFICO a la web, no contar todo en LinkedIn
 - Tono profesional con orgullo por el trabajo
 - NO uses "Hola red!" ni cliches de LinkedIn
-- Usa maximo 2 emojis
+- NO uses emojis, ni iconos, ni simbolos decorativos. Solo texto plano.
 - SIEMPRE incluir el link a la pagina web
 
 RESPONDE UNICAMENTE con el texto del post, sin explicaciones ni comillas envolventes.`;

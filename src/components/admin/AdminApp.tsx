@@ -865,6 +865,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
     published: { bg: '#d1fae5', fg: '#065f46' },
   };
   const statusLabels: Record<string, string> = { suggested: 'Sugerido', planned: 'Planificado', draft: 'Borrador', published: 'Publicado' };
+  const MAX_VISIBLE_PER_DAY = 2;
 
   function entriesForDay(day: number) {
     const dateStr = `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -1022,22 +1023,33 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
           ))}
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(7, 1fr)' }}>
-          {Array.from({ length: firstDow }).map((_, i) => <div key={`e${i}`} style={{ minHeight: 90, borderBottom: '1px solid #f3f4f6', borderRight: '1px solid #f3f4f6' }} />)}
+          {Array.from({ length: firstDow }).map((_, i) => <div key={`e${i}`} style={{ minHeight: 76, borderBottom: '1px solid #f3f4f6', borderRight: '1px solid #f3f4f6' }} />)}
           {Array.from({ length: daysInMonth }).map((_, i) => {
             const day = i + 1;
             const dayEntries = entriesForDay(day);
             const isToday = day === today.getDate() && month === today.getMonth() && year === today.getFullYear();
+            const visible = dayEntries.slice(0, MAX_VISIBLE_PER_DAY);
+            const hidden = dayEntries.length - MAX_VISIBLE_PER_DAY;
             return (
-              <div key={day} style={{ minHeight: 90, padding: 4, borderBottom: '1px solid #f3f4f6', borderRight: '1px solid #f3f4f6', backgroundColor: isToday ? '#fffff0' : '#fff' }}>
+              <div key={day} style={{ minHeight: 76, maxHeight: 110, padding: '3px 4px', borderBottom: '1px solid #f3f4f6', borderRight: '1px solid #f3f4f6', backgroundColor: isToday ? '#fffff0' : '#fff', overflow: 'hidden' }}>
                 <div style={{ fontSize: 12, fontWeight: isToday ? 700 : 400, color: isToday ? '#1a4d6d' : '#6b7280', marginBottom: 2 }}>{day}</div>
-                {dayEntries.map(e => {
+                {visible.map(e => {
                   const sc = statusColors[e.status] || statusColors.suggested;
                   return (
-                    <button key={e.id} onClick={() => { setSelected(e); setMoveDate(e.date); }} style={{ display: 'block', width: '100%', padding: '2px 4px', marginBottom: 2, borderRadius: 4, border: e.sourceUrl ? '1px solid #fbbf24' : 'none', cursor: 'pointer', backgroundColor: sc.bg, color: sc.fg, fontSize: 10, fontWeight: 600, textAlign: 'left', fontFamily: 'inherit', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis' }}>
+                    <button key={e.id} onClick={() => { setSelected(e); setMoveDate(e.date); }} style={{ display: 'block', width: '100%', padding: '1px 4px', marginBottom: 1, borderRadius: 3, border: e.sourceUrl ? '1px solid #fbbf24' : 'none', cursor: 'pointer', backgroundColor: sc.bg, color: sc.fg, fontSize: 9, fontWeight: 600, textAlign: 'left', fontFamily: 'inherit', overflow: 'hidden', whiteSpace: 'nowrap', textOverflow: 'ellipsis', lineHeight: '14px' }}>
                       {e.sourceUrl && '★ '}{e.title}
                     </button>
                   );
                 })}
+                {hidden > 0 && (
+                  <button onClick={() => { setSelected(dayEntries[MAX_VISIBLE_PER_DAY]); setMoveDate(dayEntries[MAX_VISIBLE_PER_DAY].date); }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 3, width: '100%', padding: '1px 4px', borderRadius: 3, border: 'none', cursor: 'pointer', backgroundColor: '#f3f4f6', color: '#6b7280', fontSize: 9, fontWeight: 700, fontFamily: 'inherit', lineHeight: '14px' }}>
+                    +{hidden} mas
+                    {dayEntries.slice(MAX_VISIBLE_PER_DAY).map(e => (
+                      <span key={e.id} style={{ display: 'inline-block', width: 5, height: 5, borderRadius: 99, backgroundColor: (statusColors[e.status] || statusColors.suggested).fg }} />
+                    ))}
+                  </button>
+                )}
               </div>
             );
           })}

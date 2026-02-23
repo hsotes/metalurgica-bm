@@ -335,6 +335,7 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   const [published, setPublished] = useState(false);
   const [imgFile, setImgFile] = useState<File | null>(null);
   const [imgPreview, setImgPreview] = useState('');
+  const [insertingImg, setInsertingImg] = useState(false);
 
   // Auto-save draft (debounced)
   useEffect(() => {
@@ -562,11 +563,31 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
           {/* Markdown editor */}
           <div style={{ ...card, flex: 1, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>Contenido (Markdown)</span>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 8 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#374151' }}>Contenido (Markdown)</span>
+                <button type="button" disabled={insertingImg} onClick={() => document.getElementById('blog-inline-img')?.click()}
+                  style={{ ...btnSmall, fontSize: 11, padding: '3px 10px', backgroundColor: insertingImg ? '#e5e7eb' : '#f0fdf4', color: '#166534', border: '1px solid #bbf7d0', fontWeight: 600 }}>
+                  {insertingImg ? 'Subiendo...' : 'Insertar imagen'}
+                </button>
+                <input id="blog-inline-img" type="file" accept="image/*" style={{ display: 'none' }} onChange={async e => {
+                  const file = e.target.files?.[0];
+                  if (!file) return;
+                  e.target.value = '';
+                  setInsertingImg(true);
+                  try {
+                    const url = await uploadBlogImage(file, slugify(title) || 'articulo');
+                    const ta = document.getElementById('blog-body-editor') as HTMLTextAreaElement | null;
+                    const cursor = ta?.selectionStart ?? body.length;
+                    const imgTag = `\n\n![${file.name.replace(/\.[^.]+$/, '')}](${url})\n\n`;
+                    setBody(prev => prev.slice(0, cursor) + imgTag + prev.slice(cursor));
+                  } catch (err: any) { alert('Error subiendo imagen: ' + err.message); }
+                  setInsertingImg(false);
+                }} />
+              </div>
               <span style={{ fontSize: 11, color: '#9ca3af' }}>{body.length} chars | ~{Math.round(body.split(/\s+/).length)} palabras</span>
             </div>
-            <textarea value={body} onChange={e => setBody(e.target.value)} placeholder="Contenido del articulo..." style={{ flex: 1, minHeight: 350, border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, fontFamily: "'Courier New', monospace", fontSize: 13, lineHeight: 1.7, resize: 'none', outline: 'none', width: '100%', boxSizing: 'border-box' }} />
+            <textarea id="blog-body-editor" value={body} onChange={e => setBody(e.target.value)} placeholder="Contenido del articulo..." style={{ flex: 1, minHeight: 350, border: '1px solid #e5e7eb', borderRadius: 8, padding: 16, fontFamily: "'Courier New', monospace", fontSize: 13, lineHeight: 1.7, resize: 'none', outline: 'none', width: '100%', boxSizing: 'border-box' }} />
           </div>
         </div>
 

@@ -10,14 +10,13 @@ const trabajos = allTrabajos.slice(0, 10);
 
 // KPIs
 const currentYear = new Date().getFullYear();
-const BASE_PROYECTOS = 36; // proyectos historicos antes del sistema
+const BASE_PROYECTOS = 34; // proyectos historicos antes del sistema
 const BASE_CLIENTES = 24; // clientes historicos antes del sistema
 
 const trabajosEsteAno = BASE_PROYECTOS + allTrabajos.filter(t => t.data.date.getFullYear() === currentYear).length;
 
-// Kg procesados: base historica + suma real de pesoKg de proyectos del sistema
-// Base: ~45 sets parrilla+frente (50kg + 15kg = 65kg × 45 = 2925 ≈ 3000 kg)
-const BASE_KG = 3000;
+// Kg procesados: base historica (34 proyectos × ~700kg promedio ≈ 24000 kg)
+const BASE_KG = 24000;
 const kgSistema = allTrabajos.reduce((sum, t) => sum + (t.data.pesoKg || 0), 0);
 const kgTotal = BASE_KG + kgSistema;
 

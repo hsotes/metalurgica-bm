@@ -49,36 +49,10 @@ export interface EditorDraft {
 const CALENDAR_KEY = 'mbm_calendar';
 const SCRAPER_SITES_KEY = 'mbm_scraper_sites';
 const BANCO_KEY = 'mbm_banco';
-const AI_KEY = 'mbm_ai_key';
-const GPT_KEY = 'mbm_gpt_key';
 const AI_PROVIDER_KEY = 'mbm_ai_provider';
 const DRAFT_KEY = 'mbm_editor_draft';
 
-// --- AI Keys ---
-
-export function getAiKey(): string | null {
-  return localStorage.getItem(AI_KEY);
-}
-
-export function setAiKey(key: string) {
-  localStorage.setItem(AI_KEY, key);
-}
-
-export function hasAiKey(): boolean {
-  return !!getAiKey();
-}
-
-export function getGptKey(): string | null {
-  return localStorage.getItem(GPT_KEY);
-}
-
-export function setGptKey(key: string) {
-  localStorage.setItem(GPT_KEY, key);
-}
-
-export function hasGptKey(): boolean {
-  return !!getGptKey();
-}
+// --- AI Provider (solo la preferencia, NO las keys) ---
 
 export function getAiProvider(): 'anthropic' | 'openai' {
   return (localStorage.getItem(AI_PROVIDER_KEY) as any) || 'openai';
@@ -88,14 +62,11 @@ export function setAiProvider(provider: 'anthropic' | 'openai') {
   localStorage.setItem(AI_PROVIDER_KEY, provider);
 }
 
-export function getActiveAiKey(): { key: string; provider: 'anthropic' | 'openai' } | null {
-  const provider = getAiProvider();
-  if (provider === 'openai' && getGptKey()) return { key: getGptKey()!, provider: 'openai' };
-  if (provider === 'anthropic' && getAiKey()) return { key: getAiKey()!, provider: 'anthropic' };
-  // Fallback: try the other one
-  if (getGptKey()) return { key: getGptKey()!, provider: 'openai' };
-  if (getAiKey()) return { key: getAiKey()!, provider: 'anthropic' };
-  return null;
+// Limpiar keys viejas que pudieran quedar en localStorage
+export function cleanupOldKeys() {
+  localStorage.removeItem('mbm_ai_key');
+  localStorage.removeItem('mbm_gpt_key');
+  localStorage.removeItem('mbm_github_token');
 }
 
 // --- Editor Draft ---

@@ -1,9 +1,18 @@
 import { parse } from 'node-html-parser';
+import { getSessionFromCookie } from './auth';
+
+const ALLOWED_ORIGIN = 'https://www.metalurgicabotomariani.com.ar';
 
 export default async function handler(req: any, res: any) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = process.env.VERCEL_ENV === 'production' ? ALLOWED_ORIGIN : '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   if (req.method === 'OPTIONS') return res.status(200).end();
+
+  if (!getSessionFromCookie(req)) {
+    return res.status(401).json({ error: 'No autenticado' });
+  }
 
   const url = Array.isArray(req.query.url) ? req.query.url[0] : req.query.url;
   const mode = Array.isArray(req.query.mode) ? req.query.mode[0] : req.query.mode;

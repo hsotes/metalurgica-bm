@@ -1,19 +1,31 @@
+import { getSessionFromCookie } from './auth';
+
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 const OPENAI_API = 'https://api.openai.com/v1/chat/completions';
 const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
 const GPT_MODEL = 'gpt-4o';
+const ALLOWED_ORIGIN = 'https://www.metalurgicabotomariani.com.ar';
 
 export default async function handler(req: any, res: any) {
-  res.setHeader('Access-Control-Allow-Origin', '*');
+  const origin = process.env.VERCEL_ENV === 'production' ? ALLOWED_ORIGIN : '*';
+  res.setHeader('Access-Control-Allow-Origin', origin);
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  res.setHeader('Access-Control-Allow-Credentials', 'true');
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const { apiKey, provider, action, data } = req.body;
-  if (!apiKey) return res.status(400).json({ error: 'API key requerida. Configura tu API key en Configuracion.' });
+  if (!getSessionFromCookie(req)) {
+    return res.status(401).json({ error: 'No autenticado' });
+  }
 
-  const callAI = provider === 'openai' ? callGPT : callClaude;
+  const { provider, action, data } = req.body;
+
+  const effectiveProvider = provider || 'openai';
+  const apiKey = effectiveProvider === 'openai' ? process.env.OPENAI_API_KEY : process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) return res.status(500).json({ error: `API key de ${effectiveProvider} no configurada en el servidor.` });
+
+  const callAI = effectiveProvider === 'openai' ? callGPT : callClaude;
 
   try {
     if (action === 'import_article') {

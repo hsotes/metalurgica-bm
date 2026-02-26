@@ -1,8 +1,5 @@
-const REPO_OWNER = 'hsotes';
-const REPO_NAME = 'metalurgica-bm';
 const BLOG_PATH = 'src/content/blog';
 const TRABAJOS_PATH = 'src/content/trabajos';
-const API_BASE = 'https://api.github.com';
 
 export interface GitHubFile {
   name: string;
@@ -25,31 +22,13 @@ export interface ArticleMeta {
   content: string;
 }
 
-function getToken(): string | null {
-  return localStorage.getItem('mbm_github_token');
-}
+async function proxyFetch(repoPath: string, options: RequestInit = {}) {
+  const url = `/api/github?path=${encodeURIComponent(repoPath)}`;
 
-export function setToken(token: string) {
-  localStorage.setItem('mbm_github_token', token);
-}
-
-export function hasToken(): boolean {
-  return !!getToken();
-}
-
-export function clearToken() {
-  localStorage.removeItem('mbm_github_token');
-}
-
-async function githubFetch(path: string, options: RequestInit = {}) {
-  const token = getToken();
-  if (!token) throw new Error('No GitHub token configured');
-
-  const res = await fetch(`${API_BASE}${path}`, {
+  const res = await fetch(url, {
     ...options,
+    credentials: 'include',
     headers: {
-      'Authorization': `Bearer ${token}`,
-      'Accept': 'application/vnd.github.v3+json',
       'Content-Type': 'application/json',
       ...options.headers,
     },
@@ -57,7 +36,7 @@ async function githubFetch(path: string, options: RequestInit = {}) {
 
   if (!res.ok) {
     const error = await res.json().catch(() => ({}));
-    throw new Error(error.message || `GitHub API error: ${res.status}`);
+    throw new Error(error.error || `API error: ${res.status}`);
   }
 
   return res.json();
@@ -79,9 +58,7 @@ function encodeUTF8Base64(text: string): string {
 }
 
 export async function listArticles(): Promise<ArticleMeta[]> {
-  const files: GitHubFile[] = await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}`
-  );
+  const files: GitHubFile[] = await proxyFetch(BLOG_PATH);
 
   const articles: ArticleMeta[] = [];
 
@@ -89,9 +66,7 @@ export async function listArticles(): Promise<ArticleMeta[]> {
     if (!file.name.endsWith('.md')) continue;
 
     try {
-      const fileData = await githubFetch(
-        `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${file.name}`
-      );
+      const fileData = await proxyFetch(`${BLOG_PATH}/${file.name}`);
 
       const content = decodeBase64UTF8(fileData.content);
       const meta = parseFrontmatter(content);
@@ -124,16 +99,13 @@ export async function createArticle(
   const content = buildMarkdownFile(frontmatter, markdownBody);
   const encoded = encodeUTF8Base64(content);
 
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${filename}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `blog: ${frontmatter.title || filename}`,
-        content: encoded,
-      }),
-    }
-  );
+  await proxyFetch(`${BLOG_PATH}/${filename}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: `blog: ${frontmatter.title || filename}`,
+      content: encoded,
+    }),
+  });
 }
 
 export async function updateArticle(
@@ -145,30 +117,24 @@ export async function updateArticle(
   const content = buildMarkdownFile(frontmatter, markdownBody);
   const encoded = encodeUTF8Base64(content);
 
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${filename}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `blog: actualizar ${frontmatter.title || filename}`,
-        content: encoded,
-        sha,
-      }),
-    }
-  );
+  await proxyFetch(`${BLOG_PATH}/${filename}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: `blog: actualizar ${frontmatter.title || filename}`,
+      content: encoded,
+      sha,
+    }),
+  });
 }
 
 export async function deleteArticle(filename: string, sha: string): Promise<void> {
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_PATH}/${filename}`,
-    {
-      method: 'DELETE',
-      body: JSON.stringify({
-        message: `blog: eliminar ${filename}`,
-        sha,
-      }),
-    }
-  );
+  await proxyFetch(`${BLOG_PATH}/${filename}`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      message: `blog: eliminar ${filename}`,
+      sha,
+    }),
+  });
 }
 
 // --- Trabajos Entregados ---
@@ -181,24 +147,19 @@ export async function createTrabajo(
   const content = buildMarkdownFile(frontmatter, markdownBody);
   const encoded = encodeUTF8Base64(content);
 
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${filename}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `trabajo: ${frontmatter.title || filename}`,
-        content: encoded,
-      }),
-    }
-  );
+  await proxyFetch(`${TRABAJOS_PATH}/${filename}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: `trabajo: ${frontmatter.title || filename}`,
+      content: encoded,
+    }),
+  });
 }
 
 export async function listTrabajos(): Promise<ArticleMeta[]> {
   let files: GitHubFile[];
   try {
-    files = await githubFetch(
-      `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}`
-    );
+    files = await proxyFetch(TRABAJOS_PATH);
   } catch {
     return [];
   }
@@ -209,9 +170,7 @@ export async function listTrabajos(): Promise<ArticleMeta[]> {
     if (!file.name.endsWith('.md')) continue;
 
     try {
-      const fileData = await githubFetch(
-        `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${file.name}`
-      );
+      const fileData = await proxyFetch(`${TRABAJOS_PATH}/${file.name}`);
 
       const content = decodeBase64UTF8(fileData.content);
       const meta = parseFrontmatter(content);
@@ -237,16 +196,13 @@ export async function listTrabajos(): Promise<ArticleMeta[]> {
 }
 
 export async function deleteTrabajo(filename: string, sha: string): Promise<void> {
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${TRABAJOS_PATH}/${filename}`,
-    {
-      method: 'DELETE',
-      body: JSON.stringify({
-        message: `trabajo: eliminar ${filename}`,
-        sha,
-      }),
-    }
-  );
+  await proxyFetch(`${TRABAJOS_PATH}/${filename}`, {
+    method: 'DELETE',
+    body: JSON.stringify({
+      message: `trabajo: eliminar ${filename}`,
+      sha,
+    }),
+  });
 }
 
 const IMAGES_PATH = 'public/trabajos';
@@ -260,22 +216,19 @@ export async function uploadImage(file: File, projectSlug: string): Promise<stri
     const reader = new FileReader();
     reader.onload = () => {
       const result = reader.result as string;
-      resolve(result.split(',')[1]); // Remove data:image/...;base64, prefix
+      resolve(result.split(',')[1]);
     };
     reader.onerror = reject;
     reader.readAsDataURL(file);
   });
 
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${IMAGES_PATH}/${filename}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `img: ${projectSlug}`,
-        content: base64,
-      }),
-    }
-  );
+  await proxyFetch(`${IMAGES_PATH}/${filename}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: `img: ${projectSlug}`,
+      content: base64,
+    }),
+  });
 
   return `/trabajos/${filename}`;
 }
@@ -297,23 +250,20 @@ export async function uploadBlogImage(file: File, slug: string): Promise<string>
     reader.readAsDataURL(file);
   });
 
-  await githubFetch(
-    `/repos/${REPO_OWNER}/${REPO_NAME}/contents/${BLOG_IMAGES_PATH}/${filename}`,
-    {
-      method: 'PUT',
-      body: JSON.stringify({
-        message: `blog-img: ${slug}`,
-        content: base64,
-      }),
-    }
-  );
+  await proxyFetch(`${BLOG_IMAGES_PATH}/${filename}`, {
+    method: 'PUT',
+    body: JSON.stringify({
+      message: `blog-img: ${slug}`,
+      content: base64,
+    }),
+  });
 
   return `/blog/${filename}`;
 }
 
 export async function validateToken(): Promise<boolean> {
   try {
-    await githubFetch(`/repos/${REPO_OWNER}/${REPO_NAME}`);
+    await proxyFetch('');
     return true;
   } catch {
     return false;

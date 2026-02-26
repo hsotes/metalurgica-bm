@@ -124,6 +124,8 @@ const { contact, company } = siteConfig;
             </div>
 
             <input type="hidden" name="_subject" value={`Nueva consulta - ${company.name}`} />
+            <!-- Honeypot anti-spam: campo invisible para bots -->
+            <input type="text" name="_gotcha" style="display:none !important" tabindex="-1" autocomplete="off" />
 
             <button
               type="submit"

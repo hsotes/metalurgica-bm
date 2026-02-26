@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { marked } from 'marked';
 import {
-  hasToken, setToken, clearToken, validateToken,
+  validateToken,
   listArticles, createArticle, updateArticle, deleteArticle,
   createTrabajo, uploadImage, uploadBlogImage,
   type ArticleMeta,
@@ -11,14 +11,12 @@ import {
   getCalendar, addCalendarEntry, updateCalendarEntry, deleteCalendarEntry,
   getScraperSites, addScraperSite, deleteScraperSite,
   getBanco, addToBanco, markBancoPostUsed, removeBancoPost, clearBanco, autoplanFromBanco,
-  getAiKey, setAiKey, hasAiKey,
-  getGptKey, setGptKey, hasGptKey,
-  getAiProvider, setAiProvider, getActiveAiKey,
+  getAiProvider, setAiProvider, cleanupOldKeys,
   saveDraft, getDraft, clearDraft, hasDraft,
   type CalendarEntry, type ScraperSite, type BancoPost, type EditorDraft,
 } from './storage';
 
-type View = 'dashboard' | 'editor' | 'calendar' | 'settings' | 'trabajo';
+type View = 'login' | 'dashboard' | 'editor' | 'calendar' | 'settings' | 'trabajo';
 
 interface EditorInit {
   title?: string;
@@ -28,21 +26,23 @@ interface EditorInit {
 }
 
 export default function AdminApp() {
-  const [view, setView] = useState<View>('dashboard');
-  const [tokenReady, setTokenReady] = useState(false);
+  const [view, setView] = useState<View>('login');
+  const [authenticated, setAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
   const [articles, setArticles] = useState<ArticleMeta[]>([]);
   const [editingArticle, setEditingArticle] = useState<ArticleMeta | null>(null);
   const [editorInit, setEditorInit] = useState<EditorInit | null>(null);
   const [msg, setMsg] = useState<{ type: 'ok' | 'err'; text: string } | null>(null);
 
-  useEffect(() => { checkToken(); }, []);
+  useEffect(() => { checkSession(); cleanupOldKeys(); }, []);
 
-  async function checkToken() {
-    if (hasToken()) {
-      if (await validateToken()) { setTokenReady(true); loadArticles(); }
-      else { clearToken(); setLoading(false); setView('settings'); }
-    } else { setLoading(false); setView('settings'); }
+  async function checkSession() {
+    try {
+      const r = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ action: 'check' }), credentials: 'include' });
+      const data = await r.json();
+      if (data.authenticated) { setAuthenticated(true); setView('dashboard'); loadArticles(); }
+      else { setLoading(false); setView('login'); }
+    } catch { setLoading(false); setView('login'); }
   }
 
   async function loadArticles() {
@@ -95,10 +95,17 @@ export default function AdminApp() {
 
       <main style={{ flex: 1, backgroundColor: '#f3f4f6', overflow: 'auto', minHeight: '100vh' }}>
         {msg && <div style={{ padding: '10px 24px', backgroundColor: msg.type === 'ok' ? '#065f46' : '#991b1b', color: '#fff', fontSize: 13, fontWeight: 500 }}>{msg.text}</div>}
-        {!tokenReady && view !== 'settings' ? (
-          <SettingsPanel onSaveGit={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); } else { clearToken(); flash('err', 'Token invalido'); } }} />
+        {!authenticated ? (
+          <LoginPanel onLogin={async (password) => {
+            try {
+              const r = await fetch('/api/auth', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ password }), credentials: 'include' });
+              const data = await r.json();
+              if (data.ok) { setAuthenticated(true); setView('dashboard'); loadArticles(); flash('ok', 'Sesion iniciada'); return true; }
+              else { flash('err', data.error || 'Password incorrecto'); return false; }
+            } catch (e: any) { flash('err', e.message); return false; }
+          }} />
         ) : view === 'settings' ? (
-          <SettingsPanel onSaveGit={async t => { setToken(t); if (await validateToken()) { setTokenReady(true); setView('dashboard'); loadArticles(); flash('ok', 'Token GitHub OK'); } else { clearToken(); flash('err', 'Token invalido'); } }} />
+          <SettingsPanel />
         ) : view === 'dashboard' ? (
           <DashboardPanel articles={articles} loading={loading} onNew={() => goEdit(null)} onEdit={a => goEdit(a)}
             onDelete={async a => { if (!confirm(`Eliminar "${a.title}"?`)) return; try { await deleteArticle(a.filename, a.sha); flash('ok', 'Eliminado'); loadArticles(); } catch (e: any) { flash('err', e.message); } }} />
@@ -116,17 +123,32 @@ export default function AdminApp() {
 }
 
 // ============================================================
+// LOGIN
+// ============================================================
+function LoginPanel({ onLogin }: { onLogin: (password: string) => Promise<boolean> }) {
+  const [password, setPassword] = useState('');
+  const [loading, setLoading] = useState(false);
+
+  return (
+    <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', minHeight: '100vh', backgroundColor: '#f3f4f6' }}>
+      <div style={{ ...card, maxWidth: 400, width: '100%', textAlign: 'center' as const }}>
+        <div style={{ width: 56, height: 56, borderRadius: 12, backgroundColor: '#9acd32', display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, fontSize: 18, color: '#111827', margin: '0 auto 16px' }}>MBM</div>
+        <h1 style={{ fontSize: 22, fontWeight: 700, marginBottom: 4 }}>Editorial MBM</h1>
+        <p style={{ fontSize: 13, color: '#6b7280', marginBottom: 24 }}>Ingresa el password de administrador</p>
+        <form onSubmit={async e => { e.preventDefault(); setLoading(true); await onLogin(password); setLoading(false); }}>
+          <input type="password" value={password} onChange={e => setPassword(e.target.value)} placeholder="Password" style={{ ...inputSt, textAlign: 'center' as const, marginBottom: 12 }} autoFocus />
+          <button type="submit" disabled={loading || !password} style={{ ...btnPrimary, width: '100%' }}>{loading ? 'Verificando...' : 'Ingresar'}</button>
+        </form>
+      </div>
+    </div>
+  );
+}
+
+// ============================================================
 // SETTINGS
 // ============================================================
-function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
-  const [gitToken, setGitToken] = useState('');
-  const [aiKey, setAiKeyLocal] = useState('');
-  const [gptKey, setGptKeyLocal] = useState('');
+function SettingsPanel() {
   const [provider, setProviderLocal] = useState<'anthropic' | 'openai'>(getAiProvider());
-  const [saving, setSaving] = useState(false);
-  const hasGit = hasToken();
-  const hasAi = hasAiKey();
-  const hasGpt = hasGptKey();
 
   return (
     <div style={{ maxWidth: 600, margin: '0 auto', padding: '48px 24px' }}>
@@ -134,18 +156,16 @@ function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
 
       <div style={{ ...card, marginBottom: 16 }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <label style={{ ...labelSt, margin: 0 }}>GitHub Personal Access Token</label>
-          {hasGit && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONECTADO</span>}
+          <label style={{ ...labelSt, margin: 0 }}>GitHub</label>
+          <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>SERVIDOR</span>
         </div>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>GitHub → Settings → Developer settings → Fine-grained tokens.<br />Permiso: <b>Contents: Read and Write</b> para <code>hsotes/metalurgica-bm</code>.</p>
-        <input type="password" value={gitToken} onChange={e => setGitToken(e.target.value)} placeholder="github_pat_..." style={inputSt} />
-        <button onClick={async () => { setSaving(true); await onSaveGit(gitToken.trim()); setSaving(false); }} disabled={saving || !gitToken.trim()} style={{ ...btnPrimary, marginTop: 10 }}>{saving ? 'Verificando...' : 'Guardar token GitHub'}</button>
+        <p style={{ fontSize: 12, color: '#6b7280' }}>El token de GitHub se gestiona de forma segura en el servidor (Vercel Environment Variables). No es necesario configurarlo aqui.</p>
       </div>
 
       {/* AI Provider selector */}
       <div style={{ ...card, marginBottom: 16 }}>
         <label style={{ ...labelSt, margin: '0 0 12px' }}>Proveedor de IA</label>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 12 }}>Selecciona que modelo de IA usar para traduccion, SEO y LinkedIn.</p>
+        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 12 }}>Selecciona que modelo de IA usar para traduccion, SEO y LinkedIn. Las API keys se gestionan en el servidor.</p>
         <div style={{ display: 'flex', gap: 8 }}>
           <button onClick={() => { setProviderLocal('openai'); setAiProvider('openai'); }}
             style={{ flex: 1, padding: '12px 16px', borderRadius: 8, border: provider === 'openai' ? '2px solid #10a37f' : '2px solid #e5e7eb', backgroundColor: provider === 'openai' ? '#f0fdf4' : '#fff', cursor: 'pointer', fontFamily: 'inherit', textAlign: 'left' as const }}>
@@ -162,26 +182,12 @@ function SettingsPanel({ onSaveGit }: { onSaveGit: (t: string) => void }) {
         </div>
       </div>
 
-      {/* OpenAI GPT key */}
-      <div style={{ ...card, marginBottom: 16 }}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <label style={{ ...labelSt, margin: 0 }}>OpenAI API Key (GPT-4o)</label>
-          {hasGpt && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONFIGURADA</span>}
-        </div>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Obtene tu key en <a href="https://platform.openai.com/api-keys" target="_blank" rel="noopener noreferrer" style={{ color: '#10a37f', fontWeight: 600 }}>platform.openai.com/api-keys</a></p>
-        <input type="password" value={gptKey} onChange={e => setGptKeyLocal(e.target.value)} placeholder="sk-..." style={inputSt} />
-        <button onClick={() => { if (gptKey.trim()) { setGptKey(gptKey.trim()); setGptKeyLocal(''); alert('API key de OpenAI guardada'); } }} disabled={!gptKey.trim()} style={{ ...btnPrimary, marginTop: 10, backgroundColor: '#10a37f' }}>Guardar API key OpenAI</button>
-      </div>
-
-      {/* Anthropic key */}
       <div style={card}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 }}>
-          <label style={{ ...labelSt, margin: 0 }}>Anthropic API Key (Claude)</label>
-          {hasAi && <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>CONFIGURADA</span>}
+          <label style={{ ...labelSt, margin: 0 }}>API Keys (OpenAI / Anthropic)</label>
+          <span style={{ fontSize: 10, fontWeight: 700, color: '#065f46', backgroundColor: '#d1fae5', padding: '2px 8px', borderRadius: 99 }}>SERVIDOR</span>
         </div>
-        <p style={{ fontSize: 12, color: '#6b7280', marginBottom: 10 }}>Obtene tu key en <a href="https://console.anthropic.com/" target="_blank" rel="noopener noreferrer" style={{ color: '#7c3aed', fontWeight: 600 }}>console.anthropic.com</a></p>
-        <input type="password" value={aiKey} onChange={e => setAiKeyLocal(e.target.value)} placeholder="sk-ant-..." style={inputSt} />
-        <button onClick={() => { if (aiKey.trim()) { setAiKey(aiKey.trim()); setAiKeyLocal(''); alert('API key de Anthropic guardada'); } }} disabled={!aiKey.trim()} style={{ ...btnPrimary, marginTop: 10, backgroundColor: '#7c3aed' }}>Guardar API key Anthropic</button>
+        <p style={{ fontSize: 12, color: '#6b7280' }}>Las API keys se gestionan de forma segura en Vercel Environment Variables (OPENAI_API_KEY y ANTHROPIC_API_KEY). No se almacenan en el navegador.</p>
       </div>
     </div>
   );
@@ -200,16 +206,16 @@ function DashboardPanel({ articles, loading, onNew, onEdit, onDelete }: { articl
   const [linkedinLoading, setLinkedinLoading] = useState(false);
 
   async function handleLinkedin(a: ArticleMeta) {
-    const active = getActiveAiKey();
-    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion.'); return; }
+    const active = { provider: getAiProvider() };
     setLinkedinArticle(a);
     setLinkedinLoading(true);
     try {
       const blogUrl = `https://www.metalurgicabotomariani.com.ar/blog/${a.filename.replace('.md', '')}/`;
       const res = await fetch('/api/ai', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: active.key, provider: active.provider, action: 'linkedin', data: { title: a.title, content: a.content, blogUrl } }),
+        body: JSON.stringify({ provider: active.provider, action: 'linkedin', data: { title: a.title, content: a.content, blogUrl } }),
       });
       if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando LinkedIn'); }
       const data = await res.json();
@@ -350,13 +356,12 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
 
   async function handleAiImport() {
     if (!initialData?.sourceUrl) return;
-    const active = getActiveAiKey();
-    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion para usar la traduccion automatica.'); return; }
+    const active = { provider: getAiProvider() };
 
     setAiLoading(true);
     try {
       setAiStatus('Scrapeando articulo original...');
-      const scrapeRes = await fetch(`/api/scrape?url=${encodeURIComponent(initialData.sourceUrl)}&mode=full`);
+      const scrapeRes = await fetch(`/api/scrape?url=${encodeURIComponent(initialData.sourceUrl)}&mode=full`, { credentials: 'include' });
       if (!scrapeRes.ok) throw new Error('Error al scrapear el articulo');
       const scraped = await scrapeRes.json();
 
@@ -365,9 +370,10 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
       setAiStatus(`IA (${active.provider === 'openai' ? 'GPT-4o' : 'Claude'}) traduciendo y optimizando SEO...`);
       const aiRes = await fetch('/api/ai', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiKey: active.key, provider: active.provider, action: 'import_article',
+          provider: active.provider, action: 'import_article',
           data: { title: scraped.title || initialData.title, content: scraped.content || '', sourceUrl: initialData.sourceUrl },
         }),
       });
@@ -388,8 +394,7 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
   }
 
   async function handleGenerateLinkedin() {
-    const active = getActiveAiKey();
-    if (!active) { alert('Configura tu API Key (OpenAI o Anthropic) en Configuracion.'); return; }
+    const active = { provider: getAiProvider() };
     if (!title || !body) { alert('El articulo necesita titulo y contenido.'); return; }
 
     setLinkedinLoading(true);
@@ -398,8 +403,9 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
       const blogUrl = `https://www.metalurgicabotomariani.com.ar/blog/${slug}/`;
       const res = await fetch('/api/ai', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ apiKey: active.key, provider: active.provider, action: 'linkedin', data: { title, content: body, blogUrl } }),
+        body: JSON.stringify({ provider: active.provider, action: 'linkedin', data: { title, content: body, blogUrl } }),
       });
       if (!res.ok) { const err = await res.json().catch(() => ({})); throw new Error(err.error || 'Error generando LinkedIn'); }
       const data = await res.json();
@@ -691,16 +697,16 @@ function TrabajoPanel() {
   }
 
   async function handleGenerateLinkedin() {
-    const active = getActiveAiKey();
-    if (!active) { alert('Configura tu API Key en Configuracion.'); return; }
+    const active = { provider: getAiProvider() };
 
     setLinkedinLoading(true);
     try {
       const res = await fetch('/api/ai', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          apiKey: active.key, provider: active.provider, action: 'linkedin_trabajo',
+          provider: active.provider, action: 'linkedin_trabajo',
           data: { projectName: projectName.trim(), description: description.trim(), category, photos: uploadedUrls },
         }),
       });
@@ -947,7 +953,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
     setScraping(true);
     setScrapingId(site.id);
     try {
-      const res = await fetch(`/api/scrape?url=${encodeURIComponent(site.blogUrl)}`);
+      const res = await fetch(`/api/scrape?url=${encodeURIComponent(site.blogUrl)}`, { credentials: 'include' });
       if (!res.ok) throw new Error(`Error ${res.status}`);
       const data = await res.json();
       if (data.posts?.length > 0) {

@@ -1,4 +1,4 @@
-import { getSessionFromCookie } from './auth';
+import { getSessionFromCookie } from './auth.js';
 
 const ANTHROPIC_API = 'https://api.anthropic.com/v1/messages';
 const OPENAI_API = 'https://api.openai.com/v1/chat/completions';

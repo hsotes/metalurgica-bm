@@ -1,4 +1,4 @@
-import { getSessionFromCookie } from './auth';
+import { getSessionFromCookie } from './auth.js';
 
 const REPO_OWNER = 'hsotes';
 const REPO_NAME = 'metalurgica-bm';

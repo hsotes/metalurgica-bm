@@ -1,11 +1,6 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-
 const COOKIE_NAME = 'mbm_session';
 
-function verifyTokenEdge(token: string, secret: string): boolean {
-  // En middleware de Vercel usamos Web Crypto API
-  // Pero como es sync-check, hacemos verificación simplificada de estructura + expiración
+function verifyTokenEdge(token: string): boolean {
   try {
     const [, body] = token.split('.');
     const payload = JSON.parse(atob(body.replace(/-/g, '+').replace(/_/g, '/')));
@@ -17,33 +12,32 @@ function verifyTokenEdge(token: string, secret: string): boolean {
   }
 }
 
-export function middleware(request: NextRequest) {
-  const { pathname } = request.nextUrl;
+export default function middleware(request: Request) {
+  const url = new URL(request.url);
+  const pathname = url.pathname;
 
   // Rutas protegidas
   const isAdmin = pathname.startsWith('/admin');
   const isProtectedApi = pathname.startsWith('/api/') && !pathname.startsWith('/api/auth');
 
   if (!isAdmin && !isProtectedApi) {
-    return NextResponse.next();
+    return;
   }
 
-  const sessionCookie = request.cookies.get(COOKIE_NAME)?.value;
-  const secret = process.env.SESSION_SECRET || '';
+  const cookie = request.headers.get('cookie') || '';
+  const match = cookie.match(new RegExp(`${COOKIE_NAME}=([^;]+)`));
+  const sessionToken = match ? match[1] : null;
 
-  if (!sessionCookie || !verifyTokenEdge(sessionCookie, secret)) {
+  if (!sessionToken || !verifyTokenEdge(sessionToken)) {
     // Para APIs: devolver 401
     if (isProtectedApi) {
-      return new NextResponse(JSON.stringify({ error: 'No autenticado' }), {
+      return new Response(JSON.stringify({ error: 'No autenticado' }), {
         status: 401,
         headers: { 'Content-Type': 'application/json' },
       });
     }
     // Para /admin: dejar pasar (el React app mostrará login)
-    // No redirigimos porque el login está integrado en AdminApp
   }
-
-  return NextResponse.next();
 }
 
 export const config = {

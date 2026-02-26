@@ -1,5 +1,5 @@
 import { parse } from 'node-html-parser';
-import { getSessionFromCookie } from './auth';
+import { getSessionFromCookie } from './auth.js';
 
 const ALLOWED_ORIGIN = 'https://www.metalurgicabotomariani.com.ar';
 

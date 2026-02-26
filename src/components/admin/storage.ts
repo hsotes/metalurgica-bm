@@ -332,3 +332,76 @@ function generateSuggestedCalendar(): CalendarEntry[] {
   localStorage.setItem(CALENDAR_KEY, JSON.stringify(entries));
   return entries;
 }
+
+// ============================================================
+// MIGRACIÓN: Re-etiquetar sitios existentes + agregar TBEX
+// ============================================================
+
+const MIGRATION_KEY = 'mbm_scraper_migrated_v1';
+
+export function migrateScraperSites(): void {
+  if (localStorage.getItem(MIGRATION_KEY)) return; // ya migrado
+
+  const sites = getScraperSites();
+  const existingUrls = new Set(sites.map(s => s.blogUrl.toLowerCase()));
+
+  // 1. Re-etiquetar sitios existentes según patrones
+  for (const site of sites) {
+    const n = (site.name + ' ' + site.blogUrl).toLowerCase();
+    if (/grill|parrilla|griglia|pianeta|soberano|american.?made/i.test(n)) {
+      site.tag = 'Griglia';
+    } else if (/modular|prefab|inhaus|casas|dvele|plant.?prefab|viviendas/i.test(n)) {
+      site.tag = 'Modular';
+    } else if (/steel|metal|acero|estrutura|calais|arcelormittal|bauforumstahl|metallbau|kloeckner|bci|italfaber|fxt|futurtek|marchetto|manni|ampla|armac|coppermetal|hackbarth|metro.?steel|dario.?flaccovio/i.test(n)) {
+      site.tag = 'Estructuras';
+    } else if (/blog.?modulaire|leblogmodulaire|sienge/i.test(n)) {
+      site.tag = 'Modular';
+    }
+    // los que no matchean quedan como estaban (General)
+  }
+
+  // 2. Agregar sitios TBEX
+  const tbexSites: Omit<ScraperSite, 'id'>[] = [
+    // USA
+    { name: 'Falcon Structures', blogUrl: 'https://www.falconstructures.com/blog/', tag: 'TBEX' },
+    { name: 'Bud Industries', blogUrl: 'https://www.budind.com/blog/', tag: 'TBEX' },
+    { name: 'Polycase TechTalk', blogUrl: 'https://www.polycase.com/techtalk/', tag: 'TBEX' },
+    { name: 'American Products', blogUrl: 'https://amprod.us/blog/', tag: 'TBEX' },
+    { name: 'Vertiv', blogUrl: 'https://www.vertiv.com/en-us/about/news-and-insights/vertiv-blog/', tag: 'TBEX' },
+    { name: 'Maysteel Industries', blogUrl: 'https://www.maysteel.com/blog', tag: 'TBEX' },
+    { name: 'NEMA Enclosures', blogUrl: 'https://www.nemaenclosures.com/blog/', tag: 'TBEX' },
+    { name: 'Shelter Works', blogUrl: 'https://www.shelterworks.com/', tag: 'TBEX' },
+    { name: 'Raycap', blogUrl: 'https://www.raycap.com/', tag: 'TBEX' },
+    // Europa
+    { name: 'Rittal', blogUrl: 'https://blog.rittal.co.uk/', tag: 'TBEX' },
+    { name: 'Schneider Electric', blogUrl: 'https://blog.se.com/', tag: 'TBEX' },
+    { name: 'Delvalle Box', blogUrl: 'https://www.delvallebox.com/news/', tag: 'TBEX' },
+    { name: 'Grolleau', blogUrl: 'https://www.grolleau.fr/blog/', tag: 'TBEX' },
+    { name: 'nVent (Hoffman)', blogUrl: 'https://blog.nvent.com/', tag: 'TBEX' },
+    { name: 'Ensto', blogUrl: 'https://www.ensto.com/company/newsroom/', tag: 'TBEX' },
+    // Brasil
+    { name: 'DBTEC', blogUrl: 'https://dbtec.com.br/post/', tag: 'TBEX' },
+    // China (en inglés)
+    { name: 'ESTEL Telecom', blogUrl: 'https://blog.outdoortelecomcabinet.com/', tag: 'TBEX' },
+    { name: 'KL Telecom', blogUrl: 'https://www.kl-telecom.com/resources/', tag: 'TBEX' },
+  ];
+
+  for (const ts of tbexSites) {
+    if (!existingUrls.has(ts.blogUrl.toLowerCase())) {
+      sites.push({ ...ts, id: crypto.randomUUID() });
+    }
+  }
+
+  saveScraperSites(sites);
+
+  // 3. Re-etiquetar banco existente
+  const banco = getBanco();
+  const siteTagMap = new Map(sites.map(s => [s.name, s.tag]));
+  for (const post of banco) {
+    const siteTag = siteTagMap.get(post.sourceSiteName);
+    if (siteTag) post.tag = siteTag;
+  }
+  saveBanco(banco);
+
+  localStorage.setItem(MIGRATION_KEY, '1');
+}

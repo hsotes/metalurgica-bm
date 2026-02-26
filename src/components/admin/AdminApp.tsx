@@ -11,7 +11,7 @@ import {
   getCalendar, addCalendarEntry, updateCalendarEntry, deleteCalendarEntry,
   getScraperSites, addScraperSite, deleteScraperSite,
   getBanco, addToBanco, markBancoPostUsed, removeBancoPost, clearBanco, autoplanFromBanco,
-  getAiProvider, setAiProvider, cleanupOldKeys,
+  getAiProvider, setAiProvider, cleanupOldKeys, migrateScraperSites,
   saveDraft, getDraft, clearDraft, hasDraft,
   type CalendarEntry, type ScraperSite, type BancoPost, type EditorDraft,
 } from './storage';
@@ -883,6 +883,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   const [useCat, setUseCat] = useState(categories[0]);
 
   useEffect(() => {
+    migrateScraperSites();
     setEntries(getCalendar());
     setSites(getScraperSites());
     setBanco(getBanco());

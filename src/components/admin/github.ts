@@ -326,7 +326,8 @@ function buildMarkdownFile(frontmatter: Record<string, any>, body: string): stri
     if (Array.isArray(value)) {
       lines.push(`${key}: [${value.map(v => `"${v}"`).join(', ')}]`);
     } else if (typeof value === 'string') {
-      lines.push(`${key}: "${value}"`);
+      const clean = value.replace(/^"+|"+$/g, '');
+      lines.push(`${key}: "${clean}"`);
     } else {
       lines.push(`${key}: ${value}`);
     }

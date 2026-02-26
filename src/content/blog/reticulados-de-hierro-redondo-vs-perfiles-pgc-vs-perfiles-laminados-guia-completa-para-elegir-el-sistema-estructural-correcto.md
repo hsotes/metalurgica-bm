@@ -1,6 +1,6 @@
 ---
-title: "Reticulados de Hierro Redondo vs Perfiles PGC vs Perfiles Laminados: Guía Completa para Elegir el Sistema Estructural Correcto""
-description: ""Comparativa técnica entre reticulados de hierro redondo, perfiles PGC galvanizados y perfiles laminados en caliente (W, HEB, IPN). Cuando usar cada sistema según luz, cargas y complejidad.""
+title: "Reticulados de Hierro Redondo vs Perfiles PGC vs Perfiles Laminados: Guía Completa para Elegir el Sistema Estructural Correcto"
+description: "Comparativa técnica entre reticulados de hierro redondo, perfiles PGC galvanizados y perfiles laminados en caliente (W, HEB, IPN). Cuando usar cada sistema según luz, cargas y complejidad."
 date: "2026-02-26"
 author: "Metalurgica Boto Mariani"
 image: "/blog/reticulados-de-hierro-redondo-vs-perfiles-pgc-vs-perfiles-laminados-guia-completa-para-elegir-el-sistema-estructural-correcto-1772111964198.jpg"

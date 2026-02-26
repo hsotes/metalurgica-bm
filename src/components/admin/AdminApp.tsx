@@ -842,6 +842,17 @@ function TrabajoPanel() {
 // ============================================================
 // CALENDAR + SCRAPER + BANCO
 // ============================================================
+const SITE_TAGS = [
+  { value: 'Estructuras', color: '#1a4d6d', bg: '#dbeafe' },
+  { value: 'TBEX',        color: '#92400e', bg: '#fef3c7' },
+  { value: 'Griglia',     color: '#065f46', bg: '#d1fae5' },
+  { value: 'Modular',     color: '#7c3aed', bg: '#ede9fe' },
+  { value: 'General',     color: '#374151', bg: '#f3f4f6' },
+];
+function getTagStyle(tag: string) {
+  return SITE_TAGS.find(t => t.value === tag) || SITE_TAGS[SITE_TAGS.length - 1];
+}
+
 function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarEntry) => void }) {
   const [entries, setEntries] = useState<CalendarEntry[]>([]);
   const [monthOffset, setMonthOffset] = useState(0);
@@ -856,7 +867,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   // Scraper
   const [sites, setSites] = useState<ScraperSite[]>([]);
   const [showAddSite, setShowAddSite] = useState(false);
-  const [siteForm, setSiteForm] = useState({ name: '', blogUrl: '' });
+  const [siteForm, setSiteForm] = useState({ name: '', blogUrl: '', tag: 'General' });
   const [scraping, setScraping] = useState(false);
   const [scrapingId, setScrapingId] = useState('');
 
@@ -938,10 +949,10 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
     if (!siteForm.name.trim() || !siteForm.blogUrl.trim()) return;
     let url = siteForm.blogUrl.trim();
     if (!url.startsWith('http')) url = 'https://' + url;
-    addScraperSite({ name: siteForm.name.trim(), blogUrl: url });
+    addScraperSite({ name: siteForm.name.trim(), blogUrl: url, tag: siteForm.tag });
     setSites(getScraperSites());
     setShowAddSite(false);
-    setSiteForm({ name: '', blogUrl: '' });
+    setSiteForm({ name: '', blogUrl: '', tag: 'General' });
   }
 
   function handleDeleteSite(id: string) {
@@ -964,6 +975,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
           image: p.image || '',
           excerpt: p.excerpt || '',
           date: p.date || '',
+          tag: site.tag || 'General',
         })));
         setBanco(getBanco());
         alert(`${added} publicaciones nuevas agregadas al banco de ${site.name}. (${data.posts.length - added} duplicadas ignoradas)`);
@@ -1010,7 +1022,9 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
   }
 
   const unusedBanco = banco.filter(p => !p.used);
-  const filteredBanco = bancoFilter === 'all' ? banco : bancoFilter === 'unused' ? unusedBanco : banco.filter(p => p.sourceSiteName === bancoFilter);
+  const bancoTags = [...new Set(banco.map(p => p.tag || 'General'))];
+  const isTagFilter = SITE_TAGS.some(t => t.value === bancoFilter);
+  const filteredBanco = bancoFilter === 'all' ? banco : bancoFilter === 'unused' ? unusedBanco : isTagFilter ? banco.filter(p => (p.tag || 'General') === bancoFilter) : banco.filter(p => p.sourceSiteName === bancoFilter);
   const sourceNames = [...new Set(banco.map(p => p.sourceSiteName))];
   const totalThisMonth = entries.filter(e => e.date.startsWith(`${year}-${String(month + 1).padStart(2, '0')}`)).length;
   const publishedThisMonth = entries.filter(e => e.date.startsWith(`${year}-${String(month + 1).padStart(2, '0')}`) && e.status === 'published').length;
@@ -1098,7 +1112,7 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
           <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
             {sites.map(site => (
               <div key={site.id} style={{ display: 'flex', alignItems: 'center', gap: 10, padding: '10px 14px', backgroundColor: '#f9fafb', borderRadius: 8, border: '1px solid #e5e7eb' }}>
-                <div style={{ width: 8, height: 8, borderRadius: 99, backgroundColor: '#9acd32', flexShrink: 0 }} />
+                <span style={{ padding: '2px 7px', borderRadius: 4, fontSize: 10, fontWeight: 700, flexShrink: 0, backgroundColor: getTagStyle(site.tag).bg, color: getTagStyle(site.tag).color }}>{site.tag}</span>
                 <div style={{ flex: 1, minWidth: 0 }}>
                   <div style={{ fontWeight: 600, fontSize: 13 }}>{site.name}</div>
                   <div style={{ fontSize: 11, color: '#6b7280', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{site.blogUrl}</div>
@@ -1141,6 +1155,15 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
             <div style={{ display: 'flex', gap: 4, marginBottom: 12, flexWrap: 'wrap' }}>
               <button onClick={() => setBancoFilter('all')} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === 'all' ? '#1a4d6d' : '#fff', color: bancoFilter === 'all' ? '#fff' : '#374151' }}>Todos ({banco.length})</button>
               <button onClick={() => setBancoFilter('unused')} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === 'unused' ? '#1a4d6d' : '#fff', color: bancoFilter === 'unused' ? '#fff' : '#374151' }}>Sin usar ({unusedBanco.length})</button>
+              {bancoTags.map(tag => {
+                const ts = getTagStyle(tag);
+                const count = banco.filter(p => (p.tag || 'General') === tag).length;
+                return (
+                  <button key={`tag-${tag}`} onClick={() => setBancoFilter(tag)} style={{ ...btnSmall, fontSize: 11, backgroundColor: bancoFilter === tag ? ts.bg : '#fff', color: ts.color, border: bancoFilter === tag ? `2px solid ${ts.color}` : '1px solid #d1d5db', fontWeight: bancoFilter === tag ? 700 : 500 }}>
+                    {tag} ({count})
+                  </button>
+                );
+              })}
               {sourceNames.map(name => {
                 const count = banco.filter(p => p.sourceSiteName === name).length;
                 return (
@@ -1161,7 +1184,10 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
                     </div>
                   )}
                   <div style={{ padding: 10 }}>
-                    <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 4 }}>{post.sourceSiteName}{post.used && ' — USADO'}</div>
+                    <div style={{ fontSize: 10, color: '#9ca3af', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 4 }}>
+                      <span style={{ padding: '1px 5px', borderRadius: 3, fontSize: 9, fontWeight: 700, backgroundColor: getTagStyle(post.tag || 'General').bg, color: getTagStyle(post.tag || 'General').color }}>{post.tag || 'General'}</span>
+                      {post.sourceSiteName}{post.used && ' — USADO'}
+                    </div>
                     <h4 style={{ fontSize: 12, fontWeight: 700, margin: '0 0 6px', lineHeight: 1.3, color: '#111827' }}>{post.title}</h4>
                     <div style={{ display: 'flex', gap: 4 }}>
                       {!post.used && (
@@ -1248,7 +1274,19 @@ function CalendarPanel({ onCreateArticle }: { onCreateArticle: (entry: CalendarE
             <label style={labelSt}>Nombre</label>
             <input value={siteForm.name} onChange={e => setSiteForm({ ...siteForm, name: e.target.value })} placeholder="Ej: Ampla Estruturas" style={{ ...inputSt, marginBottom: 10 }} />
             <label style={labelSt}>URL del blog</label>
-            <input value={siteForm.blogUrl} onChange={e => setSiteForm({ ...siteForm, blogUrl: e.target.value })} placeholder="https://www.ejemplo.com/blog" style={{ ...inputSt, marginBottom: 16 }} />
+            <input value={siteForm.blogUrl} onChange={e => setSiteForm({ ...siteForm, blogUrl: e.target.value })} placeholder="https://www.ejemplo.com/blog" style={{ ...inputSt, marginBottom: 10 }} />
+            <label style={labelSt}>Linea de producto</label>
+            <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 16 }}>
+              {SITE_TAGS.map(t => (
+                <button key={t.value} type="button" onClick={() => setSiteForm({ ...siteForm, tag: t.value })}
+                  style={{ padding: '5px 12px', borderRadius: 6, fontSize: 12, fontWeight: 600, cursor: 'pointer',
+                    border: siteForm.tag === t.value ? `2px solid ${t.color}` : '1px solid #d1d5db',
+                    backgroundColor: siteForm.tag === t.value ? t.bg : '#fff',
+                    color: t.color }}>
+                  {t.value}
+                </button>
+              ))}
+            </div>
             <button onClick={handleAddSite} disabled={!siteForm.name.trim() || !siteForm.blogUrl.trim()} style={btnAccent}>Agregar</button>
           </div>
         </div>

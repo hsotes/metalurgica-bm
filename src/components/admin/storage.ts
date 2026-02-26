@@ -17,6 +17,7 @@ export interface ScraperSite {
   id: string;
   name: string;
   blogUrl: string;
+  tag: string;
 }
 
 export interface BancoPost {
@@ -29,6 +30,7 @@ export interface BancoPost {
   date: string;
   scrapedAt: string;
   used: boolean;
+  tag: string;
 }
 
 export interface EditorDraft {
@@ -125,7 +127,8 @@ export function deleteCalendarEntry(id: string) {
 
 export function getScraperSites(): ScraperSite[] {
   const data = localStorage.getItem(SCRAPER_SITES_KEY);
-  return data ? JSON.parse(data) : [];
+  if (!data) return [];
+  return (JSON.parse(data) as any[]).map(s => ({ ...s, tag: s.tag || 'General' }));
 }
 
 export function saveScraperSites(sites: ScraperSite[]) {
@@ -148,7 +151,8 @@ export function deleteScraperSite(id: string) {
 
 export function getBanco(): BancoPost[] {
   const data = localStorage.getItem(BANCO_KEY);
-  return data ? JSON.parse(data) : [];
+  if (!data) return [];
+  return (JSON.parse(data) as any[]).map(p => ({ ...p, tag: p.tag || 'General' }));
 }
 
 export function saveBanco(posts: BancoPost[]) {

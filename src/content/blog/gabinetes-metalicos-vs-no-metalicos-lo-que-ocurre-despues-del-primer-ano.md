@@ -3,7 +3,7 @@ title: "Gabinetes Metálicos vs No Metálicos: Lo que Ocurre Después del Primer
 description: "Análisis técnico de gabinetes eléctricos metálicos vs no metálicos: degradación UV, blindaje EMI, gestión térmica y costo total de propiedad en exteriores LATAM."
 date: "2026-03-09"
 author: "Metalurgica Boto Mariani"
-image: "6d3d8070d3774b79ad932955f7f91764.jpg"
+image: "/blog/gabinetes-metalicos-vs-no-metalicos-lo-que-ocurre-despues-del-primer-ano-1773059553755.webp"
 category: "TBex"
 tags: ["gabinetes eléctricos metálicos vs no metálicos", "degradación UV policarbonato exteriores", "blindaje EMI gabinetes telecomunicaciones", "gestión térmica gabinetes outdoor", "costo total propiedad gabinetes", "gabinetes acero aluminio LATAM", "IP66 degradación ciclado térmico"]
 ---

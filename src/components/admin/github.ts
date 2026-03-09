@@ -205,22 +205,49 @@ export async function deleteTrabajo(filename: string, sha: string): Promise<void
   });
 }
 
+const MAX_IMAGE_WIDTH = 1600;
+const MAX_IMAGE_SIZE_KB = 800;
+
+async function compressImage(file: File): Promise<string> {
+  // If file is small enough already, just read it
+  if (file.size <= MAX_IMAGE_SIZE_KB * 1024) {
+    return new Promise<string>((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = () => resolve((reader.result as string).split(',')[1]);
+      reader.onerror = reject;
+      reader.readAsDataURL(file);
+    });
+  }
+
+  const bitmap = await createImageBitmap(file);
+  const scale = Math.min(1, MAX_IMAGE_WIDTH / Math.max(bitmap.width, bitmap.height));
+  const w = Math.round(bitmap.width * scale);
+  const h = Math.round(bitmap.height * scale);
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d')!;
+  ctx.drawImage(bitmap, 0, 0, w, h);
+  bitmap.close();
+
+  // Try decreasing quality until under limit
+  let quality = 0.85;
+  let dataUrl = canvas.toDataURL('image/jpeg', quality);
+  while (dataUrl.length * 0.75 > MAX_IMAGE_SIZE_KB * 1024 && quality > 0.3) {
+    quality -= 0.1;
+    dataUrl = canvas.toDataURL('image/jpeg', quality);
+  }
+
+  return dataUrl.split(',')[1];
+}
+
 const IMAGES_PATH = 'public/trabajos';
 
 export async function uploadImage(file: File, projectSlug: string): Promise<string> {
-  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const timestamp = Date.now();
-  const filename = `${projectSlug}-${timestamp}.${ext}`;
-
-  const base64 = await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      resolve(result.split(',')[1]);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  const filename = `${projectSlug}-${timestamp}.jpg`;
+  const base64 = await compressImage(file);
 
   await proxyFetch(`${IMAGES_PATH}/${filename}`, {
     method: 'PUT',
@@ -236,19 +263,9 @@ export async function uploadImage(file: File, projectSlug: string): Promise<stri
 const BLOG_IMAGES_PATH = 'public/blog';
 
 export async function uploadBlogImage(file: File, slug: string): Promise<string> {
-  const ext = file.name.split('.').pop()?.toLowerCase() || 'jpg';
   const timestamp = Date.now();
-  const filename = `${slug}-${timestamp}.${ext}`;
-
-  const base64 = await new Promise<string>((resolve, reject) => {
-    const reader = new FileReader();
-    reader.onload = () => {
-      const result = reader.result as string;
-      resolve(result.split(',')[1]);
-    };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
+  const filename = `${slug}-${timestamp}.jpg`;
+  const base64 = await compressImage(file);
 
   await proxyFetch(`${BLOG_IMAGES_PATH}/${filename}`, {
     method: 'PUT',

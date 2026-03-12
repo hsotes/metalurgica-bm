@@ -278,6 +278,39 @@ export async function uploadBlogImage(file: File, slug: string): Promise<string>
   return `/blog/${filename}`;
 }
 
+// Batch commit: multiples archivos en un solo commit (evita race condition en Vercel)
+export interface BatchFile {
+  path: string;
+  content: string;
+  encoding?: 'utf-8' | 'base64';
+}
+
+export async function batchCommit(message: string, files: BatchFile[]): Promise<void> {
+  const res = await fetch('/api/github?path=', {
+    method: 'POST',
+    credentials: 'include',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ message, files }),
+  });
+
+  if (!res.ok) {
+    const error = await res.json().catch(() => ({}));
+    throw new Error(error.error || `Batch commit error: ${res.status}`);
+  }
+}
+
+// Prepara imagen comprimida sin commitear (para usar con batchCommit)
+export async function prepareBlogImage(file: File, slug: string): Promise<{ path: string; base64: string; publicUrl: string }> {
+  const timestamp = Date.now();
+  const filename = `${slug}-${timestamp}.jpg`;
+  const base64 = await compressImage(file);
+  return {
+    path: `public/blog/${filename}`,
+    base64,
+    publicUrl: `/blog/${filename}`,
+  };
+}
+
 export async function validateToken(): Promise<boolean> {
   try {
     await proxyFetch('');
@@ -287,7 +320,7 @@ export async function validateToken(): Promise<boolean> {
   }
 }
 
-function buildMarkdownFile(frontmatter: Record<string, any>, body: string): string {
+export function buildMarkdownFile(frontmatter: Record<string, any>, body: string): string {
   const lines = ['---'];
   for (const [key, value] of Object.entries(frontmatter)) {
     if (Array.isArray(value)) {

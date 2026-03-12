@@ -11,7 +11,7 @@ const ALLOWED_PATHS = ['src/content/blog', 'src/content/trabajos', 'public/traba
 export default async function handler(req: any, res: any) {
   const origin = process.env.VERCEL_ENV === 'production' ? ALLOWED_ORIGIN : '*';
   res.setHeader('Access-Control-Allow-Origin', origin);
-  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, DELETE, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, PUT, POST, DELETE, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
   res.setHeader('Access-Control-Allow-Credentials', 'true');
   if (req.method === 'OPTIONS') return res.status(200).end();
@@ -45,6 +45,12 @@ export default async function handler(req: any, res: any) {
         return res.status(500).json({ error: e.message });
       }
     }
+
+    // Batch commit: POST sin path — usa Git Trees API para un solo commit con multiples archivos
+    if (req.method === 'POST') {
+      return handleBatchCommit(req, res, githubToken);
+    }
+
     return res.status(400).json({ error: 'Path requerido' });
   }
 
@@ -80,5 +86,99 @@ export default async function handler(req: any, res: any) {
     return res.json(data);
   } catch (e: any) {
     return res.status(500).json({ error: e.message || 'Error conectando con GitHub' });
+  }
+}
+
+// Batch commit: crea un solo commit con multiples archivos usando Git Trees API
+// Body: { message: string, files: [{ path: string, content: string, encoding?: 'utf-8' | 'base64' }] }
+async function handleBatchCommit(req: any, res: any, githubToken: string) {
+  const { message, files } = req.body || {};
+  if (!message || !Array.isArray(files) || files.length === 0) {
+    return res.status(400).json({ error: 'Se requiere message y files[]' });
+  }
+
+  // Validar que todos los paths esten dentro de rutas permitidas
+  for (const f of files) {
+    const isAllowed = ALLOWED_PATHS.some(p => f.path.startsWith(p));
+    if (!isAllowed) {
+      return res.status(403).json({ error: `Ruta no permitida: ${f.path}` });
+    }
+  }
+
+  const headers = {
+    'Authorization': `Bearer ${githubToken}`,
+    'Accept': 'application/vnd.github.v3+json',
+    'Content-Type': 'application/json',
+  };
+  const repoBase = `${API_BASE}/repos/${REPO_OWNER}/${REPO_NAME}`;
+
+  try {
+    // 1. Obtener SHA del ultimo commit en main
+    const refRes = await fetch(`${repoBase}/git/ref/heads/main`, { headers });
+    if (!refRes.ok) throw new Error('No se pudo obtener ref de main');
+    const refData = await refRes.json();
+    const latestCommitSha = refData.object.sha;
+
+    // 2. Obtener el tree base del ultimo commit
+    const commitRes = await fetch(`${repoBase}/git/commits/${latestCommitSha}`, { headers });
+    if (!commitRes.ok) throw new Error('No se pudo obtener commit base');
+    const commitData = await commitRes.json();
+    const baseTreeSha = commitData.tree.sha;
+
+    // 3. Crear blobs para cada archivo
+    const tree: any[] = [];
+    for (const f of files) {
+      const blobRes = await fetch(`${repoBase}/git/blobs`, {
+        method: 'POST',
+        headers,
+        body: JSON.stringify({
+          content: f.content,
+          encoding: f.encoding || 'utf-8',
+        }),
+      });
+      if (!blobRes.ok) throw new Error(`Error creando blob para ${f.path}`);
+      const blobData = await blobRes.json();
+
+      tree.push({
+        path: f.path,
+        mode: '100644',
+        type: 'blob',
+        sha: blobData.sha,
+      });
+    }
+
+    // 4. Crear nuevo tree
+    const treeRes = await fetch(`${repoBase}/git/trees`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ base_tree: baseTreeSha, tree }),
+    });
+    if (!treeRes.ok) throw new Error('Error creando tree');
+    const treeData = await treeRes.json();
+
+    // 5. Crear commit
+    const newCommitRes = await fetch(`${repoBase}/git/commits`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({
+        message,
+        tree: treeData.sha,
+        parents: [latestCommitSha],
+      }),
+    });
+    if (!newCommitRes.ok) throw new Error('Error creando commit');
+    const newCommitData = await newCommitRes.json();
+
+    // 6. Actualizar ref de main
+    const updateRefRes = await fetch(`${repoBase}/git/refs/heads/main`, {
+      method: 'PATCH',
+      headers,
+      body: JSON.stringify({ sha: newCommitData.sha }),
+    });
+    if (!updateRefRes.ok) throw new Error('Error actualizando ref');
+
+    return res.json({ sha: newCommitData.sha, message: 'Commit batch exitoso' });
+  } catch (e: any) {
+    return res.status(500).json({ error: e.message || 'Error en batch commit' });
   }
 }

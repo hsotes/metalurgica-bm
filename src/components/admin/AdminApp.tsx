@@ -4,7 +4,8 @@ import {
   validateToken,
   listArticles, createArticle, updateArticle, deleteArticle,
   createTrabajo, uploadImage, uploadBlogImage,
-  type ArticleMeta,
+  batchCommit, prepareBlogImage, buildMarkdownFile,
+  type ArticleMeta, type BatchFile,
 } from './github';
 import { contentTemplates, categories, slugify } from './templates';
 import {
@@ -497,19 +498,36 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
           <button onClick={async () => {
             if (!title.trim() || !desc.trim()) { alert('Completa titulo y descripcion'); return; }
             setPub(true);
-            let finalImg = img.trim();
-            if (imgFile) {
-              try {
-                finalImg = await uploadBlogImage(imgFile, slugify(title));
-              } catch (e: any) { alert('Error subiendo imagen: ' + e.message); setPub(false); return; }
+            try {
+              let finalImg = img.trim();
+              const batchFiles: BatchFile[] = [];
+
+              // Si hay imagen nueva, prepararla sin commitear
+              if (imgFile) {
+                const prepared = await prepareBlogImage(imgFile, slugify(title));
+                finalImg = prepared.publicUrl;
+                batchFiles.push({ path: prepared.path, content: prepared.base64, encoding: 'base64' });
+              }
+
+              // Preparar el archivo markdown
+              const frontmatter = { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: finalImg, category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) };
+              const mdContent = buildMarkdownFile(frontmatter, body);
+              const filename = article?.filename || `${slugify(title)}.md`;
+              batchFiles.push({ path: `src/content/blog/${filename}`, content: mdContent, encoding: 'utf-8' });
+
+              // Un solo commit con todo
+              await batchCommit(
+                `blog: ${frontmatter.title}`,
+                batchFiles
+              );
+
+              alert('Publicado correctamente');
+              setPub(false);
+              if (!article) setPublished(true);
+            } catch (e: any) {
+              alert('Error publicando: ' + e.message);
+              setPub(false);
             }
-            const ok = await onPublish(
-              article?.filename || `${slugify(title)}.md`,
-              { title: title.trim(), description: desc.trim(), date, author: 'Metalurgica Boto Mariani', image: finalImg, category: cat, tags: tags.split(',').map(t => t.trim()).filter(Boolean) },
-              body, article?.sha
-            );
-            setPub(false);
-            if (ok && !article) setPublished(true);
           }} disabled={pub} style={btnAccent}>{pub ? 'Publicando...' : article ? 'Actualizar' : 'Publicar'}</button>
         </div>
       </div>

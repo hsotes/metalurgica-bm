@@ -521,6 +521,7 @@ function EditorPanel({ article, initialData, onBack, onPublish }: {
                 batchFiles
               );
 
+              clearDraft();
               alert('Publicado correctamente');
               setPub(false);
               if (!article) setPublished(true);

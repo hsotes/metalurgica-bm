@@ -24,6 +24,10 @@ Porque de eso se trata una puerta cortafuego: **no evita incendios. Compra tiemp
 
 ## Qué es realmente una puerta cortafuego
 
+
+![puertas-metalicas_12](/blog/puertas-cortafuego-lo-que-nadie-revisa-hasta-que-es-tarde-1774512524717.jpg)
+
+
 Una puerta cortafuego no es una puerta "más gruesa" o "de mejor calidad". Es un **sistema de protección pasiva contra incendios** — un conjunto de componentes diseñados para funcionar como barrera durante un tiempo determinado, impidiendo que el fuego y el humo pasen de un sector a otro.
 
 La palabra clave es *pasiva*. No necesita electricidad, no necesita activación, no necesita que nadie la opere. Funciona por su propia construcción. Cuando el fuego llega, la puerta simplemente resiste. O no.
@@ -91,6 +95,10 @@ El sistema norteamericano bajo **NFPA 80** clasifica las puertas por tiempo (20 
 ---
 
 ## Cuándo son obligatorias en Argentina
+
+
+![2-AGR-Puertas-puertas-cortafuego](/blog/puertas-cortafuego-lo-que-nadie-revisa-hasta-que-es-tarde-1774512562220.jpg)
+
 
 La normativa argentina de protección contra incendios se estructura en varios niveles. Los requisitos para puertas cortafuego aparecen en todos:
 
@@ -186,6 +194,10 @@ Después de Grenfell, el Reino Unido endureció drásticamente sus exigencias: i
 
 ## Cómo se fabrica una puerta cortafuego
 
+
+![descarga](/blog/puertas-cortafuego-lo-que-nadie-revisa-hasta-que-es-tarde-1774512646792.jpg)
+
+
 El proceso de fabricación de una puerta cortafuego certificada involucra:
 
 | Etapa | Proceso | Detalle técnico |
@@ -223,6 +235,10 @@ Si usted es arquitecto, director de obra, responsable de seguridad o administrad
 
 ## La puerta más importante del edificio
 
+
+![Puertas-cortafuegos](/blog/puertas-cortafuego-lo-que-nadie-revisa-hasta-que-es-tarde-1774512678845.jpg)
+
+
 Hay una paradoja en las puertas cortafuego: nadie las valora hasta que las necesita, y cuando las necesita ya es demasiado tarde para instalarlas.
 
 Un desarrollador inmobiliario puede invertir millones en acabados de mármol, ascensores inteligentes y domótica, y especificar la puerta cortafuego más económica disponible — o directamente omitirla donde el código es ambiguo. Un administrador de consorcio puede repintar la fachada cada tres años pero nunca verificar si los cierrapuertas del edificio funcionan.
@@ -233,11 +249,10 @@ No murieron por falta de tecnología. Murieron porque alguien, en algún momento
 
 ---
 
-*En MBM fabricamos puertas de chapa con inyección de poliuretano y hemos provisto más de 140 unidades para proyectos hospitalarios. Nuestro equipo de ingeniería puede asistir en la especificación técnica según los requerimientos normativos de cada proyecto.*
+*En MBM fabricamos puertas de chapa con inyección de poliuretano y hemos provisto más de 1400 unidades para proyectos hospitalarios e inmobiliarios. Nuestro equipo de ingeniería puede asistir en la especificación técnica según los requerimientos normativos de cada proyecto.*
 
 ---
 
 *Artículos relacionados:*
 - *Puertas de Chapa Inyectada vs No Inyectada: Lo que Cambia con el Poliuretano*
 - *¿Tu Casa Puede Incendiarse? Fuego y Construcción Modular*
-

@@ -60,13 +60,12 @@ Antes de pensar en un entrepiso, hay que medir el edificio. Estas son las dimens
 
 Para que un entrepiso sea funcional, se necesita una altura libre existente de al menos **5 metros**:
 
-```
-2,40 m   ← Altura libre debajo del entrepiso (mínimo habitable)
-0,35–0,50 m  ← Espesor de la estructura (vigas + piso)
-2,20 m   ← Altura libre arriba del entrepiso (mínimo habitable)
-─────────
-≈ 5,00 m  ← Altura mínima del edificio
-```
+| Componente | Medida |
+|---|---|
+| Altura libre debajo del entrepiso (mínimo habitable) | 2,40 m |
+| Espesor de la estructura (vigas + piso) | 0,35–0,50 m |
+| Altura libre arriba del entrepiso (mínimo habitable) | 2,20 m |
+| **Altura mínima del edificio** | **≈ 5,00 m** |
 
 Con 6 metros de altura libre, el confort mejora notablemente. Con 7 o más, se pueden hacer entrepisos industriales con paso de autoelevador debajo.
 

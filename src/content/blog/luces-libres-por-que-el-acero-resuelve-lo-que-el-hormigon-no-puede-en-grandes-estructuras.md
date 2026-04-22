@@ -5,7 +5,7 @@ date: "2026-04-21"
 author: "Metalurgica Boto Mariani"
 image: "/blog/luces-libres-por-que-el-acero-resuelve-lo-que-el-hormigon-no-puede-en-grandes-estructuras-1776801860682.jpg"
 category: "Estructuras"
-tags: ["["luces libres"", ""grandes luces"", ""acero vs hormigón"", ""naves industriales"", ""cubiertas metálicas"", ""estadios de acero"", ""hangares"", ""centros logísticos"", ""CIRSOC 301"", ""reticulados de acero"", ""cerchas"", ""estructuras de gran luz"]"]
+tags: ["luces libres", "grandes luces", "acero vs hormigon", "naves industriales", "cubiertas metalicas", "estadios de acero", "hangares", "centros logisticos", "CIRSOC 301", "reticulados de acero", "cerchas", "estructuras de gran luz"]
 ---
 
 # Luces Libres: Por Qué el Acero Resuelve lo que el Hormigón No Puede en Grandes Estructuras

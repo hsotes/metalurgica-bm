@@ -1,15 +1,30 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceSchema from '../../components/seo/ServiceSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
 import { siteConfig, tbexProducts } from '../../config/site';
 
 const { company, contact } = siteConfig;
 const { lines, certifications, caseStudies } = tbexProducts;
+
+const tbexBreadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Línea TBex', url: '/tbex/' },
+];
 ---
 
 <BaseLayout
   title="Linea TBex - Gabinetes y Shelters Certificados INTI | IP66"
   description="Gabinetes eléctricos y shelters con certificación INTI IP66 para industria petrolera, minería y telecomunicaciones. Proveedor de Pan American Energy desde 2010. Fabricación en Argentina."
 >
+  <ServiceSchema
+    serviceName="Línea TBex — Gabinetes eléctricos y shelters IP66"
+    description="Fabricación de gabinetes eléctricos y shelters de telecomunicaciones certificados INTI con grado de protección IP66 para industria petrolera, minería, energía y telecomunicaciones."
+    serviceType="Fabricación de gabinetes y shelters industriales"
+    category="Gabinetes eléctricos y shelters"
+    image="/images/tbox/shelter-01.jpg"
+  />
+  <BreadcrumbSchema items={tbexBreadcrumbs} />
   <!-- Hero Section with Real Image Background -->
   <section class="relative min-h-[70vh] flex items-center">
     <div class="absolute inset-0">

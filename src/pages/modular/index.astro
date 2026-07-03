@@ -1,8 +1,52 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceSchema from '../../components/seo/ServiceSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
+import FAQSchema from '../../components/seo/FAQSchema.astro';
 import { siteConfig } from '../../config/site';
 
 const { contact } = siteConfig;
+
+const modularBreadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Construcción Modular', url: '/modular/' },
+];
+
+// FAQ técnica de construcción modular — inyecta FAQPage schema y se renderiza como sección visible
+const modularFAQ = [
+  {
+    question: '¿Qué es exactamente la construcción modular?',
+    answer: 'Es un sistema constructivo industrializado en el que las unidades se fabrican en taller — con envolvente metálica, aislación termoacústica, instalaciones eléctricas y sanitarias — y luego se transportan al sitio para su instalación. La estructura metálica externa se realiza habitualmente en acero galvanizado con paneles sándwich de poliuretano o lana de roca, y el interior se termina con pisos, cielorrasos y revestimientos según la especificación de uso. El resultado es una unidad terminada, transportable y reubicable.'
+  },
+  {
+    question: '¿Cuánto tarda la fabricación y entrega de una oficina modular u obrador?',
+    answer: 'El plazo de fabricación estándar para oficinas Termopanel y obradores va de 30 a 60 días desde la firma de contrato y anticipo, según la complejidad de la unidad y el estado de la línea de producción. Proyectos con series completas de campamento u obradores múltiples se planifican por lotes y su cronograma se define durante la ingeniería previa.'
+  },
+  {
+    question: '¿Qué diferencia hay entre oficina Termopanel, container marítimo y vivienda HighPanel?',
+    answer: 'La oficina Termopanel se construye con estructura metálica y paneles sándwich de poliuretano o lana de roca; es la solución más versátil para oficinas de obra, garitas y salas técnicas. El container marítimo aprovecha la estructura de containers de 10, 20 o 40 pies reacondicionados; su ventaja es la robustez y la facilidad de transporte y estibaje. La vivienda HighPanel usa panel de mayor espesor con aislación térmica reforzada, terminaciones residenciales y grado de habitabilidad prolongada.'
+  },
+  {
+    question: '¿Qué grado de aislación térmica y acústica tienen los módulos?',
+    answer: 'Los paneles sándwich estándar de poliuretano expandido (PUR) tienen una conductividad térmica del orden de 0,022–0,028 W/m·K, y los de lana de roca de 0,037–0,043 W/m·K. Con espesores de 40 a 80 mm se obtienen resistencias térmicas y atenuaciones acústicas aptas para operación continua en climas de Argentina y Latinoamérica. La especificación exacta se ajusta al uso y la ubicación del módulo.'
+  },
+  {
+    question: '¿Los módulos pueden trasladarse o reubicarse después de instalados?',
+    answer: 'Sí. Todas las unidades — oficinas Termopanel, containers y viviendas HighPanel — están diseñadas para izaje con grúa y transporte por camión. En reubicaciones planificadas, se recomienda una inspección estructural previa, embalaje de servicios interiores y ficha de traslado con puntos de eslingaje identificados. El modo modular permite ampliar, achicar o mover una instalación sin obra tradicional.'
+  },
+  {
+    question: '¿Qué normativa aplican los módulos para uso en obra, minería o industria?',
+    answer: 'Las unidades se fabrican bajo las prácticas de la industria metalúrgica argentina, con acero estructural galvanizado en caliente según IRAM 252 o ASTM A123, soldaduras según AWS D1.1 o IRAM-IAS U500-188 y componentes eléctricos conforme al Reglamento AEA 90364. Para aplicaciones específicas en minería, oil & gas o telecomunicaciones se ajusta a las especificaciones de cada operador y a la normativa ETSI, IEC o NEBS que corresponda.'
+  },
+  {
+    question: '¿Se puede personalizar el interior o la distribución de un módulo?',
+    answer: 'Sí. Cada línea admite personalización de distribución interna, aberturas, terminaciones y equipamiento — desde oficinas con divisiones de ambiente hasta comedores con equipamiento de cocina, sanitarios con o sin tratamiento de efluentes, vestuarios con lockers, o salas técnicas con climatización, UPS y racks. La ingeniería previa define los ajustes y el impacto sobre plazo y costo.'
+  },
+  {
+    question: '¿Qué mantenimiento requiere una construcción modular a lo largo de su vida útil?',
+    answer: 'El mantenimiento preventivo básico incluye revisión anual de la envolvente exterior y del galvanizado, verificación de burletes y sellados perimetrales, control de instalaciones eléctricas y sanitarias, y actualización de tratamientos superficiales cada 8 a 12 años según el ambiente de operación. Bajo estas prácticas, la vida útil documentada del sistema modular metálico argentino supera con frecuencia los 20 años.'
+  }
+];
 
 // ═══════════════════════════════════════════════════════════════════════════
 // CATÁLOGO B2B - OFICINAS Y OBRADORES PARA EMPRESAS
@@ -252,6 +296,16 @@ const clientes = [
   title="Construcción Modular | Oficinas, Obradores y Viviendas | MBM Metalurgica"
   description="Soluciones modulares completas: Oficinas Termopanel desde $9.000 USD, Containers desde $4.000 USD, Viviendas HighPanel desde $19.200 USD. Más de 30 años de experiencia. Entrega en 60 días."
 >
+  <ServiceSchema
+    serviceName="Construcción modular — Oficinas, obradores, campamentos y viviendas"
+    description="Fabricación de oficinas modulares Termopanel, containers marítimos reacondicionados, viviendas HighPanel, obradores, sanitarios, comedores, pañoles, garitas y shelters técnicos con más de 30 años de experiencia en Argentina y Latinoamérica."
+    serviceType="Fabricación de construcción modular metálica"
+    category="Construcción modular"
+    image="/images/modular/1.png"
+  />
+  <BreadcrumbSchema items={modularBreadcrumbs} />
+  <FAQSchema items={modularFAQ} />
+
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <!-- HERO PRINCIPAL -->
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
@@ -1270,6 +1324,54 @@ const clientes = [
               </div>
             </div>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- FAQ TÉCNICA — Preguntas frecuentes sobre construcción modular -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section class="section bg-white">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <span class="text-primary text-sm font-bold uppercase tracking-wider">Preguntas Frecuentes</span>
+          <h2 class="section-title mt-2">Construcción modular: dudas técnicas y comerciales</h2>
+          <p class="text-gray-600 mt-4">
+            Las respuestas breves a las preguntas que recibimos con mayor frecuencia de ingenieros, arquitectos, compradores técnicos y responsables de obra.
+          </p>
+        </div>
+
+        <div class="space-y-4">
+          {modularFAQ.map((item) => (
+            <details class="group bg-gray-50 rounded-lg border border-gray-200 overflow-hidden">
+              <summary class="cursor-pointer px-6 py-5 flex items-start gap-4 hover:bg-gray-100 transition-colors">
+                <svg class="w-5 h-5 text-primary shrink-0 mt-1 group-open:rotate-45 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                <h3 class="font-bold text-gray-900 text-lg">{item.question}</h3>
+              </summary>
+              <div class="px-6 pb-6 pl-16">
+                <p class="text-gray-700 leading-relaxed">{item.answer}</p>
+              </div>
+            </details>
+          ))}
+        </div>
+
+        <div class="mt-12 text-center">
+          <p class="text-gray-600 mb-4">¿Tenés una pregunta técnica que no está en esta lista?</p>
+          <a
+            href={`https://wa.me/${contact.phoneWhatsApp}?text=${encodeURIComponent('Hola! Tengo una consulta técnica sobre construcción modular.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn btn-primary inline-flex items-center gap-2"
+          >
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+            </svg>
+            Consultanos directamente
+          </a>
         </div>
       </div>
     </div>

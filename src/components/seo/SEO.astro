@@ -55,14 +55,16 @@ const canonicalUrl = canonical || Astro.url.href;
 <meta name="geo.region" content="AR-B" />
 <meta name="geo.placename" content="Malvinas Argentinas, Buenos Aires" />
 
-<!-- Schema.org JSON-LD -->
+<!-- Schema.org JSON-LD: LocalBusiness -->
 <script type="application/ld+json" set:html={JSON.stringify({
   "@context": "https://schema.org",
-  "@type": "Organization",
+  "@type": "LocalBusiness",
+  "@id": `${siteUrl}/#organization`,
   "name": "Metalurgica Boto Mariani SRL",
   "alternateName": "MBM",
   "url": siteUrl,
   "logo": `${siteUrl}/logos/logo.png`,
+  "image": `${siteUrl}/logos/logo.png`,
   "description": "Fabricación y construcción de infraestructura metalmecánica. Estructuras metálicas, gabinetes eléctricos, shelters, construcción modular y arquitectura metálica.",
   "address": {
     "@type": "PostalAddress",
@@ -72,11 +74,34 @@ const canonicalUrl = canonical || Astro.url.href;
     "postalCode": "1851",
     "addressCountry": "AR"
   },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": -34.821567449502176,
+    "longitude": -58.437931731264065
+  },
   "contactPoint": {
     "@type": "ContactPoint",
     "telephone": "+54-11-4281-5797",
     "contactType": "sales",
-    "availableLanguage": "Spanish"
+    "availableLanguage": "Spanish",
+    "areaServed": "AR"
   },
-  "sameAs": []
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "08:00",
+      "closes": "12:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "13:00",
+      "closes": "17:00"
+    }
+  ],
+  "sameAs": [
+    "https://www.linkedin.com/company/112012041/",
+    "https://www.instagram.com/mbm_metalurgica/"
+  ]
 })} />

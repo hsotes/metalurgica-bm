@@ -1,8 +1,15 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceSchema from '../../components/seo/ServiceSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
 import { siteConfig } from '../../config/site';
 
 const { contact } = siteConfig;
+
+const arqBreadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Arquitectura Metálica', url: '/arquitectura-metalica/' },
+];
 
 // Escaleras - variedad de estilos
 const escaleras = [
@@ -65,6 +72,15 @@ const mobiliario = [
   title="Arquitectura Metálica - Escaleras, Barandas y Cerramientos"
   description="Fabricación de escaleras metálicas, barandas, cerramientos de vidrio, pérgolas y trabajos en acero inoxidable. Soluciones para arquitectos y constructoras en Buenos Aires."
 >
+  <ServiceSchema
+    serviceName="Arquitectura metálica — Escaleras, barandas y cerramientos"
+    description="Fabricación de escaleras metálicas, barandas, cerramientos de vidrio, pérgolas, puertas y trabajos en acero inoxidable para proyectos residenciales, comerciales y constructoras."
+    serviceType="Fabricación de arquitectura metálica"
+    category="Arquitectura metálica"
+    image="/images/arquitectura/escalera-01.jpg"
+  />
+  <BreadcrumbSchema items={arqBreadcrumbs} />
+
   <!-- Hero -->
   <section class="relative min-h-[70vh] flex items-center">
     <div class="absolute inset-0">

@@ -1,5 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleSchema from '../../components/seo/ArticleSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
 import { getCollection, render } from 'astro:content';
 
 export async function getStaticPaths() {
@@ -28,9 +30,16 @@ const formatDate = (date: Date) => {
   });
 };
 
-const shareUrl = `https://www.metalurgicabotomariani.com.ar/blog/${post.id}/`;
+const postUrl = `/blog/${post.id}/`;
+const shareUrl = `https://www.metalurgicabotomariani.com.ar${postUrl}`;
 const shareText = encodeURIComponent(post.data.title);
 const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`;
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Blog', url: '/blog/' },
+  { name: post.data.title, url: postUrl },
+];
 ---
 
 <BaseLayout
@@ -39,6 +48,17 @@ const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encod
   image={post.data.image}
   type="article"
 >
+  <ArticleSchema
+    headline={post.data.title}
+    description={post.data.description}
+    image={post.data.image}
+    datePublished={post.data.date}
+    author={post.data.author}
+    url={postUrl}
+    keywords={post.data.tags}
+    category={post.data.category}
+  />
+  <BreadcrumbSchema items={breadcrumbs} />
   <!-- Hero del artículo -->
   <section class="relative">
     <div class="aspect-[21/9] max-h-[400px] overflow-hidden">

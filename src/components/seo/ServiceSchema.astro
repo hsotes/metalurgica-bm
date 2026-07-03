@@ -1,0 +1,48 @@
+---
+export interface Props {
+  serviceName: string;
+  description: string;
+  serviceType?: string;
+  areaServed?: string;
+  category?: string;
+  image?: string;
+}
+
+const {
+  serviceName,
+  description,
+  serviceType,
+  areaServed = 'Argentina',
+  category,
+  image,
+} = Astro.props;
+
+const siteUrl = 'https://www.metalurgicabotomariani.com.ar';
+const imageUrl = image
+  ? (image.startsWith('http') ? image : `${siteUrl}${image}`)
+  : `${siteUrl}/logos/logo.png`;
+
+const schema: Record<string, any> = {
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "name": serviceName,
+  "description": description,
+  "provider": {
+    "@type": "LocalBusiness",
+    "@id": `${siteUrl}/#organization`,
+    "name": "Metalurgica Boto Mariani SRL",
+    "url": siteUrl,
+    "logo": `${siteUrl}/logos/logo.png`
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": areaServed
+  },
+  "image": imageUrl
+};
+
+if (serviceType) schema["serviceType"] = serviceType;
+if (category) schema["category"] = category;
+---
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

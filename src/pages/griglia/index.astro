@@ -1,9 +1,16 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceSchema from '../../components/seo/ServiceSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
 import { siteConfig, grigliaProducts } from '../../config/site';
 
 const { contact } = siteConfig;
 const { models, accessories } = grigliaProducts;
+
+const grigliaBreadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Línea Griglia', url: '/griglia/' },
+];
 
 // Galerías de proyectos realizados
 const parrillasHierro = [
@@ -47,6 +54,15 @@ const procesosYDetalles = [
   title="Linea Griglia - Parrillas y Cierres a Medida"
   description="Parrillas Griglia a medida en 5 tamaños (800mm a 1600mm), puertas guillotina con contrapeso y cierres de parrilla en hierro o acero inoxidable. Fabricación artesanal en Buenos Aires."
 >
+  <ServiceSchema
+    serviceName="Línea Griglia — Parrillas y cierres a medida"
+    description="Fabricación artesanal de parrillas Griglia, cierres, cajones, quinchos y accesorios en hierro y acero inoxidable, con cinco tamaños estándar de 800 a 1600 mm y sistema de guillotina con contrapeso."
+    serviceType="Fabricación de parrillas y accesorios de asador"
+    category="Parrillas y quinchos"
+    image="/images/griglia/cierre-inox-01.jpg"
+  />
+  <BreadcrumbSchema items={grigliaBreadcrumbs} />
+
   <!-- Hero with Real Image -->
   <section class="relative min-h-[60vh] flex items-center">
     <div class="absolute inset-0">

@@ -191,6 +191,16 @@
   .revform button:hover{background:var(--navy)}
   .revstatus{flex:1 1 100%;font-size:11px;color:var(--ink-soft)}
   .revstatus.err{color:var(--red)}
+  .formbar{display:flex;justify-content:flex-end;gap:8px;margin:0 0 8px}
+  .formbar button{appearance:none;border:1px solid var(--line);background:var(--field);color:var(--navy);
+    font-family:var(--cond);text-transform:uppercase;letter-spacing:.05em;font-weight:700;font-size:11.5px;
+    padding:6px 13px;border-radius:4px;cursor:pointer}
+  .formbar button:hover{background:var(--navy);color:#fff;border-color:var(--navy)}
+  @media print{
+    body.printing-one .area{display:block!important}
+    body.printing-one #area-home{display:none!important}
+    body.printing-one .hoja:not(.print-target){display:none!important}
+  }
 </style>
 
 <div class="bar no-print">
@@ -214,7 +224,7 @@
     <p class="lede">Catálogo de documentos operativos de <b>BM Metalúrgica</b>, en versión imprimible para <b>completar a mano</b> durante la transición al ERP. Cada formulario lleva su código de plantilla <b>FO-ÁREA-NN</b> y, al llenarse, un número correlativo <b>MBM·TIPO·AÑO·NNNN</b>. Los campos replican los que el sistema va a capturar: el papel de hoy es la especificación de cada pantalla del mañana.</p>
     <div class="callout">
       <b>Comentarios en vivo:</b> al pie de cada formulario podés dejar comentarios (qué campo falta o sobra). Se guardan en el servidor y quedan <b>compartidos</b> entre todos y visibles al instante. <b>Trazabilidad de gastos:</b> los formularios de costos (Órdenes, Compras, Almacenes, Caja Chica, Combustible, Herramientas) piden siempre el <b>proyecto imputado</b>, para poder rastrear cada peso hasta su obra. Las áreas con <span class="prov-tag">a validar</span> aún no tienen módulo en el ERP: sus campos vienen del organigrama y la práctica.</div>
-    <div class="cards"><div class="card" onclick="showArea('area-co')"><h4>Comercial </h4><ul><li><span class="fo">FO-CO-01</span><a onclick="goForm('area-co','fo-co-01')">Alta de Cliente</a></li><li><span class="fo">FO-CO-02</span><a onclick="goForm('area-co','fo-co-02')">Cotización</a></li><li><span class="fo">FO-CO-03</span><a onclick="goForm('area-co','fo-co-03')">Aceptación de Cotización</a></li><li><span class="fo">FO-CO-04</span><a onclick="goForm('area-co','fo-co-04')">Adenda</a></li></ul></div><div class="card" onclick="showArea('area-ot')"><h4>Oficina Técnica </h4><ul><li><span class="fo">FO-OT-01</span><a onclick="goForm('area-ot','fo-ot-01')">Brief / Pedido del Cliente</a></li><li><span class="fo">FO-OT-02</span><a onclick="goForm('area-ot','fo-ot-02')">Carátula de Presupuesto</a></li><li><span class="fo">FO-OT-03</span><a onclick="goForm('area-ot','fo-ot-03')">Informe de Visita Técnica</a></li><li><span class="fo">FO-OT-04</span><a onclick="goForm('area-ot','fo-ot-04')">Entrega de Documentación</a></li></ul></div><div class="card" onclick="showArea('area-py')"><h4>Proyecto </h4><ul><li><span class="fo">FO-PY-01</span><a onclick="goForm('area-py','fo-py-01')">Apertura de Proyecto (DAP)</a></li><li><span class="fo">FO-PY-02</span><a onclick="goForm('area-py','fo-py-02')">Orden de Trabajo</a></li><li><span class="fo">FO-PY-03</span><a onclick="goForm('area-py','fo-py-03')">Plan de Cobros</a></li><li><span class="fo">FO-PY-04</span><a onclick="goForm('area-py','fo-py-04')">Solicitud de Cobro</a></li></ul></div><div class="card" onclick="showArea('area-cm')"><h4>Compras </h4><ul><li><span class="fo">FO-CM-01</span><a onclick="goForm('area-cm','fo-cm-01')">Alta de Proveedor</a></li><li><span class="fo">FO-CM-02</span><a onclick="goForm('area-cm','fo-cm-02')">Solicitud de Cotización</a></li><li><span class="fo">FO-CM-03</span><a onclick="goForm('area-cm','fo-cm-03')">Cuadro Comparativo</a></li><li><span class="fo">FO-CM-04</span><a onclick="goForm('area-cm','fo-cm-04')">Orden de Compra</a></li><li><span class="fo">FO-CM-05</span><a onclick="goForm('area-cm','fo-cm-05')">Pago a Proveedor</a></li></ul></div><div class="card" onclick="showArea('area-al')"><h4>Almacenes </h4><ul><li><span class="fo">FO-AL-01</span><a onclick="goForm('area-al','fo-al-01')">Recibo de Material</a></li><li><span class="fo">FO-AL-02</span><a onclick="goForm('area-al','fo-al-02')">Vale de Entrega</a></li><li><span class="fo">FO-AL-03</span><a onclick="goForm('area-al','fo-al-03')">Devolución al Central</a></li><li><span class="fo">FO-AL-04</span><a onclick="goForm('area-al','fo-al-04')">Inventario / Toma Física</a></li><li><span class="fo">FO-AL-05</span><a onclick="goForm('area-al','fo-al-05')">Entrada/Salida de Herramientas</a></li></ul></div><div class="card" onclick="showArea('area-pd')"><h4>Fábrica / Producción </h4><ul><li><span class="fo">FO-PD-01</span><a onclick="goForm('area-pd','fo-pd-01')">Orden de Fabricación</a></li><li><span class="fo">FO-PD-02</span><a onclick="goForm('area-pd','fo-pd-02')">Parte Diario de Fábrica</a></li><li><span class="fo">FO-PD-03</span><a onclick="goForm('area-pd','fo-pd-03')">Inspección de Calidad</a></li><li><span class="fo">FO-PD-04</span><a onclick="goForm('area-pd','fo-pd-04')">No Conformidad</a></li><li><span class="fo">FO-PD-05</span><a onclick="goForm('area-pd','fo-pd-05')">Remito de Despacho</a></li></ul></div><div class="card prov" onclick="showArea('area-ob')"><h4>Obra / Montaje <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-OB-01</span><a onclick="goForm('area-ob','fo-ob-01')">Orden de Trabajo de Obra</a></li><li><span class="fo">FO-OB-02</span><a onclick="goForm('area-ob','fo-ob-02')">Parte Diario de Obra</a></li><li><span class="fo">FO-OB-03</span><a onclick="goForm('area-ob','fo-ob-03')">Certificación de Avance</a></li><li><span class="fo">FO-OB-04</span><a onclick="goForm('area-ob','fo-ob-04')">Acta de Recepción</a></li><li><span class="fo">FO-OB-05</span><a onclick="goForm('area-ob','fo-ob-05')">Punch List</a></li></ul></div><div class="card prov" onclick="showArea('area-su')"><h4>Subcontratos <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-SU-01</span><a onclick="goForm('area-su','fo-su-01')">Alta de Subcontratista</a></li><li><span class="fo">FO-SU-02</span><a onclick="goForm('area-su','fo-su-02')">Contrato de Subcontrato</a></li><li><span class="fo">FO-SU-03</span><a onclick="goForm('area-su','fo-su-03')">Certificación de Subcontratista</a></li></ul></div><div class="card prov" onclick="showArea('area-rh')"><h4>RRHH <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-RH-01</span><a onclick="goForm('area-rh','fo-rh-01')">Legajo / Alta de Colaborador</a></li><li><span class="fo">FO-RH-02</span><a onclick="goForm('area-rh','fo-rh-02')">Vacaciones / Licencia</a></li><li><span class="fo">FO-RH-03</span><a onclick="goForm('area-rh','fo-rh-03')">Observación / Sanción</a></li></ul></div><div class="card prov" onclick="showArea('area-fi')"><h4>Financiero <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-FI-01</span><a onclick="goForm('area-fi','fo-fi-01')">Informe Final de Proyecto</a></li><li><span class="fo">FO-FI-02</span><a onclick="goForm('area-fi','fo-fi-02')">Caja Chica</a></li></ul></div><div class="card prov" onclick="showArea('area-lo')"><h4>Logística <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-LO-01</span><a onclick="goForm('area-lo','fo-lo-01')">Orden de Transporte</a></li><li><span class="fo">FO-LO-02</span><a onclick="goForm('area-lo','fo-lo-02')">Combustible y Mantenimiento</a></li></ul></div></div>
+    <div class="cards"><div class="card" onclick="showArea('area-co')"><h4>Comercial </h4><ul><li><span class="fo">FO-CO-01</span><a onclick="goForm('area-co','fo-co-01')">Alta de Cliente</a></li><li><span class="fo">FO-CO-02</span><a onclick="goForm('area-co','fo-co-02')">Cotización</a></li><li><span class="fo">FO-CO-03</span><a onclick="goForm('area-co','fo-co-03')">Aceptación de Cotización</a></li><li><span class="fo">FO-CO-04</span><a onclick="goForm('area-co','fo-co-04')">Adenda</a></li></ul></div><div class="card" onclick="showArea('area-ot')"><h4>Oficina Técnica </h4><ul><li><span class="fo">FO-OT-01</span><a onclick="goForm('area-ot','fo-ot-01')">Brief / Pedido del Cliente</a></li><li><span class="fo">FO-OT-02</span><a onclick="goForm('area-ot','fo-ot-02')">Carátula de Presupuesto</a></li><li><span class="fo">FO-OT-03</span><a onclick="goForm('area-ot','fo-ot-03')">Informe de Visita Técnica</a></li><li><span class="fo">FO-OT-04</span><a onclick="goForm('area-ot','fo-ot-04')">Entrega de Documentación</a></li></ul></div><div class="card" onclick="showArea('area-py')"><h4>Proyecto </h4><ul><li><span class="fo">FO-PY-01</span><a onclick="goForm('area-py','fo-py-01')">Apertura de Proyecto (DAP)</a></li><li><span class="fo">FO-PY-02</span><a onclick="goForm('area-py','fo-py-02')">Orden de Trabajo</a></li><li><span class="fo">FO-PY-03</span><a onclick="goForm('area-py','fo-py-03')">Plan de Cobros</a></li><li><span class="fo">FO-PY-04</span><a onclick="goForm('area-py','fo-py-04')">Solicitud de Cobro</a></li></ul></div><div class="card" onclick="showArea('area-cm')"><h4>Compras </h4><ul><li><span class="fo">FO-CM-01</span><a onclick="goForm('area-cm','fo-cm-01')">Alta de Proveedor</a></li><li><span class="fo">FO-CM-02</span><a onclick="goForm('area-cm','fo-cm-02')">Solicitud de Cotización</a></li><li><span class="fo">FO-CM-03</span><a onclick="goForm('area-cm','fo-cm-03')">Cuadro Comparativo</a></li><li><span class="fo">FO-CM-04</span><a onclick="goForm('area-cm','fo-cm-04')">Orden de Compra</a></li><li><span class="fo">FO-CM-05</span><a onclick="goForm('area-cm','fo-cm-05')">Pago a Proveedor</a></li></ul></div><div class="card" onclick="showArea('area-al')"><h4>Almacenes </h4><ul><li><span class="fo">FO-AL-01</span><a onclick="goForm('area-al','fo-al-01')">Recibo de Material</a></li><li><span class="fo">FO-AL-02</span><a onclick="goForm('area-al','fo-al-02')">Vale de Entrega</a></li><li><span class="fo">FO-AL-03</span><a onclick="goForm('area-al','fo-al-03')">Devolución al Central</a></li><li><span class="fo">FO-AL-04</span><a onclick="goForm('area-al','fo-al-04')">Inventario / Toma Física</a></li><li><span class="fo">FO-AL-05</span><a onclick="goForm('area-al','fo-al-05')">Entrada/Salida de Herramientas</a></li></ul></div><div class="card" onclick="showArea('area-pd')"><h4>Fábrica / Producción </h4><ul><li><span class="fo">FO-PD-01</span><a onclick="goForm('area-pd','fo-pd-01')">Orden de Fabricación</a></li><li><span class="fo">FO-PD-02</span><a onclick="goForm('area-pd','fo-pd-02')">Parte Diario del Trabajador</a></li><li><span class="fo">FO-PD-03</span><a onclick="goForm('area-pd','fo-pd-03')">Inspección de Calidad</a></li><li><span class="fo">FO-PD-04</span><a onclick="goForm('area-pd','fo-pd-04')">No Conformidad</a></li><li><span class="fo">FO-PD-05</span><a onclick="goForm('area-pd','fo-pd-05')">Remito de Despacho</a></li></ul></div><div class="card prov" onclick="showArea('area-ob')"><h4>Obra / Montaje <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-OB-01</span><a onclick="goForm('area-ob','fo-ob-01')">Orden de Trabajo de Obra</a></li><li><span class="fo">FO-OB-02</span><a onclick="goForm('area-ob','fo-ob-02')">Parte Diario de Obra</a></li><li><span class="fo">FO-OB-03</span><a onclick="goForm('area-ob','fo-ob-03')">Certificación de Avance</a></li><li><span class="fo">FO-OB-04</span><a onclick="goForm('area-ob','fo-ob-04')">Acta de Recepción</a></li><li><span class="fo">FO-OB-05</span><a onclick="goForm('area-ob','fo-ob-05')">Punch List</a></li></ul></div><div class="card prov" onclick="showArea('area-su')"><h4>Subcontratos <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-SU-01</span><a onclick="goForm('area-su','fo-su-01')">Alta de Subcontratista</a></li><li><span class="fo">FO-SU-02</span><a onclick="goForm('area-su','fo-su-02')">Contrato de Subcontrato</a></li><li><span class="fo">FO-SU-03</span><a onclick="goForm('area-su','fo-su-03')">Certificación de Subcontratista</a></li></ul></div><div class="card prov" onclick="showArea('area-rh')"><h4>RRHH <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-RH-01</span><a onclick="goForm('area-rh','fo-rh-01')">Legajo / Alta de Colaborador</a></li><li><span class="fo">FO-RH-02</span><a onclick="goForm('area-rh','fo-rh-02')">Vacaciones / Licencia</a></li><li><span class="fo">FO-RH-03</span><a onclick="goForm('area-rh','fo-rh-03')">Observación / Sanción</a></li></ul></div><div class="card prov" onclick="showArea('area-fi')"><h4>Financiero <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-FI-01</span><a onclick="goForm('area-fi','fo-fi-01')">Informe Final de Proyecto</a></li><li><span class="fo">FO-FI-02</span><a onclick="goForm('area-fi','fo-fi-02')">Caja Chica</a></li></ul></div><div class="card prov" onclick="showArea('area-lo')"><h4>Logística <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-LO-01</span><a onclick="goForm('area-lo','fo-lo-01')">Orden de Transporte</a></li><li><span class="fo">FO-LO-02</span><a onclick="goForm('area-lo','fo-lo-02')">Combustible y Mantenimiento</a></li></ul></div></div>
   </section>
 
   <div class="area" id="area-pd" data-area="Fábrica / Producción"><h2 class="areatitle">Fábrica / Producción</h2>
@@ -268,49 +278,40 @@
     <div class="pie"><span>BM Metalúrgica · FO-PD-01 · OF</span><span>Origen ERP: produccion_ordenes</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Diario de Fábrica">
+  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Diario del Trabajador">
     <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Control diario de taller</div>
-        <div class="datos">Se abre al inicio de la jornada y se cierra al finalizar.</div></div>
-      <div class="doc"><div class="tt">Parte Diario de Fábrica<small>Control de Fabricación</small></div>
+      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Parte diario POR TRABAJADOR</div>
+        <div class="datos">Una hoja por trabajador y por día — la llena su encargado. Base de la trazabilidad de horas por persona y por proyecto.</div></div>
+      <div class="doc"><div class="tt">Parte Diario del Trabajador<small>Control de Fabricación</small></div>
         <div class="foc">FO-PD-02</div>
         <div class="code"><span>MBM</span><span>IDF</span><span>2026</span><span>N.º ____</span></div></div>
     </div>
-    <h2 class="sec">Encabezado del día</h2>
+    <h2 class="sec">Trabajador y jornada</h2>
     <div class="grid g4">
+      <div class="cel"><span class="lb">Trabajador</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Rango (O / ½ / A)</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Estado</span><div class="opts"><span class="chk"><span class="box"></span> Abierto</span><span class="chk"><span class="box"></span> Cerrado</span></div></div>
-      <div class="cel"><span class="lb">Clima / Temp.°C / Hum.%</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Responsable del parte</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Encargado que reporta</span><div class="fill"></div></div>
+      <div class="cel l0"><span class="lb">Asistencia</span><div class="opts"><span class="chk"><span class="box"></span> Presente</span><span class="chk"><span class="box"></span> Ausente</span><span class="chk"><span class="box"></span> Licencia</span></div></div>
+      <div class="cel"><span class="lb">Hora entrada</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Hora salida</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Total horas del día</span><div class="fill"></div></div>
     </div>
-    <h2 class="sec">Asignación y avance por obrero <span class="mut">— O = Oficial · ½ = Medio oficial · A = Ayudante</span></h2>
-    <table><thead><tr>
-      <th style="width:19%">Obrero</th><th style="width:5%">Rango</th><th style="width:11%">Orden (OF-)</th><th>Tarea / subtarea</th>
-      <th style="width:7%">Hs asig.</th><th style="width:9%">Av. plan.</th><th style="width:9%">Av. real</th><th style="width:6%">Cal.1-5</th><th style="width:6%">¿Compl.?</th></tr></thead>
-      <tbody>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td class="c"></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-      </tbody>
-      <tfoot><tr><td colspan="9">Ausentes: _______________________________________________________________________________________</td></tr></tfoot></table>
-    <div class="grid g2" style="border-top:1px solid var(--line);margin-top:11px">
-      <div class="cel l0"><span class="lb">Solicitudes al pañol — material / consumible / EPP</span><div class="fill tall"></div><div class="hint">Descripción · cantidad · unidad · estado</div></div>
-      <div class="cel"><span class="lb">Herramientas — entregadas / devueltas</span><div class="fill tall"></div><div class="hint">Herramienta · obrero · ¿devuelta? (sí/no/dañada/perdida)</div></div>
-    </div>
-    <h2 class="sec">Horas extra</h2>
-    <table><thead><tr><th>Empleado</th><th style="width:12%">Horas</th><th>Motivo</th><th style="width:14%">¿Aprobado?</th></tr></thead>
-      <tbody><tr><td></td><td class="c"></td><td></td><td class="c"></td></tr><tr><td></td><td class="c"></td><td></td><td class="c"></td></tr></tbody></table>
-    <h2 class="sec">Incidencias del día</h2>
+    <h2 class="sec">Trabajo del día por proyecto <span class="mut">— clave: horas de ESTA persona en CADA proyecto</span></h2>
+    <table><thead><tr><th style="width:18%">Proyecto / OF</th><th>Tarea / subtarea realizada</th><th style="width:9%">Horas</th><th style="width:13%">Avance (% / dim)</th><th style="width:8%">Calidad 1-5</th><th style="width:9%">¿Completó?</th></tr></thead>
+      <tbody><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody>
+      <tfoot><tr><td colspan="2" style="text-align:right">Horas imputables a proyectos</td><td class="c"></td><td colspan="3"></td></tr></tfoot></table>
+    <h2 class="sec">Horas NO imputables a proyecto <span class="mut">— van a costo indirecto (incidencias), no se pierden</span></h2>
+    <table><thead><tr><th>Motivo (ocioso · tarea interna · retrabajo · mantenimiento · capacitación · limpieza)</th><th style="width:16%">Horas</th></tr></thead>
+      <tbody><tr><td></td><td class="c"></td></tr><tr><td></td><td class="c"></td></tr></tbody></table>
+    <div class="hint" style="margin-top:4px">Suma verificación: horas imputables + horas no imputables = total horas del día.</div>
+    <h2 class="sec">Novedades del trabajador</h2>
     <div class="grid"><div class="cel full l0"><div class="fill tall"></div></div></div>
     <div class="firmas f2">
-      <div class="firma"><div class="r">Cierra — Director de Fábrica</div><div class="a">Aclaración / Hora de cierre</div></div>
-      <div class="firma"><div class="r">Pañol de Fábrica</div><div class="a">Aclaración / Fecha</div></div>
+      <div class="firma"><div class="r">Reporta — Encargado</div><div class="a">Aclaración / Fecha</div></div>
+      <div class="firma"><div class="r">Visto — Director de Fábrica</div><div class="a">Aclaración / Fecha</div></div>
     </div>
-    <div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen ERP: fabricacion_plan_diario · asignaciones_diarias</span><span>Hoja 1/1</span></div>
+    <div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen ERP: fabricacion_asignaciones_diarias (1 fila × trabajador × tarea × día)</span><span>Hoja 1/1</span></div>
   </section>
 
   <section class="hoja" id="fo-pd-03" data-code="FO-PD-03" data-name="Inspección de Calidad">
@@ -1696,7 +1697,17 @@
   };
   window.imprimirTodo=function(){
     document.body.classList.add("printall"); window.print();
-    setTimeout(function(){ document.body.classList.remove("printall"); },600);
+    setTimeout(function(){ document.body.classList.remove("printall"); },800);
+  };
+  // imprimir UN solo formulario, este en cualquier pestaña
+  window.imprimirForm=function(el){
+    var prev=document.querySelector(".print-target"); if(prev) prev.classList.remove("print-target");
+    el.classList.add("print-target");
+    document.body.classList.add("printing-one");
+    var limpiar=function(){ document.body.classList.remove("printing-one"); el.classList.remove("print-target"); window.removeEventListener("afterprint",limpiar); };
+    window.addEventListener("afterprint",limpiar);
+    setTimeout(function(){ try{ window.print(); }catch(e){ alert("Tu navegador bloqueó la impresión. Abrí la página en el sitio web (no en la vista previa) e intentá de nuevo."); limpiar(); } },40);
+    setTimeout(limpiar,3000);
   };
 
   var hojas=document.querySelectorAll(".hoja[data-code]");
@@ -1706,29 +1717,35 @@
   var threads={};
   hojas.forEach(function(h){
     var code=h.dataset.code, name=h.dataset.name;
+    // barra con boton de imprimir este formulario (arriba de la hoja)
+    var fb=document.createElement("div"); fb.className="formbar no-print";
+    var pb=document.createElement("button"); pb.type="button"; pb.textContent="🖨 Imprimir este formulario";
+    pb.addEventListener("click",function(){ imprimirForm(h); });
+    fb.appendChild(pb); h.insertBefore(fb,h.firstChild);
+    // caja de comentarios (backend)
     var box=document.createElement("div"); box.className="revbox no-print";
-    var lab=document.createElement("label"); lab.textContent="Comentarios — "+code+" \u00b7 "+name;
+    var lab=document.createElement("label"); lab.textContent="Comentarios — "+code+" · "+name;
     var thread=document.createElement("div"); thread.className="thread"; threads[code]=thread;
     var form=document.createElement("div"); form.className="revform";
     form.innerHTML='<input class="who" placeholder="Tu nombre" value="'+H(autorG)+'">'+
-      '<select class="rol"><option value="">Rol\u2026</option>'+
+      '<select class="rol"><option value="">Rol…</option>'+
       ROLES.map(function(r){return "<option"+(r===rolG?" selected":"")+">"+r+"</option>";}).join("")+'</select>'+
-      '<textarea placeholder="\u00bfQu\u00e9 campo falta? \u00bfCu\u00e1l sobra? \u00bfCambiar\u00edas algo?"></textarea>'+
+      '<textarea placeholder="¿Qué campo falta? ¿Cuál sobra? ¿Cambiarías algo?"></textarea>'+
       '<button type="button">Enviar comentario</button><div class="revstatus"></div>';
     var st=form.querySelector(".revstatus");
     form.querySelector("button").addEventListener("click",function(){
       var autor=form.querySelector(".who").value.trim();
       var rol=form.querySelector(".rol").value;
       var ta=form.querySelector("textarea"); var txt=ta.value.trim();
-      if(!autor){ st.className="revstatus err"; st.textContent="Pon\u00e9 tu nombre."; return; }
-      if(!txt){ st.className="revstatus err"; st.textContent="Escrib\u00ed un comentario."; return; }
+      if(!autor){ st.className="revstatus err"; st.textContent="Poné tu nombre."; return; }
+      if(!txt){ st.className="revstatus err"; st.textContent="Escribí un comentario."; return; }
       localStorage.setItem("mbm_autor",autor); localStorage.setItem("mbm_rol",rol);
-      st.className="revstatus"; st.textContent="Enviando\u2026";
+      st.className="revstatus"; st.textContent="Enviando…";
       fetch(REST,{method:"POST",headers:{apikey:SB_KEY,Authorization:"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"},
         body:JSON.stringify({form_code:code,form_name:name,autor:autor,rol:rol,comentario:txt})})
       .then(function(r){ if(!r.ok) throw new Error("HTTP "+r.status); return r.json(); })
-      .then(function(){ ta.value=""; st.className="revstatus"; st.textContent="\u2713 Guardado."; cargarComentarios(); })
-      .catch(function(e){ st.className="revstatus err"; st.textContent="No se pudo guardar (\u00bftabla creada? \u00bfen el sitio web?). "+e.message; });
+      .then(function(){ ta.value=""; st.className="revstatus"; st.textContent="✓ Guardado."; cargarComentarios(); })
+      .catch(function(e){ st.className="revstatus err"; st.textContent="No se pudo guardar (¿tabla creada? ¿en el sitio web?). "+e.message; });
     });
     box.appendChild(lab); box.appendChild(thread); box.appendChild(form); h.appendChild(box);
   });
@@ -1743,12 +1760,12 @@
         var t=threads[row.form_code]; if(!t) return; total++;
         var d=document.createElement("div"); d.className="cmt";
         var fecha=(row.created_at||"").replace("T"," ").slice(0,16);
-        d.innerHTML='<div class="meta"><b>'+H(row.autor)+"</b>"+(row.rol?" \u00b7 "+H(row.rol):"")+" \u00b7 "+H(fecha)+"</div>"+H(row.comentario);
+        d.innerHTML='<div class="meta"><b>'+H(row.autor)+"</b>"+(row.rol?" · "+H(row.rol):"")+" · "+H(fecha)+"</div>"+H(row.comentario);
         t.appendChild(d);
       });
       var el=document.getElementById("cmtN"); if(el) el.textContent=total;
     })
-    .catch(function(){ var el=document.getElementById("cmtN"); if(el) el.textContent="\u2014"; });
+    .catch(function(){ var el=document.getElementById("cmtN"); if(el) el.textContent="—"; });
   };
   cargarComentarios();
 })();

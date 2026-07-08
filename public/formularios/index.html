@@ -89,7 +89,7 @@
   .grid .cel.full{grid-column:1/-1}
   .grid .cel.l0{border-left:0}
   .lb{font-family:var(--cond);text-transform:uppercase;letter-spacing:.04em;font-size:8.5px;color:var(--navy);display:block;margin-bottom:3px;font-weight:700}
-  .fill{min-height:15px}.fill.tall{min-height:42px}.fill.xtall{min-height:66px}
+  .fill{min-height:15px}.fill.tall{min-height:42px}.fill.xtall{min-height:66px}.fill.med{min-height:92px}.fill.huge{min-height:130px}
   .hint{font-size:8.5px;color:var(--ink-soft);font-style:italic;margin-top:2px}
 
   .chk{display:inline-flex;align-items:center;gap:5px;margin-right:12px;font-size:11.5px;white-space:nowrap}
@@ -221,6 +221,8 @@
     .fill{min-height:22px!important}
     .fill.tall{min-height:56px!important}
     .fill.xtall{min-height:86px!important}
+    .fill.med{min-height:104px!important}
+    .fill.huge{min-height:150px!important}
     thead th{font-size:11px!important;padding:7px 6px!important}
     tbody td{font-size:12.5px!important;height:38px!important;padding:4px 7px!important}
     tfoot td{font-size:12px!important;padding:7px!important}
@@ -257,15 +259,14 @@
     <p class="lede">Catálogo de documentos operativos de <b>BM Metalúrgica</b>, en versión imprimible para <b>completar a mano</b> durante la transición al ERP. Cada formulario lleva su código de plantilla <b>FO-ÁREA-NN</b> y, al llenarse, un número correlativo <b>MBM·TIPO·AÑO·NNNN</b>. Los campos replican los que el sistema va a capturar: el papel de hoy es la especificación de cada pantalla del mañana.</p>
     <div class="callout">
       <b>Comentarios en vivo:</b> al pie de cada formulario podés dejar comentarios (qué campo falta o sobra). Se guardan en el servidor y quedan <b>compartidos</b> entre todos y visibles al instante. <b>Trazabilidad de gastos:</b> los formularios de costos (Órdenes, Compras, Almacenes, Caja Chica, Combustible, Herramientas) piden siempre el <b>proyecto imputado</b>, para poder rastrear cada peso hasta su obra. Las áreas con <span class="prov-tag">a validar</span> aún no tienen módulo en el ERP: sus campos vienen del organigrama y la práctica.</div>
-    <div class="cards"><div class="card" onclick="showArea('area-co')"><h4>Comercial </h4><ul><li><span class="fo">FO-CO-01</span><a onclick="goForm('area-co','fo-co-01')">Alta de Cliente</a></li><li><span class="fo">FO-CO-02</span><a onclick="goForm('area-co','fo-co-02')">Cotización</a></li><li><span class="fo">FO-CO-03</span><a onclick="goForm('area-co','fo-co-03')">Aceptación de Cotización</a></li><li><span class="fo">FO-CO-04</span><a onclick="goForm('area-co','fo-co-04')">Adenda</a></li></ul></div><div class="card" onclick="showArea('area-ot')"><h4>Oficina Técnica </h4><ul><li><span class="fo">FO-OT-01</span><a onclick="goForm('area-ot','fo-ot-01')">Brief / Pedido del Cliente</a></li><li><span class="fo">FO-OT-02</span><a onclick="goForm('area-ot','fo-ot-02')">Carátula de Presupuesto</a></li><li><span class="fo">FO-OT-03</span><a onclick="goForm('area-ot','fo-ot-03')">Informe de Visita Técnica</a></li><li><span class="fo">FO-OT-04</span><a onclick="goForm('area-ot','fo-ot-04')">Entrega de Documentación</a></li></ul></div><div class="card" onclick="showArea('area-py')"><h4>Proyecto </h4><ul><li><span class="fo">FO-PY-01</span><a onclick="goForm('area-py','fo-py-01')">Apertura de Proyecto (DAP)</a></li><li><span class="fo">FO-PY-02</span><a onclick="goForm('area-py','fo-py-02')">Orden de Trabajo</a></li><li><span class="fo">FO-PY-03</span><a onclick="goForm('area-py','fo-py-03')">Plan de Cobros</a></li><li><span class="fo">FO-PY-04</span><a onclick="goForm('area-py','fo-py-04')">Solicitud de Cobro</a></li></ul></div><div class="card" onclick="showArea('area-cm')"><h4>Compras </h4><ul><li><span class="fo">FO-CM-01</span><a onclick="goForm('area-cm','fo-cm-01')">Alta de Proveedor</a></li><li><span class="fo">FO-CM-02</span><a onclick="goForm('area-cm','fo-cm-02')">Solicitud de Cotización</a></li><li><span class="fo">FO-CM-03</span><a onclick="goForm('area-cm','fo-cm-03')">Cuadro Comparativo</a></li><li><span class="fo">FO-CM-04</span><a onclick="goForm('area-cm','fo-cm-04')">Orden de Compra</a></li><li><span class="fo">FO-CM-05</span><a onclick="goForm('area-cm','fo-cm-05')">Pago a Proveedor</a></li></ul></div><div class="card" onclick="showArea('area-al')"><h4>Almacenes </h4><ul><li><span class="fo">FO-AL-01</span><a onclick="goForm('area-al','fo-al-01')">Recibo de Material</a></li><li><span class="fo">FO-AL-02</span><a onclick="goForm('area-al','fo-al-02')">Vale de Entrega</a></li><li><span class="fo">FO-AL-03</span><a onclick="goForm('area-al','fo-al-03')">Devolución al Central</a></li><li><span class="fo">FO-AL-04</span><a onclick="goForm('area-al','fo-al-04')">Inventario / Toma Física</a></li><li><span class="fo">FO-AL-05</span><a onclick="goForm('area-al','fo-al-05')">Entrada/Salida de Herramientas</a></li></ul></div><div class="card" onclick="showArea('area-pd')"><h4>Fábrica / Producción </h4><ul><li><span class="fo">FO-PD-01</span><a onclick="goForm('area-pd','fo-pd-01')">Orden de Fabricación</a></li><li><span class="fo">FO-PD-02</span><a onclick="goForm('area-pd','fo-pd-02')">Parte Diario del Trabajador</a></li><li><span class="fo">FO-PD-03</span><a onclick="goForm('area-pd','fo-pd-03')">Inspección de Calidad</a></li><li><span class="fo">FO-PD-04</span><a onclick="goForm('area-pd','fo-pd-04')">No Conformidad</a></li><li><span class="fo">FO-PD-05</span><a onclick="goForm('area-pd','fo-pd-05')">Remito de Despacho</a></li></ul></div><div class="card prov" onclick="showArea('area-ob')"><h4>Obra / Montaje <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-OB-01</span><a onclick="goForm('area-ob','fo-ob-01')">Orden de Trabajo de Obra</a></li><li><span class="fo">FO-OB-02</span><a onclick="goForm('area-ob','fo-ob-02')">Parte Diario de Obra</a></li><li><span class="fo">FO-OB-03</span><a onclick="goForm('area-ob','fo-ob-03')">Certificación de Avance</a></li><li><span class="fo">FO-OB-04</span><a onclick="goForm('area-ob','fo-ob-04')">Acta de Recepción</a></li><li><span class="fo">FO-OB-05</span><a onclick="goForm('area-ob','fo-ob-05')">Punch List</a></li></ul></div><div class="card prov" onclick="showArea('area-su')"><h4>Subcontratos <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-SU-01</span><a onclick="goForm('area-su','fo-su-01')">Alta de Subcontratista</a></li><li><span class="fo">FO-SU-02</span><a onclick="goForm('area-su','fo-su-02')">Contrato de Subcontrato</a></li><li><span class="fo">FO-SU-03</span><a onclick="goForm('area-su','fo-su-03')">Certificación de Subcontratista</a></li></ul></div><div class="card prov" onclick="showArea('area-rh')"><h4>RRHH <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-RH-01</span><a onclick="goForm('area-rh','fo-rh-01')">Legajo / Alta de Colaborador</a></li><li><span class="fo">FO-RH-02</span><a onclick="goForm('area-rh','fo-rh-02')">Vacaciones / Licencia</a></li><li><span class="fo">FO-RH-03</span><a onclick="goForm('area-rh','fo-rh-03')">Observación / Sanción</a></li></ul></div><div class="card prov" onclick="showArea('area-fi')"><h4>Financiero <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-FI-01</span><a onclick="goForm('area-fi','fo-fi-01')">Informe Final de Proyecto</a></li><li><span class="fo">FO-FI-02</span><a onclick="goForm('area-fi','fo-fi-02')">Caja Chica</a></li></ul></div><div class="card prov" onclick="showArea('area-lo')"><h4>Logística <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-LO-01</span><a onclick="goForm('area-lo','fo-lo-01')">Orden de Transporte</a></li><li><span class="fo">FO-LO-02</span><a onclick="goForm('area-lo','fo-lo-02')">Combustible y Mantenimiento</a></li></ul></div></div>
+    <div class="cards"><div class="card" onclick="showArea('area-co')"><h4>Comercial </h4><ul><li><span class="fo">FO-CO-01</span><a onclick="goForm('area-co','fo-co-01')">Alta de Cliente</a></li><li><span class="fo">FO-CO-02</span><a onclick="goForm('area-co','fo-co-02')">Cotización</a></li><li><span class="fo">FO-CO-03</span><a onclick="goForm('area-co','fo-co-03')">Aceptación de Cotización</a></li><li><span class="fo">FO-CO-04</span><a onclick="goForm('area-co','fo-co-04')">Adenda</a></li></ul></div><div class="card" onclick="showArea('area-ot')"><h4>Oficina Técnica </h4><ul><li><span class="fo">FO-OT-01</span><a onclick="goForm('area-ot','fo-ot-01')">Brief / Pedido del Cliente</a></li><li><span class="fo">FO-OT-02</span><a onclick="goForm('area-ot','fo-ot-02')">Carátula de Presupuesto</a></li><li><span class="fo">FO-OT-03</span><a onclick="goForm('area-ot','fo-ot-03')">Informe de Visita Técnica</a></li><li><span class="fo">FO-OT-04</span><a onclick="goForm('area-ot','fo-ot-04')">Entrega de Documentación</a></li></ul></div><div class="card" onclick="showArea('area-py')"><h4>Proyecto </h4><ul><li><span class="fo">FO-PY-01</span><a onclick="goForm('area-py','fo-py-01')">Apertura de Proyecto (DAP)</a></li><li><span class="fo">FO-PY-02</span><a onclick="goForm('area-py','fo-py-02')">Orden de Trabajo</a></li><li><span class="fo">FO-PY-03</span><a onclick="goForm('area-py','fo-py-03')">Plan de Cobros</a></li><li><span class="fo">FO-PY-04</span><a onclick="goForm('area-py','fo-py-04')">Solicitud de Cobro</a></li></ul></div><div class="card" onclick="showArea('area-cm')"><h4>Compras </h4><ul><li><span class="fo">FO-CM-01</span><a onclick="goForm('area-cm','fo-cm-01')">Alta de Proveedor</a></li><li><span class="fo">FO-CM-02</span><a onclick="goForm('area-cm','fo-cm-02')">Solicitud de Cotización</a></li><li><span class="fo">FO-CM-03</span><a onclick="goForm('area-cm','fo-cm-03')">Cuadro Comparativo</a></li><li><span class="fo">FO-CM-04</span><a onclick="goForm('area-cm','fo-cm-04')">Orden de Compra</a></li><li><span class="fo">FO-CM-05</span><a onclick="goForm('area-cm','fo-cm-05')">Pago a Proveedor</a></li></ul></div><div class="card" onclick="showArea('area-al')"><h4>Almacenes </h4><ul><li><span class="fo">FO-AL-01</span><a onclick="goForm('area-al','fo-al-01')">Recibo de Material</a></li><li><span class="fo">FO-AL-02</span><a onclick="goForm('area-al','fo-al-02')">Vale de Entrega</a></li><li><span class="fo">FO-AL-03</span><a onclick="goForm('area-al','fo-al-03')">Devolución al Central</a></li><li><span class="fo">FO-AL-04</span><a onclick="goForm('area-al','fo-al-04')">Inventario / Toma Física</a></li><li><span class="fo">FO-AL-05</span><a onclick="goForm('area-al','fo-al-05')">Entrada/Salida de Herramientas</a></li></ul></div><div class="card" onclick="showArea('area-pd')"><h4>Fábrica / Producción </h4><ul><li><span class="fo">FO-PD-01</span><a onclick="goForm('area-pd','fo-pd-01')">Orden de Fabricación</a></li><li><span class="fo">FO-PD-02</span><a onclick="goForm('area-pd','fo-pd-02')">Parte Semanal del Trabajador</a></li><li><span class="fo">FO-PD-03</span><a onclick="goForm('area-pd','fo-pd-03')">Inspección de Calidad</a></li><li><span class="fo">FO-PD-04</span><a onclick="goForm('area-pd','fo-pd-04')">No Conformidad</a></li><li><span class="fo">FO-PD-05</span><a onclick="goForm('area-pd','fo-pd-05')">Remito de Despacho</a></li></ul></div><div class="card prov" onclick="showArea('area-ob')"><h4>Obra / Montaje <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-OB-01</span><a onclick="goForm('area-ob','fo-ob-01')">Orden de Trabajo de Obra</a></li><li><span class="fo">FO-OB-02</span><a onclick="goForm('area-ob','fo-ob-02')">Parte Diario de Obra</a></li><li><span class="fo">FO-OB-03</span><a onclick="goForm('area-ob','fo-ob-03')">Certificación de Avance</a></li><li><span class="fo">FO-OB-04</span><a onclick="goForm('area-ob','fo-ob-04')">Acta de Recepción</a></li><li><span class="fo">FO-OB-05</span><a onclick="goForm('area-ob','fo-ob-05')">Punch List</a></li></ul></div><div class="card prov" onclick="showArea('area-su')"><h4>Subcontratos <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-SU-01</span><a onclick="goForm('area-su','fo-su-01')">Alta de Subcontratista</a></li><li><span class="fo">FO-SU-02</span><a onclick="goForm('area-su','fo-su-02')">Contrato de Subcontrato</a></li><li><span class="fo">FO-SU-03</span><a onclick="goForm('area-su','fo-su-03')">Certificación de Subcontratista</a></li></ul></div><div class="card prov" onclick="showArea('area-rh')"><h4>RRHH <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-RH-01</span><a onclick="goForm('area-rh','fo-rh-01')">Legajo / Alta de Colaborador</a></li><li><span class="fo">FO-RH-02</span><a onclick="goForm('area-rh','fo-rh-02')">Vacaciones / Licencia</a></li><li><span class="fo">FO-RH-03</span><a onclick="goForm('area-rh','fo-rh-03')">Observación / Sanción</a></li></ul></div><div class="card prov" onclick="showArea('area-fi')"><h4>Financiero <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-FI-01</span><a onclick="goForm('area-fi','fo-fi-01')">Informe Final de Proyecto</a></li><li><span class="fo">FO-FI-02</span><a onclick="goForm('area-fi','fo-fi-02')">Caja Chica</a></li></ul></div><div class="card prov" onclick="showArea('area-lo')"><h4>Logística <span class="tg2">a validar</span></h4><ul><li><span class="fo">FO-LO-01</span><a onclick="goForm('area-lo','fo-lo-01')">Orden de Transporte</a></li><li><span class="fo">FO-LO-02</span><a onclick="goForm('area-lo','fo-lo-02')">Combustible y Mantenimiento</a></li></ul></div></div>
   </section>
 
   <div class="area" id="area-pd" data-area="Fábrica / Producción"><h2 class="areatitle">Fábrica / Producción</h2>
 
   <section class="hoja" id="fo-pd-01" data-code="FO-PD-01" data-name="Orden de Fabricación">
     <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Documento controlado</div>
-        <div class="datos">CUIT ______________ · Dir. ____________________________ · Tel. ____________</div></div>
+      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Documento controlado</div></div>
       <div class="doc"><div class="tt">Orden de Fabricación<small>Control de Fabricación</small></div>
         <div class="foc">FO-PD-01</div>
         <div class="code"><span>MBM</span><span>OF</span><span>2026</span><span>N.º ____</span></div></div>
@@ -282,7 +283,7 @@
       <div class="cel full"><span class="lb">Descripción de lo que se fabrica</span><div class="fill tall"></div></div>
       <div class="cel"><span class="lb">Cantidad</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Unidad</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Peso total estimado (kg)</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Peso total estimado</span><div class="fill"></div></div>
     </div>
     <h2 class="sec">Planificación</h2>
     <div class="grid g4">
@@ -293,58 +294,41 @@
       <div class="cel full l0"><span class="lb">Asignado a (operario / equipo responsable)</span><div class="fill"></div></div>
     </div>
     <h2 class="sec">Materiales / insumos previstos</h2>
-    <table><thead><tr><th style="width:14%">Código</th><th>Descripción del material</th><th style="width:12%">Cantidad</th><th style="width:10%">Unidad</th><th style="width:14%">Peso (kg)</th></tr></thead>
-      <tbody>
-        <tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-        <tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>
-      </tbody></table>
+    <table><thead><tr><th style="width:8%">N.º</th><th>Descripción del material</th><th style="width:16%">Cantidad</th><th style="width:14%">Unidad</th></tr></thead>
+      <tbody><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr></tbody></table>
     <h2 class="sec">Observaciones</h2>
     <div class="grid"><div class="cel full l0"><div class="fill xtall"></div></div></div>
     <div class="firmas f3">
       <div class="firma"><div class="r">Emite — Director de Fábrica</div><div class="a">Aclaración / Fecha</div></div>
       <div class="firma"><div class="r">Aprueba — Gerente de Producción</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Recibe conforme — Operario</div><div class="a">Aclaración / Fecha</div></div>
+      <div class="firma"><div class="r"><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr>ecibe conforme — Operario</div><div class="a">Aclaración / Fecha</div></div>
     </div>
-    <div class="pie"><span>BM Metalúrgica · FO-PD-01 · OF</span><span>Origen ERP: produccion_ordenes</span><span>Hoja 1/1</span></div>
+    <div class="pie"><span>BM Metalúrgica · FO-PD-01 · OF</span><span>Origen E<tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr>P: produccion_ordenes</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Diario del Trabajador">
+  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Semanal del Trabajador">
     <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Parte diario POR TRABAJADOR</div>
-        <div class="datos">Una hoja por trabajador y por día — la llena su encargado. Base de la trazabilidad de horas por persona y por proyecto.</div></div>
-      <div class="doc"><div class="tt">Parte Diario del Trabajador<small>Control de Fabricación</small></div>
+      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Parte semanal por trabajador</div>
+        <div class="datos">Una hoja por operario y por semana. La controla el jefe de taller.</div></div>
+      <div class="doc"><div class="tt">Parte Semanal del Trabajador<small>Control de Fabricación</small></div>
         <div class="foc">FO-PD-02</div>
         <div class="code"><span>MBM</span><span>IDF</span><span>2026</span><span>N.º ____</span></div></div>
     </div>
-    <h2 class="sec">Trabajador y jornada</h2>
-    <div class="grid g4">
-      <div class="cel"><span class="lb">Trabajador</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Rango (O / ½ / A)</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Encargado que reporta</span><div class="fill"></div></div>
-      <div class="cel l0"><span class="lb">Asistencia</span><div class="opts"><span class="chk"><span class="box"></span> Presente</span><span class="chk"><span class="box"></span> Ausente</span><span class="chk"><span class="box"></span> Licencia</span></div></div>
-      <div class="cel"><span class="lb">Hora entrada</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Hora salida</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Total horas del día</span><div class="fill"></div></div>
+    <h2 class="sec">Operario y semana</h2>
+    <div class="grid g3">
+      <div class="cel"><span class="lb">Nombre y apellido del operario</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Categoría (Oficial / ½ Of. / Ayudante)</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Semana: del ______ al ______</span><div class="fill"></div></div>
     </div>
-    <h2 class="sec">Trabajo del día por proyecto <span class="mut">— clave: horas de ESTA persona en CADA proyecto</span></h2>
-    <table><thead><tr><th style="width:18%">Proyecto / OF</th><th>Tarea / subtarea realizada</th><th style="width:9%">Horas</th><th style="width:13%">Avance (% / dim)</th><th style="width:8%">Calidad 1-5</th><th style="width:9%">¿Completó?</th></tr></thead>
-      <tbody><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody>
-      <tfoot><tr><td colspan="2" style="text-align:right">Horas imputables a proyectos</td><td class="c"></td><td colspan="3"></td></tr></tfoot></table>
-    <h2 class="sec">Horas NO imputables a proyecto <span class="mut">— van a costo indirecto (incidencias), no se pierden</span></h2>
-    <table><thead><tr><th>Motivo (ocioso · tarea interna · retrabajo · mantenimiento · capacitación · limpieza)</th><th style="width:16%">Horas</th></tr></thead>
-      <tbody><tr><td></td><td class="c"></td></tr><tr><td></td><td class="c"></td></tr></tbody></table>
-    <div class="hint" style="margin-top:4px">Suma verificación: horas imputables + horas no imputables = total horas del día.</div>
-    <h2 class="sec">Novedades del trabajador</h2>
-    <div class="grid"><div class="cel full l0"><div class="fill tall"></div></div></div>
+    <h2 class="sec">Trabajo de la semana <span class="mut">— qué hizo cada día y en qué horario</span></h2>
+    <table><thead><tr><th style="width:12%">Día</th><th style="width:22%">Proyecto / OF</th><th>Qué hizo</th><th style="width:11%">Entrada</th><th style="width:11%">Salida</th><th style="width:9%">Horas</th></tr></thead>
+      <tbody><tr><td>Lunes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Martes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Miércoles</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Jueves</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Viernes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Sábado</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody>
+      <tfoot><tr><td colspan="5" style="text-align:right">Total horas de la semana</td><td class="c"></td></tr></tfoot></table>
     <div class="firmas f2">
-      <div class="firma"><div class="r">Reporta — Encargado</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Visto — Director de Fábrica</div><div class="a">Aclaración / Fecha</div></div>
+      <div class="firma"><div class="r">Operario</div><div class="a">Aclaración / Fecha</div></div>
+      <div class="firma"><div class="r">Controla — Jefe de Taller</div><div class="a">Aclaración / Fecha</div></div>
     </div>
-    <div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen ERP: fabricacion_asignaciones_diarias (1 fila × trabajador × tarea × día)</span><span>Hoja 1/1</span></div>
+    <div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen E<tr><td>Lunes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Martes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Miércoles</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Jueves</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Viernes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Sábado</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>P: fabricacion_asignaciones_diarias</span><span>Hoja 1/1</span></div>
   </section>
 
   <section class="hoja" id="fo-pd-03" data-code="FO-PD-03" data-name="Inspección de Calidad">
@@ -785,17 +769,17 @@
       <div class="cel"><span class="lb">Cliente</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Cotización origen (COT-)</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Fecha de apertura</span><div class="fill"></div></div>
-      <div class="cel l0"><span class="lb">Monto de contrato</span><div class="fill"></div></div>
+      <div class="cel l0"><span class="lb">Monto de proyecto</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Anticipo</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Inicio</span><div class="fill"></div></div>
       <div class="cel"><span class="lb">Fin comprometido</span><div class="fill"></div></div>
     </div>
     <h2 class="sec">Alcance e hitos</h2>
-    <div class="grid"><div class="cel full l0"><span class="lb">Alcance del proyecto</span><div class="fill xtall"></div></div></div>
-    <div class="grid"><div class="cel full l0"><span class="lb">Hitos principales y condiciones especiales</span><div class="fill tall"></div></div></div>
+    <div class="grid"><div class="cel full l0"><span class="lb">Alcance del proyecto</span><div class="fill huge"></div></div></div>
+    <div class="grid"><div class="cel full l0"><span class="lb">Hitos principales y condiciones especiales</span><div class="fill huge"></div></div></div>
     <h2 class="sec">Asignación</h2>
     <div class="grid g3">
-      <div class="cel"><span class="lb">Director de Obra</span><div class="fill"></div></div>
+      <div class="cel"><span class="lb">Director de Obra</span><div class="fill med"></div></div>
       <div class="cel"><span class="lb">¿Requiere fabricación?</span><div class="opts"><span class="chk"><span class="box"></span> Sí</span><span class="chk"><span class="box"></span> No</span></div></div>
       <div class="cel"><span class="lb">¿Requiere subcontratos?</span><div class="opts"><span class="chk"><span class="box"></span> Sí</span><span class="chk"><span class="box"></span> No</span></div></div>
     </div>

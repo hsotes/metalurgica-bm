@@ -263,6 +263,8 @@
   .step .flag{margin-top:9px;font-size:12px;background:rgba(196,122,18,.12);border:1px solid var(--amber);
     color:var(--amber);border-radius:5px;padding:6px 9px}
   @media print{ .proc .chip{border-color:#000;color:#000} }
+  .refproj{font-family:var(--mono);font-size:10px;color:var(--ink-soft);text-align:right;margin-top:5px;border-top:1px dashed var(--line);padding-top:3px}
+  @media print{ .refproj{font-size:11px!important;color:#000!important} }
 </style>
 
 <div class="bar no-print">
@@ -300,77 +302,14 @@
         <span><i style="background:#5b6b7a"></i>Cliente</span>
         <span><i style="background:#6b4a9e"></i>Calidad / Financiero</span>
       </div>
-      <ol class="flow"><li class="step" style="--role:#12314c"><div class="num">1</div><div class="body"><div class="role">Gerencia</div><h4>Presupuesto aceptado</h4><p>El gerente deriva el proyecto aceptado a Control de Procesos y Calidad.</p></div></li><li class="step" style="--role:#2f9bd4"><div class="num">2</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Apertura del proyecto</h4><p>Rellena la Apertura de Proyecto y adjunta el Brief / pedido del cliente, planos y detalles. Imprime la planilla de Visita de Obra. Pasa todo a Oficina Técnica.</p><div class="chips"><a class="chip" onclick="goForm('area-py','fo-py-01')">FO-PY-01</a><a class="chip" onclick="goForm('area-ot','fo-ot-01')">FO-OT-01</a><a class="chip" onclick="goForm('area-ot','fo-ot-03')">FO-OT-03</a></div></div></li><li class="step" style="--role:#1f8a70"><div class="num">3</div><div class="body"><div class="role">Oficina Técnica</div><h4>Ingeniería de fabricación</h4><p>Genera los planos de fabricación y el desglose de materiales. Devuelve todo a Control de Procesos y Calidad.</p><div class="chips"><a class="chip" onclick="goForm('area-ot','fo-ot-04')">FO-OT-04</a></div></div></li><li class="step" style="--role:#2f9bd4"><div class="num">4</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Control y Orden de Fabricación</h4><p>Controla que estén todos los datos completos. Genera la Orden de Fabricación (adjunta planos de fabricación + detalles pedidos por el cliente). Revisa la fecha de recepción de materiales del proyecto.</p><div class="chips"><a class="chip" onclick="goForm('area-pd','fo-pd-01')">FO-PD-01</a></div></div></li><li class="step" style="--role:#c47a12"><div class="num">5</div><div class="body"><div class="role">Fábrica</div><h4>Fabricación</h4><p>Se fabrica. El registro se hace por el informe diario del personal (por trabajador).</p><div class="chips"><a class="chip" onclick="goForm('area-pd','fo-pd-02')">FO-PD-02</a></div><div class="flag">⚠ No se registra por proyecto: la fábrica es una LÍNEA DE PRODUCCIÓN MULTIPROYECTO. El avance de cada proyecto se arma después con las horas/tareas del parte diario.</div></div></li><li class="step" style="--role:#c47a12"><div class="num">6</div><div class="body"><div class="role">Fábrica → Calidad</div><h4>Fin de fabricación</h4><p>Terminada la fabricación, se informa a Control de Procesos y Calidad.</p></div></li><li class="step" style="--role:#2f9bd4"><div class="num">7</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Orden de Trabajo de Obra</h4><p>Genera la Orden de Trabajo de Obra para el montaje/entrega.</p><div class="chips"><a class="chip" onclick="goForm('area-ob','fo-ob-01')">FO-OB-01</a></div></div></li><li class="step" style="--role:#5b6b7a"><div class="num">8</div><div class="body"><div class="role">Cliente</div><h4>Recepción</h4><p>El cliente (o su encargado) firma el Acta de Recepción. Se entrega a Calidad para registrarla.</p><div class="chips"><a class="chip" onclick="goForm('area-ob','fo-ob-04')">FO-OB-04</a></div></div></li><li class="step end" style="--role:#6b4a9e"><div class="num">9</div><div class="body"><div class="role">Calidad / Financiero</div><h4>Cierre financiero del proyecto</h4><p>Se hace la Evaluación Financiera del Proyecto: se consolidan TODOS los gastos imputables al proyecto y se incluye el % de gasto administrativo, para sacar el costo real y verificarlo contra el presupuestado. Aquí termina el ciclo.</p><div class="chips"><a class="chip" onclick="goForm('area-fi','fo-fi-01')">FO-FI-01</a></div></div></li></ol>
+      <ol class="flow"><li class="step" style="--role:#12314c"><div class="num">1</div><div class="body"><div class="role">Gerencia</div><h4>Presupuesto aceptado</h4><p>El gerente deriva el proyecto aceptado a Control de Procesos y Calidad.</p></div></li><li class="step" style="--role:#2f9bd4"><div class="num">2</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Apertura del proyecto</h4><p>Rellena la Apertura de Proyecto y adjunta el Brief / pedido del cliente, planos y detalles. Imprime la planilla de Visita de Obra. Pasa todo a Oficina Técnica.</p><div class="chips"><a class="chip" onclick="goForm('area-py','fo-py-01')">FO-PY-01</a><a class="chip" onclick="goForm('area-ot','fo-ot-01')">FO-OT-01</a><a class="chip" onclick="goForm('area-ot','fo-ot-03')">FO-OT-03</a></div></div></li><li class="step" style="--role:#1f8a70"><div class="num">3</div><div class="body"><div class="role">Oficina Técnica</div><h4>Ingeniería de fabricación</h4><p>Genera los planos de fabricación y el desglose de materiales. Devuelve todo a Control de Procesos y Calidad.</p><div class="chips"><a class="chip" onclick="goForm('area-ot','fo-ot-04')">FO-OT-04</a><a class="chip" onclick="goForm('area-ot','fo-ot-05')">FO-OT-05</a></div></div></li><li class="step" style="--role:#2f9bd4"><div class="num">4</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Control y Orden de Fabricación</h4><p>Controla que estén todos los datos completos. Genera la Orden de Fabricación (adjunta planos de fabricación + detalles pedidos por el cliente). Revisa la fecha de recepción de materiales del proyecto.</p><div class="chips"><a class="chip" onclick="goForm('area-pd','fo-pd-01')">FO-PD-01</a></div></div></li><li class="step" style="--role:#c47a12"><div class="num">5</div><div class="body"><div class="role">Fábrica</div><h4>Fabricación</h4><p>Se fabrica. El registro se hace por el informe diario del personal (por trabajador).</p><div class="chips"><a class="chip" onclick="goForm('area-pd','fo-pd-02')">FO-PD-02</a></div><div class="flag">⚠ No se registra por proyecto: la fábrica es una LÍNEA DE PRODUCCIÓN MULTIPROYECTO. El avance de cada proyecto se arma después con las horas/tareas del parte diario.</div></div></li><li class="step" style="--role:#c47a12"><div class="num">6</div><div class="body"><div class="role">Fábrica → Calidad</div><h4>Fin de fabricación</h4><p>Terminada la fabricación, se informa a Control de Procesos y Calidad.</p></div></li><li class="step" style="--role:#2f9bd4"><div class="num">7</div><div class="body"><div class="role">Control de Procesos y Calidad</div><h4>Orden de Trabajo de Obra</h4><p>Genera la Orden de Trabajo de Obra para el montaje/entrega.</p><div class="chips"><a class="chip" onclick="goForm('area-ob','fo-ob-01')">FO-OB-01</a></div></div></li><li class="step" style="--role:#5b6b7a"><div class="num">8</div><div class="body"><div class="role">Cliente</div><h4>Recepción</h4><p>El cliente (o su encargado) firma el Acta de Recepción. Se entrega a Calidad para registrarla.</p><div class="chips"><a class="chip" onclick="goForm('area-ob','fo-ob-04')">FO-OB-04</a></div></div></li><li class="step end" style="--role:#6b4a9e"><div class="num">9</div><div class="body"><div class="role">Calidad / Financiero</div><h4>Cierre financiero del proyecto</h4><p>Se hace la Evaluación Financiera del Proyecto: se consolidan TODOS los gastos imputables al proyecto y se incluye el % de gasto administrativo, para sacar el costo real y verificarlo contra el presupuestado. Aquí termina el ciclo.</p><div class="chips"><a class="chip" onclick="goForm('area-fi','fo-fi-01')">FO-FI-01</a></div></div></li></ol>
     </div>
   </div>
   <div class="area" id="area-pd" data-area="Fábrica / Producción"><h2 class="areatitle">Fábrica / Producción</h2>
 
-  <section class="hoja" id="fo-pd-01" data-code="FO-PD-01" data-name="Orden de Fabricación">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Documento controlado</div></div>
-      <div class="doc"><div class="tt">Orden de Fabricación<small>Control de Fabricación</small></div>
-        <div class="foc">FO-PD-01</div>
-        <div class="code"><span>MBM</span><span>OF</span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Identificación del trabajo</h2>
-    <div class="grid g3">
-      <div class="cel"><span class="lb">Proyecto</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Cliente</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fecha de emisión</span><div class="fill"></div></div>
-      <div class="cel full"><span class="lb">Alcance</span><div class="opts">
-        <span class="chk"><span class="box"></span> Proyecto completo</span>
-        <span class="chk"><span class="box"></span> Módulo (pórtico, cerramiento…)</span>
-        <span class="chk"><span class="box"></span> Ítem individual (columna, viga…)</span></div></div>
-      <div class="cel full"><span class="lb">Descripción de lo que se fabrica</span><div class="fill tall"></div></div>
-      <div class="cel"><span class="lb">Cantidad</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Unidad</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Peso total estimado</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Planificación</h2>
-    <div class="grid g4">
-      <div class="cel"><span class="lb">Prioridad (1 máx – 10 mín)</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fecha requerida en obra</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Inicio estimado</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fin estimado</span><div class="fill"></div></div>
-      <div class="cel full l0"><span class="lb">Asignado a (operario / equipo responsable)</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Materiales / insumos previstos</h2>
-    <table><thead><tr><th style="width:8%">N.º</th><th>Descripción del material</th><th style="width:16%">Cantidad</th><th style="width:14%">Unidad</th></tr></thead>
-      <tbody><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr></tbody></table>
-    <h2 class="sec">Observaciones</h2>
-    <div class="grid"><div class="cel full l0"><div class="fill xtall"></div></div></div>
-    <div class="firmas f3">
-      <div class="firma"><div class="r">Emite — Director de Fábrica</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Aprueba — Gerente de Producción</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r"><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr>ecibe conforme — Operario</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>BM Metalúrgica · FO-PD-01 · OF</span><span>Origen E<tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr>P: produccion_ordenes</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-pd-01" data-code="FO-PD-01" data-name="Orden de Fabricación"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Documento controlado</div></div><div class="doc"><div class="tt">Orden de Fabricación<small>Control de Fabricación</small></div><div class="foc">FO-PD-01</div><div class="code"><span>MBM</span><span>OF</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Identificación del trabajo</h2><div class="grid g3"><div class="cel"><span class="lb">Proyecto</span><div class="fill"></div></div><div class="cel"><span class="lb">Cliente</span><div class="fill"></div></div><div class="cel"><span class="lb">Fecha de emisión</span><div class="fill"></div></div><div class="cel full"><span class="lb">Alcance</span><div class="opts"><span class="chk"><span class="box"></span> Proyecto completo</span><span class="chk"><span class="box"></span> Módulo</span><span class="chk"><span class="box"></span> Ítem individual</span></div></div><div class="cel full"><span class="lb">Descripción de lo que se fabrica</span><div class="fill tall"></div></div><div class="cel"><span class="lb">Cantidad</span><div class="fill"></div></div><div class="cel"><span class="lb">Unidad</span><div class="fill"></div></div><div class="cel"><span class="lb">Peso total estimado</span><div class="fill"></div></div></div><h2 class="sec">Planificación</h2><div class="grid g4"><div class="cel"><span class="lb">Prioridad (1 máx – 10 mín)</span><div class="fill"></div></div><div class="cel"><span class="lb">Fecha requerida en obra</span><div class="fill"></div></div><div class="cel"><span class="lb">Inicio estimado</span><div class="fill"></div></div><div class="cel"><span class="lb">Fin estimado</span><div class="fill"></div></div><div class="cel full l0"><span class="lb">Asignado a (operario / equipo)</span><div class="fill"></div></div></div><h2 class="sec">Materiales / insumos previstos</h2><table><thead><tr><th style="width:8%">N.º</th><th>Descripción del material</th><th style="width:16%">Cantidad</th><th style="width:14%">Unidad</th></tr></thead><tbody><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td></tr></tbody></table><h2 class="sec">Observaciones</h2><div class="grid"><div class="cel full l0"><div class="fill xtall"></div></div></div><div class="firmas f3"><div class="firma"><div class="r">Emite — Director de Fábrica</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Aprueba — Gerente de Producción</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Recibe conforme — Operario</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-PD-01 · OF</span><span>Origen ERP: produccion_ordenes</span><span>Hoja 1/1</span></div></section>
 
-  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Semanal del Trabajador">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Parte semanal por trabajador</div>
-        <div class="datos">Una hoja por operario y por semana. La controla el jefe de taller.</div></div>
-      <div class="doc"><div class="tt">Parte Semanal del Trabajador<small>Control de Fabricación</small></div>
-        <div class="foc">FO-PD-02</div>
-        <div class="code"><span>MBM</span><span>IDF</span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Operario y semana</h2>
-    <div class="grid g3">
-      <div class="cel"><span class="lb">Nombre y apellido del operario</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Categoría (Oficial / ½ Of. / Ayudante)</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Semana: del ______ al ______</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Trabajo de la semana <span class="mut">— qué hizo cada día y en qué horario</span></h2>
-    <table><thead><tr><th style="width:12%">Día</th><th style="width:22%">Proyecto / OF</th><th>Qué hizo</th><th style="width:11%">Entrada</th><th style="width:11%">Salida</th><th style="width:9%">Horas</th></tr></thead>
-      <tbody><tr><td>Lunes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Martes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Miércoles</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Jueves</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Viernes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Sábado</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody>
-      <tfoot><tr><td colspan="5" style="text-align:right">Total horas de la semana</td><td class="c"></td></tr></tfoot></table>
-    <div class="firmas f2">
-      <div class="firma"><div class="r">Operario</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Controla — Jefe de Taller</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen E<tr><td>Lunes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Martes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Miércoles</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Jueves</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Viernes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Sábado</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>P: fabricacion_asignaciones_diarias</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-pd-02" data-code="FO-PD-02" data-name="Parte Semanal del Trabajador"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Gerencia de Producción · Parte semanal por trabajador</div><div class="datos">Una hoja por operario y por semana. La controla el jefe de taller.</div></div><div class="doc"><div class="tt">Parte Semanal del Trabajador<small>Control de Fabricación</small></div><div class="foc">FO-PD-02</div><div class="code"><span>MBM</span><span>IDF</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Operario y semana</h2><div class="grid g3"><div class="cel"><span class="lb">Nombre y apellido del operario</span><div class="fill"></div></div><div class="cel"><span class="lb">Categoría (Oficial / ½ Of. / Ayudante)</span><div class="fill"></div></div><div class="cel"><span class="lb">Semana: del ______ al ______</span><div class="fill"></div></div></div><h2 class="sec">Trabajo de la semana <span class="mut">— qué hizo cada día y en qué horario</span></h2><table><thead><tr><th style="width:12%">Día</th><th style="width:22%">Proyecto / OF</th><th>Qué hizo</th><th style="width:11%">Entrada</th><th style="width:11%">Salida</th><th style="width:9%">Horas</th></tr></thead><tbody><tr><td>Lunes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Martes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Miércoles</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Jueves</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Viernes</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td>Sábado</td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody><tfoot><tr><td colspan="5" style="text-align:right">Total horas de la semana</td><td class="c"></td></tr></tfoot></table><div class="firmas f2"><div class="firma"><div class="r">Operario</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Controla — Jefe de Taller</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-PD-02 · IDF</span><span>Origen ERP: fabricacion_asignaciones_diarias</span><span>Hoja 1/1</span></div></section>
 
   <section class="hoja" id="fo-pd-03" data-code="FO-PD-03" data-name="Inspección de Calidad">
     <div class="mem">
@@ -378,7 +317,7 @@
         <div class="datos">Completa el inspector de calidad — NO el Director de Fábrica.</div></div>
       <div class="doc"><div class="tt">Inspección de Calidad<small>Control de Fabricación</small></div>
         <div class="foc">FO-PD-03</div>
-        <div class="code"><span>MBM</span><span>INSP</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>INSP</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec q">Datos de la inspección</h2>
     <div class="grid g4">
@@ -417,7 +356,7 @@
         <div class="datos">Se abre al detectar un defecto y se cierra al verificar la corrección.</div></div>
       <div class="doc"><div class="tt">No Conformidad<small>Cross-área</small></div>
         <div class="foc">FO-PD-04</div>
-        <div class="code"><span>MBM</span><span>NC</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>NC</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec q">Detección</h2>
     <div class="grid g3">
@@ -456,7 +395,7 @@
         <div class="datos">Documento no válido como factura. Acompaña la mercadería hasta la obra.</div></div>
       <div class="doc"><div class="tt">Remito de Despacho<small>Control de Fabricación</small></div>
         <div class="foc">FO-PD-05</div>
-        <div class="code"><span>MBM</span><span>RD</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>RD</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Destino y transporte</h2>
     <div class="grid g3">
@@ -499,7 +438,7 @@
         <div class="datos">Se completa una vez por cliente. Genera el legajo comercial.</div></div>
       <div class="doc"><div class="tt">Alta de Cliente<small>Comercial / CRM</small></div>
         <div class="foc">FO-CO-01</div>
-        <div class="code"><span>MBM</span><span>CLIE</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>CLIE</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del cliente</h2>
     <div class="grid g3">
@@ -540,7 +479,7 @@
         <div class="datos">Documento comercial. Válido según fecha de validez indicada.</div></div>
       <div class="doc"><div class="tt">Cotización<small>Comercial</small></div>
         <div class="foc">FO-CO-02</div>
-        <div class="code"><span>MBM</span><span>COTE</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>COTE</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -586,7 +525,7 @@
         <div class="datos">Confirma el cierre. Dispara la apertura del proyecto.</div></div>
       <div class="doc"><div class="tt">Aceptación de Cotización<small>Comercial</small></div>
         <div class="foc">FO-CO-03</div>
-        <div class="code"><span>MBM</span><span>COT</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>COT</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del cierre</h2>
     <div class="grid g3">
@@ -618,7 +557,7 @@
         <div class="datos">Registra cambios de alcance, monto o plazo sobre un trabajo ya cerrado.</div></div>
       <div class="doc"><div class="tt">Adenda<small>Comercial</small></div>
         <div class="foc">FO-CO-04</div>
-        <div class="code"><span>MBM</span><span>ADD</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>ADD</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Referencia</h2>
     <div class="grid g3">
@@ -655,7 +594,7 @@
         <div class="datos">Captura el pedido antes de presupuestar. Base del futuro presupuesto.</div></div>
       <div class="doc"><div class="tt">Brief / Pedido del Cliente<small>Oficina Técnica</small></div>
         <div class="foc">FO-OT-01</div>
-        <div class="code"><span>MBM</span><span>BRF</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>BRF</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Origen del pedido</h2>
     <div class="grid g4">
@@ -691,7 +630,7 @@
         <div class="datos">Carátula de control del presupuesto. El detalle se adjunta (APUs).</div></div>
       <div class="doc"><div class="tt">Carátula de Presupuesto<small>Oficina Técnica</small></div>
         <div class="foc">FO-OT-02</div>
-        <div class="code"><span>MBM</span><span>PRESU</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PRESU</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Identificación</h2>
     <div class="grid g4">
@@ -733,7 +672,7 @@
         <div class="datos">Se completa durante o inmediatamente después de la visita.</div></div>
       <div class="doc"><div class="tt">Informe de Visita Técnica<small>Oficina Técnica</small></div>
         <div class="foc">FO-OT-03</div>
-        <div class="code"><span>MBM</span><span>IV</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>IV</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos de la visita</h2>
     <div class="grid g4">
@@ -766,7 +705,7 @@
         <div class="datos">Acompaña la entrega de planos y documentación a obra / fábrica / cliente.</div></div>
       <div class="doc"><div class="tt">Entrega de Documentación<small>Oficina Técnica</small></div>
         <div class="foc">FO-OT-04</div>
-        <div class="code"><span>MBM</span><span>PLN</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PLN</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -793,38 +732,7 @@
     <div class="pie"><span>BM Metalúrgica · FO-OT-04 · PLN/ESP/MEM/DM</span><span>Origen ERP: tipos_codigo Oficina Técnica</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-ot-05" data-code="FO-OT-05" data-name="Solicitud de Materiales">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Oficina Técnica · Detalle y Solicitud de Materiales</div>
-        <div class="datos">Sale de los planos de fabricación. En la MISMA planilla: lo que se necesita, lo que hay en almacén y lo que hay que comprar.</div></div>
-      <div class="doc"><div class="tt">Solicitud de Materiales<small>Oficina Técnica · DM</small></div>
-        <div class="foc">FO-OT-05</div>
-        <div class="code"><span>MBM</span><span>DM</span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Encabezado</h2>
-    <div class="grid g4">
-      <div class="cel"><span class="lb">Proyecto</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Orden de Fabricación (OF-)</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Planos de referencia</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div>
-      <div class="cel full l0"><span class="lb"><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">7</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">8</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">9</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">10</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">11</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">12</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr>esponsable — Oficina Técnica</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Detalle de materiales <span class="mut">— A comprar = Necesita − En almacén</span></h2>
-    <table><thead><tr><th style="width:5%">N.º</th><th>Material / descripción</th><th style="width:9%">Unidad</th><th style="width:13%">Necesita (proyecto)</th><th style="width:12%">En almacén</th><th style="width:12%">A comprar</th><th style="width:14%">Observaciones</th></tr></thead>
-      <tbody><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">7</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">8</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">9</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">10</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">11</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">12</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr></tbody></table>
-    <div class="hint" style="margin-top:4px">"Necesita": del desglose de los planos · "En almacén": stock verificado · "A comprar": la resta (lo que se pide a Compras).</div>
-    <h2 class="sec">Cierre</h2>
-    <div class="grid g2">
-      <div class="cel l0"><span class="lb">Fecha requerida de materiales en fábrica/obra</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Stock verificado por</span><div class="fill"></div></div>
-    </div>
-    <div class="firmas f3">
-      <div class="firma"><div class="r">Emite — Oficina Técnica</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Verifica stock — Almacén / Pañol</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r"><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">7</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">8</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">9</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">10</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">11</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">12</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr>ecibe — Compras</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>BM Metalúrgica · FO-OT-05 · DM</span><span>Origen E<tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">7</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">8</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">9</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">10</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">11</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">12</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr>P: desglose de materiales → compras</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-ot-05" data-code="FO-OT-05" data-name="Solicitud de Materiales"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Oficina Técnica · Detalle y Solicitud de Materiales</div><div class="datos">Sale de los planos de fabricación. En la MISMA planilla: lo que se necesita, lo que hay en almacén y lo que hay que comprar.</div></div><div class="doc"><div class="tt">Solicitud de Materiales<small>Oficina Técnica · DM</small></div><div class="foc">FO-OT-05</div><div class="code"><span>MBM</span><span>DM</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Encabezado</h2><div class="grid g4"><div class="cel"><span class="lb">Proyecto</span><div class="fill"></div></div><div class="cel"><span class="lb">Planos de referencia</span><div class="fill"></div></div><div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div><div class="cel"><span class="lb">Responsable — Of. Técnica</span><div class="fill"></div></div></div><h2 class="sec">Detalle de materiales <span class="mut">— A comprar = Necesita − En almacén</span></h2><table><thead><tr><th style="width:5%">N.º</th><th>Material / descripción</th><th style="width:9%">Unidad</th><th style="width:13%">Necesita</th><th style="width:12%">En almacén</th><th style="width:12%">A comprar</th><th style="width:14%">Observaciones</th></tr></thead><tbody><tr><td class="c">1</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">2</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">3</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">4</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">5</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">6</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">7</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">8</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">9</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">10</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">11</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr><tr><td class="c">12</td><td></td><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td></tr></tbody></table><div class="hint" style="margin-top:4px">"Necesita": del desglose de los planos · "En almacén": stock verificado · "A comprar": la resta (lo que se pide a Compras).</div><h2 class="sec">Cierre</h2><div class="grid g2"><div class="cel l0"><span class="lb">Fecha requerida de materiales en fábrica/obra</span><div class="fill"></div></div><div class="cel"><span class="lb">Stock verificado por</span><div class="fill"></div></div></div><div class="firmas f3"><div class="firma"><div class="r">Emite — Oficina Técnica</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Verifica stock — Almacén / Pañol</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Recibe — Compras</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-OT-05 · DM</span><span>Origen ERP: desglose de materiales → compras</span><span>Hoja 1/1</span></div></section>
 
   </div>
   <div class="area" id="area-py" data-area="Proyecto"><h2 class="areatitle">Proyecto</h2>
@@ -870,7 +778,7 @@
         <div class="datos">Encarga una tarea concreta a un responsable dentro del proyecto.</div></div>
       <div class="doc"><div class="tt">Orden de Trabajo<small>Proyecto · OT</small></div>
         <div class="foc">FO-PY-02</div>
-        <div class="code"><span>MBM</span><span>OT</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>OT</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -900,7 +808,7 @@
         <div class="datos">Define las cuotas/hitos de cobro del proyecto al cliente.</div></div>
       <div class="doc"><div class="tt">Plan de Cobros<small>Administración · PCOB</small></div>
         <div class="foc">FO-PY-03</div>
-        <div class="code"><span>MBM</span><span>PCOB</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PCOB</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -933,7 +841,7 @@
         <div class="datos">Dispara el cobro de una cuota del plan al cliente.</div></div>
       <div class="doc"><div class="tt">Solicitud de Cobro<small>Administración · COB</small></div>
         <div class="foc">FO-PY-04</div>
-        <div class="code"><span>MBM</span><span>COB</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>COB</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del cobro</h2>
     <div class="grid g3">
@@ -966,7 +874,7 @@
         <div class="datos">Genera el padrón de proveedores. Una vez por proveedor.</div></div>
       <div class="doc"><div class="tt">Alta de Proveedor<small>Compras</small></div>
         <div class="foc">FO-CM-01</div>
-        <div class="code"><span>MBM</span><span>PROV</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PROV</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del proveedor</h2>
     <div class="grid g3">
@@ -999,7 +907,7 @@
         <div class="datos">Nace de un pedido de material del proyecto o la fábrica.</div></div>
       <div class="doc"><div class="tt">Solicitud de Cotización<small>Compras · SC</small></div>
         <div class="foc">FO-CM-02</div>
-        <div class="code"><span>MBM</span><span>SC</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>SC</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1032,7 +940,7 @@
         <div class="datos">Compara ofertas de proveedores y justifica la selección.</div></div>
       <div class="doc"><div class="tt">Cuadro Comparativo<small>Compras · COTPROV</small></div>
         <div class="foc">FO-CM-03</div>
-        <div class="code"><span>MBM</span><span>COTPROV</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>COTPROV</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Referencia</h2>
     <div class="grid g3">
@@ -1071,7 +979,7 @@
         <div class="datos">Compromiso de compra con el proveedor seleccionado.</div></div>
       <div class="doc"><div class="tt">Orden de Compra<small>Compras · OC</small></div>
         <div class="foc">FO-CM-04</div>
-        <div class="code"><span>MBM</span><span>OC</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>OC</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1112,7 +1020,7 @@
         <div class="datos">Registra la orden de pago contra factura / OC.</div></div>
       <div class="doc"><div class="tt">Pago a Proveedor<small>Administración · PAG</small></div>
         <div class="foc">FO-CM-05</div>
-        <div class="code"><span>MBM</span><span>PAG</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PAG</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del pago</h2>
     <div class="grid g4">
@@ -1147,7 +1055,7 @@
         <div class="datos">Se completa al recibir mercadería en almacén / pañol.</div></div>
       <div class="doc"><div class="tt">Recibo de Material<small>Almacenes · RM (ingreso)</small></div>
         <div class="foc">FO-AL-01</div>
-        <div class="code"><span>MBM</span><span>RM</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>RM</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Origen</h2>
     <div class="grid g4">
@@ -1183,7 +1091,7 @@
         <div class="datos">Registra la salida de material del pañol hacia producción u obra.</div></div>
       <div class="doc"><div class="tt">Vale de Entrega<small>Almacenes · EM (egreso)</small></div>
         <div class="foc">FO-AL-02</div>
-        <div class="code"><span>MBM</span><span>EM</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>EM</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Destino</h2>
     <div class="grid g4">
@@ -1215,7 +1123,7 @@
         <div class="datos">Registra material que vuelve de obra / fábrica al central.</div></div>
       <div class="doc"><div class="tt">Devolución al Central<small>Almacenes · DEV</small></div>
         <div class="foc">FO-AL-03</div>
-        <div class="code"><span>MBM</span><span>DEV</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>DEV</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Origen de la devolución</h2>
     <div class="grid g4">
@@ -1246,7 +1154,7 @@
         <div class="datos">Conteo periódico. Compara stock del sistema contra el físico.</div></div>
       <div class="doc"><div class="tt">Inventario / Toma Física<small>Almacenes · INV</small></div>
         <div class="foc">FO-AL-04</div>
-        <div class="code"><span>MBM</span><span>INV</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>INV</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g3">
@@ -1274,30 +1182,7 @@
     <div class="pie"><span>BM Metalúrgica · FO-AL-04 · INV</span><span>Origen ERP: produccion_inventario</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-al-05" data-code="FO-AL-05" data-name="Entrada/Salida de Herramientas (diario)">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Almacén Central · Control diario de herramientas</div>
-        <div class="datos">Se cruza con el parte de personal → qué herramienta usó cada persona en cada proyecto.</div></div>
-      <div class="doc"><div class="tt">Entrada / Salida de Herramientas<small>Almacenes · diario</small></div>
-        <div class="foc">FO-AL-05</div>
-        <div class="code"><span>MBM</span><span>HE<tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Encabezado</h2>
-    <div class="grid g3">
-      <div class="cel"><span class="lb">Almacén / Pañol</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb"><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>esponsable (pañolero)</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Movimiento de herramientas <span class="mut">— trazabilidad: herramienta → proyecto → persona</span></h2>
-    <table><thead><tr><th style="width:5%">N.º</th><th style="width:11%">Código</th><th>Herramienta</th><th style="width:16%"><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>etira (persona)</th><th style="width:15%">Proyecto / OF imputado</th><th style="width:8%">Sale</th><th style="width:8%">Devuelve</th><th style="width:11%">Estado</th></tr></thead>
-      <tbody><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody></table>
-    <div class="hint" style="margin-top:4px">Estado al devolver: OK · dañada · faltante. Lo no devuelto al cierre queda pendiente para el día siguiente.</div>
-    <div class="firmas f2">
-      <div class="firma"><div class="r">Controla — Pañolero</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Visto — Jefe de Almacenes</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>BM Metalúrgica · FO-AL-05 · HE<tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></span><span>Origen E<tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>P: fabricacion_solicitudes_herramientas · inventario</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-al-05" data-code="FO-AL-05" data-name="Entrada/Salida de Herramientas (diario)"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Almacén Central · Control diario de herramientas</div><div class="datos">Se cruza con el parte de personal → qué herramienta usó cada persona en cada proyecto.</div></div><div class="doc"><div class="tt">Entrada / Salida de Herramientas<small>Almacenes · diario</small></div><div class="foc">FO-AL-05</div><div class="code"><span>MBM</span><span>HERR</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Encabezado</h2><div class="grid g3"><div class="cel"><span class="lb">Almacén / Pañol</span><div class="fill"></div></div><div class="cel"><span class="lb">Fecha</span><div class="fill"></div></div><div class="cel"><span class="lb">Responsable (pañolero)</span><div class="fill"></div></div></div><h2 class="sec">Movimiento de herramientas <span class="mut">— trazabilidad: herramienta → proyecto → persona</span></h2><table><thead><tr><th style="width:5%">N.º</th><th style="width:11%">Código</th><th>Herramienta</th><th style="width:16%">Retira (persona)</th><th style="width:15%">Proyecto / OF imputado</th><th style="width:8%">Sale</th><th style="width:8%">Devuelve</th><th style="width:11%">Estado</th></tr></thead><tbody><tr><td class="c">1</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">2</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">3</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">4</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">5</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">6</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">7</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c">8</td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody></table><div class="hint" style="margin-top:4px">Estado al devolver: OK · dañada · faltante. Lo no devuelto al cierre queda pendiente para el día siguiente.</div><div class="firmas f2"><div class="firma"><div class="r">Controla — Pañolero</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Visto — Jefe de Almacenes</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-AL-05 · HERR</span><span>Origen ERP: fabricacion_solicitudes_herramientas · inventario</span><span>Hoja 1/1</span></div></section>
 
   </div>
   <div class="area" id="area-ob" data-area="Obra / Montaje"><h2 class="areatitle">Obra / Montaje</h2>
@@ -1308,7 +1193,7 @@
         <div class="datos">Encarga una tarea a una cuadrilla en un frente de obra.</div></div>
       <div class="doc"><div class="tt">Orden de Trabajo de Obra<small>Control de Obra · OTO</small></div>
         <div class="foc">FO-OB-01</div>
-        <div class="code"><span>MBM</span><span>OTO</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>OTO</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1336,7 +1221,7 @@
         <div class="datos">Lo completa el Jefe de Obra — reporte obligatorio DIARIO.</div></div>
       <div class="doc"><div class="tt">Parte Diario de Obra<small>Control de Obra · IDM</small></div>
         <div class="foc">FO-OB-02</div>
-        <div class="code"><span>MBM</span><span>IDM</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>IDM</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1373,7 +1258,7 @@
         <div class="datos">Certifica el avance del período para el cobro al cliente.</div></div>
       <div class="doc"><div class="tt">Certificación de Avance<small>Control de Obra · CERT</small></div>
         <div class="foc">FO-OB-03</div>
-        <div class="code"><span>MBM</span><span>CERT</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>CERT</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1406,7 +1291,7 @@
         <div class="datos">Formaliza la entrega de la obra al cliente (provisoria o definitiva).</div></div>
       <div class="doc"><div class="tt">Acta de Recepción<small>Control de Obra · AR</small></div>
         <div class="foc">FO-OB-04</div>
-        <div class="code"><span>MBM</span><span>AR</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>AR</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos</h2>
     <div class="grid g4">
@@ -1432,7 +1317,7 @@
         <div class="datos">Detalla los pendientes a resolver antes de la recepción definitiva.</div></div>
       <div class="doc"><div class="tt">Punch List<small>Control de Obra · PUN</small></div>
         <div class="foc">FO-OB-05</div>
-        <div class="code"><span>MBM</span><span>PUN</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>PUN</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g3">
@@ -1467,7 +1352,7 @@
         <div class="datos">Registra al subcontratista y su documentación habilitante.</div></div>
       <div class="doc"><div class="tt">Alta de Subcontratista<small>Subcontratos · SUB</small></div>
         <div class="foc">FO-SU-01</div>
-        <div class="code"><span>MBM</span><span>SUB</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>SUB</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos</h2>
     <div class="grid g3">
@@ -1496,7 +1381,7 @@
         <div class="datos">Formaliza el alcance, monto y plazo con el subcontratista.</div></div>
       <div class="doc"><div class="tt">Contrato de Subcontrato<small>Subcontratos · CSC</small></div>
         <div class="foc">FO-SU-02</div>
-        <div class="code"><span>MBM</span><span>CSC</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>CSC</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Encabezado</h2>
     <div class="grid g4">
@@ -1525,7 +1410,7 @@
         <div class="datos">Certifica el avance del subcontratista para habilitar su pago.</div></div>
       <div class="doc"><div class="tt">Certificación de Subcontratista<small>Subcontratos · CSUB</small></div>
         <div class="foc">FO-SU-03</div>
-        <div class="code"><span>MBM</span><span>CSUB</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>CSUB</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos</h2>
     <div class="grid g4">
@@ -1558,7 +1443,7 @@
         <div class="datos">Alta del colaborador. Base del legajo de personal.</div></div>
       <div class="doc"><div class="tt">Legajo de Colaborador<small>RRHH · COL</small></div>
         <div class="foc">FO-RH-01</div>
-        <div class="code"><span>MBM</span><span>COL</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>COL</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos personales</h2>
     <div class="grid g3">
@@ -1590,7 +1475,7 @@
         <div class="datos">Solicitud y autorización de ausencia programada.</div></div>
       <div class="doc"><div class="tt">Vacaciones / Licencia<small>RRHH · VAC / LIC</small></div>
         <div class="foc">FO-RH-02</div>
-        <div class="code"><span>MBM</span><span>VAC</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>VAC</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Solicitud</h2>
     <div class="grid g4">
@@ -1618,7 +1503,7 @@
         <div class="datos">Registra observaciones, sanciones o multas al personal.</div></div>
       <div class="doc"><div class="tt">Observación / Sanción<small>RRHH · OBS / SAN / MUL</small></div>
         <div class="foc">FO-RH-03</div>
-        <div class="code"><span>MBM</span><span>SAN</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>SAN</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos</h2>
     <div class="grid g4">
@@ -1649,7 +1534,7 @@
         <div class="datos">Cierre económico del proyecto: contratado vs. ejecutado.</div></div>
       <div class="doc"><div class="tt">Informe Final de Proyecto<small>Financiero · IFP</small></div>
         <div class="foc">FO-FI-01</div>
-        <div class="code"><span>MBM</span><span>IFP</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>IFP</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del proyecto</h2>
     <div class="grid g4">
@@ -1676,33 +1561,7 @@
     <div class="pie"><span>BM Metalúrgica · FO-FI-01 · IFP</span><span>Origen ERP: pendiente (módulo Financiero)</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-fi-02" data-code="FO-FI-02" data-name="Caja Chica">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Financiero · Caja Chica <span class="prov-tag">a validar</span></div>
-        <div class="datos"><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>egistra ingresos y egresos menores. Cada egreso se imputa a un proyecto.</div></div>
-      <div class="doc"><div class="tt">Caja Chica<small>Financiero · CCH</small></div>
-        <div class="foc">FO-FI-02</div>
-        <div class="code"><span>MBM</span><span>CCH</span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Encabezado</h2>
-    <div class="grid g4">
-      <div class="cel"><span class="lb"><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>esponsable de caja</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Período / semana</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Saldo inicial</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Fondo asignado</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec">Movimientos <span class="mut">— cada egreso lleva su proyecto imputado (trazabilidad)</span></h2>
-    <table><thead><tr><th style="width:9%">Fecha</th><th style="width:11%">Comprob.</th><th>Concepto</th><th style="width:13%"><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>ubro</th><th style="width:15%">Proyecto imputado</th><th style="width:10%">Ingreso</th><th style="width:10%">Egreso</th><th style="width:10%">Saldo</th></tr></thead>
-      <tbody><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody>
-      <tfoot><tr><td colspan="5" style="text-align:right">Totales / Saldo final</td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tfoot></table>
-    <h2 class="sec"><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>endición</h2>
-    <div class="grid g2"><div class="cel l0"><span class="lb">¿<tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>endida?</span><div class="opts"><span class="chk"><span class="box"></span> Sí</span><span class="chk"><span class="box"></span> No</span></div></div><div class="cel"><span class="lb">Fecha de rendición</span><div class="fill"></div></div></div>
-    <div class="firmas f2">
-      <div class="firma"><div class="r"><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>inde — <tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>esponsable de Caja</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r">Aprueba — Administración</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>BM Metalúrgica · FO-FI-02 · CCH</span><span>Origen E<tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr>P: fabricacion_caja_chica · empresa_egresos</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-fi-02" data-code="FO-FI-02" data-name="Caja Chica"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Financiero · Caja Chica <span class="prov-tag">a validar</span></div><div class="datos">Registra ingresos y egresos menores. Cada egreso se imputa a un proyecto.</div></div><div class="doc"><div class="tt">Caja Chica<small>Financiero · CCH</small></div><div class="foc">FO-FI-02</div><div class="code"><span>MBM</span><span>CCH</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Encabezado</h2><div class="grid g4"><div class="cel"><span class="lb">Responsable de caja</span><div class="fill"></div></div><div class="cel"><span class="lb">Período / semana</span><div class="fill"></div></div><div class="cel"><span class="lb">Saldo inicial</span><div class="fill"></div></div><div class="cel"><span class="lb">Fondo asignado</span><div class="fill"></div></div></div><h2 class="sec">Movimientos <span class="mut">— cada egreso con su proyecto imputado</span></h2><table><thead><tr><th style="width:9%">Fecha</th><th style="width:11%">Comprob.</th><th>Concepto</th><th style="width:13%">Rubro</th><th style="width:15%">Proyecto imputado</th><th style="width:10%">Ingreso</th><th style="width:10%">Egreso</th><th style="width:10%">Saldo</th></tr></thead><tbody><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr><tr><td class="c"></td><td></td><td></td><td></td><td></td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tbody><tfoot><tr><td colspan="5" style="text-align:right">Totales / Saldo final</td><td class="c"></td><td class="c"></td><td class="c"></td></tr></tfoot></table><h2 class="sec">Rendición</h2><div class="grid g2"><div class="cel l0"><span class="lb">¿Rendida?</span><div class="opts"><span class="chk"><span class="box"></span> Sí</span><span class="chk"><span class="box"></span> No</span></div></div><div class="cel"><span class="lb">Fecha de rendición</span><div class="fill"></div></div></div><div class="firmas f2"><div class="firma"><div class="r">Rinde — Responsable de Caja</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Aprueba — Administración</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-FI-02 · CCH</span><span>Origen ERP: fabricacion_caja_chica · empresa_egresos</span><span>Hoja 1/1</span></div></section>
 
   </div>
   <div class="area" id="area-lo" data-area="Logística"><h2 class="areatitle">Logística</h2>
@@ -1712,7 +1571,7 @@
         <div class="datos">Coordina el traslado de materiales / piezas a obra o entre sitios.</div></div>
       <div class="doc"><div class="tt">Orden de Transporte<small>Logística · AL / OAL</small></div>
         <div class="foc">FO-LO-01</div>
-        <div class="code"><span>MBM</span><span>AL</span><span>2026</span><span>N.º ____</span></div></div>
+        <div class="code"><span>MBM</span><span>AL</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div>
     </div>
     <h2 class="sec">Datos del traslado</h2>
     <div class="grid g4">
@@ -1734,34 +1593,7 @@
     <div class="pie"><span>BM Metalúrgica · FO-LO-01 · AL/OAL</span><span>Origen ERP: pendiente (módulo Logística)</span><span>Hoja 1/1</span></div>
   </section>
 
-  <section class="hoja" id="fo-lo-02" data-code="FO-LO-02" data-name="<tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>ombustible y <tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>antenimiento de <tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>ovilidad">
-    <div class="mem">
-      <div class="brand"><div class="logo-img"></div><div class="sub">Logística · <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>ombustible y <tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>antenimiento <span class="prov-tag">a validar</span></div>
-        <div class="datos">Una hoja por vehículo. <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>ombustible y mantenimiento con proyecto imputado.</div></div>
-      <div class="doc"><div class="tt"><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>ombustible y <tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>antenimiento<small>Logística · <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>O<tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>B</small></div>
-        <div class="foc">FO-LO-02</div>
-        <div class="code"><span><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>B<tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr></span><span><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>O<tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>B</span><span>2026</span><span>N.º ____</span></div></div>
-    </div>
-    <h2 class="sec">Vehículo</h2>
-    <div class="grid g4">
-      <div class="cel"><span class="lb">Vehículo / Tipo</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Patente</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Responsable / <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>hofer</span><div class="fill"></div></div>
-      <div class="cel"><span class="lb">Período</span><div class="fill"></div></div>
-    </div>
-    <h2 class="sec"><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>argas de combustible</h2>
-    <table><thead><tr><th style="width:12%">Fecha</th><th style="width:14%">Km / Horóm.</th><th style="width:11%">Litros</th><th style="width:14%"><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>onto</th><th>Estación</th><th style="width:20%">Proyecto imputado</th></tr></thead>
-      <tbody><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr></tbody>
-      <tfoot><tr><td colspan="2" style="text-align:right">Totales</td><td class="c"></td><td class="c"></td><td></td><td></td></tr></tfoot></table>
-    <h2 class="sec"><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>antenimiento</h2>
-    <table><thead><tr><th style="width:12%">Fecha</th><th style="width:12%">Km</th><th style="width:22%">Tipo (service/reparación/neumát.)</th><th>Taller</th><th style="width:14%"><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>onto</th><th style="width:18%">Proyecto / general</th></tr></thead>
-      <tbody><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr></tbody></table>
-    <div class="firmas f2">
-      <div class="firma"><div class="r">Registra — <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>hofer / Logística</div><div class="a">Aclaración / Fecha</div></div>
-      <div class="firma"><div class="r"><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>ontrola — Jefe de Logística</div><div class="a">Aclaración / Fecha</div></div>
-    </div>
-    <div class="pie"><span>B<tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr> <tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>etalúrgica · FO-LO-02 · <tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr>O<tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr>B</span><span>Origen ERP: pendiente (módulo Logística / flota)</span><span>Hoja 1/1</span></div>
-  </section>
+  <section class="hoja" id="fo-lo-02" data-code="FO-LO-02" data-name="Combustible y Mantenimiento de Movilidad"><div class="mem"><div class="brand"><div class="logo-img"></div><div class="sub">Logística · Combustible y Mantenimiento <span class="prov-tag">a validar</span></div><div class="datos">Una hoja por vehículo. Combustible y mantenimiento con proyecto imputado.</div></div><div class="doc"><div class="tt">Combustible y Mantenimiento<small>Logística · COMB</small></div><div class="foc">FO-LO-02</div><div class="code"><span>MBM</span><span>COMB</span><span>2026</span><span>N.º ____</span></div><div class="refproj">Ref. Proyecto (FO-PY-01)&nbsp; N.º ______________</div></div></div><h2 class="sec">Vehículo</h2><div class="grid g4"><div class="cel"><span class="lb">Vehículo / Tipo</span><div class="fill"></div></div><div class="cel"><span class="lb">Patente</span><div class="fill"></div></div><div class="cel"><span class="lb">Responsable / Chofer</span><div class="fill"></div></div><div class="cel"><span class="lb">Período</span><div class="fill"></div></div></div><h2 class="sec">Cargas de combustible</h2><table><thead><tr><th style="width:12%">Fecha</th><th style="width:14%">Km / Horóm.</th><th style="width:11%">Litros</th><th style="width:14%">Monto</th><th>Estación</th><th style="width:20%">Proyecto imputado</th></tr></thead><tbody><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td class="c"></td><td class="c"></td><td></td><td></td></tr></tbody><tfoot><tr><td colspan="2" style="text-align:right">Totales</td><td class="c"></td><td class="c"></td><td></td><td></td></tr></tfoot></table><h2 class="sec">Mantenimiento</h2><table><thead><tr><th style="width:12%">Fecha</th><th style="width:12%">Km</th><th style="width:22%">Tipo (service/reparación/neumát.)</th><th>Taller</th><th style="width:14%">Monto</th><th style="width:18%">Proyecto / general</th></tr></thead><tbody><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr><tr><td class="c"></td><td class="c"></td><td></td><td></td><td class="c"></td><td></td></tr></tbody></table><div class="firmas f2"><div class="firma"><div class="r">Registra — Chofer / Logística</div><div class="a">Aclaración / Fecha</div></div><div class="firma"><div class="r">Controla — Jefe de Logística</div><div class="a">Aclaración / Fecha</div></div></div><div class="pie"><span>BM Metalúrgica · FO-LO-02 · COMB</span><span>Origen ERP: pendiente (módulo Logística / flota)</span><span>Hoja 1/1</span></div></section>
 
   </div>
   <!--FORMS_END-->

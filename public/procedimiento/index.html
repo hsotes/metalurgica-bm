@@ -80,6 +80,7 @@
     <span><i style="background:var(--gate)"></i>Requisito para avanzar</span>
   </div>
 
+  <div style="background:var(--gatebg);border:1.3px solid var(--navy);border-radius:5px;padding:6px 10px;margin:0 0 12px;font-size:11.5px;color:var(--navy)"><b>Código de proyecto:</b> se genera en la <b>Apertura de Proyecto (etapa 2 · FO-PY-01)</b> y es el número al que se referencian y con el que se trazan TODOS los formularios del proyecto.</div>
   <div class="flow">
 
     <div class="stage" style="--role:var(--navy)">
@@ -88,7 +89,7 @@
         <div class="role">Gerencia</div>
         <div class="name">Aceptación</div>
         <div class="do">El gerente deriva el proyecto aceptado a Control de Procesos y Calidad.</div>
-        <div class="forms"><span class="chip">FO-CO-03</span></div>
+        <div class="forms"><span class="chip" style="border-style:dashed;color:var(--soft);border-color:var(--soft)">sin form.</span></div>
         <div class="gate"><b>Para avanzar ✔</b> Cotización aceptada y firmada por el cliente.</div>
       </div>
     </div>
@@ -112,7 +113,7 @@
         <div class="role">Oficina Técnica</div>
         <div class="name">Ingeniería de fabricación</div>
         <div class="do">Genera los planos de fabricación y el desglose de materiales. Devuelve a Control de Procesos y Calidad.</div>
-        <div class="forms"><span class="chip">FO-OT-04</span></div>
+        <div class="forms"><span class="chip">FO-OT-04</span><span class="chip">FO-OT-05</span></div>
         <div class="gate"><b>Para avanzar ✔</b> Planos de fabricación emitidos + desglose de materiales completo.</div>
       </div>
     </div>

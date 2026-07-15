@@ -5,7 +5,7 @@ date: "2026-07-13"
 author: "Metalurgica Boto Mariani"
 image: "/blog/madera-masiva-sobre-estructura-metalica-el-sistema-estructural-hibrido-que-esta-apareciendo-en-edificios-de-altura-media-1784134151738.jpg"
 category: "Vivienda Modular"
-tags: ["madera masiva construcción"", ""CLT cross laminated timber"", ""sistema estructural híbrido"", ""estructura metálica edificios altura media"", ""hybrid CLT steel construction"", ""construcción industrializada"", ""entrepisos híbridos madera acero"", ""edificios sustentables Argentina"", ""carbono incorporado construcción"", ""sistema constructivo novedoso"]
+tags: ["madera masiva construcción", "CLT cross laminated timber", "sistema estructural híbrido", "estructura metálica edificios altura media", "hybrid CLT steel construction", "construcción industrializada", "entrepisos híbridos madera acero", "edificios sustentables Argentina", "carbono incorporado construcción", "sistema constructivo novedoso"]
 ---
 
 # Madera masiva sobre estructura metálica: el sistema estructural híbrido que está apareciendo en edificios de altura media

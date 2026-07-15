@@ -324,9 +324,12 @@ export function buildMarkdownFile(frontmatter: Record<string, any>, body: string
   const lines = ['---'];
   for (const [key, value] of Object.entries(frontmatter)) {
     if (Array.isArray(value)) {
-      lines.push(`${key}: [${value.map(v => `"${v}"`).join(', ')}]`);
+      lines.push(`${key}: [${value.map(v => {
+        const clean = String(v).replace(/^["'"'`]+|["'"'`]+$/g, '').replace(/"/g, '\\"');
+        return `"${clean}"`;
+      }).join(', ')}]`);
     } else if (typeof value === 'string') {
-      const clean = value.replace(/^"+|"+$/g, '');
+      const clean = value.replace(/^["'"'`]+|["'"'`]+$/g, '').replace(/"/g, '\\"');
       lines.push(`${key}: "${clean}"`);
     } else {
       lines.push(`${key}: ${value}`);

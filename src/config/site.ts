@@ -26,17 +26,17 @@ export const siteConfig = {
     phoneWhatsApp: '5491140896202',
     email: 'info@bmmetalurgica.com.ar',
     address: {
-      street: 'Yatay 44',
-      locality: 'Malvinas Argentinas',
-      postalCode: '1851',
+      street: 'Avenida Monteverde 2700',
+      locality: 'Burzaco',
+      postalCode: '1852',
       province: 'Buenos Aires',
       country: 'Argentina',
-      full: 'Yatay 44, Malvinas Argentinas, CP 1851, Buenos Aires, Argentina',
+      full: 'Avenida Monteverde 2700, Burzaco, CP 1852, Buenos Aires, Argentina',
     },
-    // Coordenadas reales de Malvinas Argentinas
+    // Coordenadas reales de la planta de Burzaco
     coordinates: {
-      lat: -34.4989,
-      lng: -58.6972,
+      lat: -34.827488,
+      lng: -58.418906,
     },
     hours: {
       weekdays: '8:00 - 17:00',
@@ -47,7 +47,7 @@ export const siteConfig = {
 
   // URLs
   urls: {
-    site: 'https://bmmetalurgica.com.ar',
+    site: 'https://www.metalurgicabotomariani.com.ar',
     whatsapp: 'https://wa.me/5491140896202',
     linkedin: 'https://www.linkedin.com/company/metal%C3%BArgica-boto-mariani',
     instagram: 'https://www.instagram.com/mbm_metalurgica/', // Instagram oficial

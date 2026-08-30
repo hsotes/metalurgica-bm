@@ -13,6 +13,13 @@
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+// Trabajar siempre desde la raiz del repo, sin importar desde que carpeta se
+// invoque el script: tanto las rutas de la cola como los comandos git son
+// relativos. Sin esto, llamarlo parado en scripts/publicador/ no encuentra la
+// cola y termina en silencio como si no hubiera nada.
+process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..'));
 
 const SITE = 'https://www.metalurgicabotomariani.com.ar';
 const COLA = '_programadas';
@@ -311,6 +318,11 @@ function validarCola() {
         .map((e) => e.name)
         .sort()
     : [];
+
+  if (!todas.length) {
+    log(`La cola esta VACIA: no hay ninguna carpeta cargada en ${COLA}/.`);
+    return;
+  }
 
   const errores = [];
   for (const nombre of todas) {

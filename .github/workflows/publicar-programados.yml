@@ -1,28 +1,71 @@
-name: Publicar articulos programados
+name: Publicar programados
 
-# Rebuild diario del sitio. El filtro por fecha vive en src/lib/blog.ts y se evalua
-# en tiempo de build, asi que un articulo con fecha futura recien aparece cuando el
-# sitio se reconstruye en su dia. Sin este rebuild, nada sale solo.
+# Publica la cola _programadas/: toda carpeta cuya fecha y hora ya vencieron.
+# Convencion de la cola: ver _programadas/README.md
 #
-# 11:00 UTC = 08:00 en Argentina (UTC-3, sin horario de verano).
+# Corre cada 30 minutos entre las 8:00 y las 22:30 ART (UTC-3, sin horario de verano).
 
 on:
   schedule:
-    - cron: '0 11 * * *'
+    - cron: '*/30 11-23 * * *' # 08:00 - 20:30 ART
+    - cron: '*/30 0-1 * * *' # 21:00 - 22:30 ART
   workflow_dispatch:
+    inputs:
+      carpeta:
+        description: 'Carpeta a publicar YA (ej. 2026-09-01 o 2026-09-01_1430). Vacio = todas las vencidas.'
+        required: false
+        default: ''
+
+concurrency:
+  group: publicar-programados
+  cancel-in-progress: false
+
+permissions:
+  contents: write
 
 jobs:
-  rebuild:
+  publicar:
     runs-on: ubuntu-latest
     steps:
-      - name: Disparar deploy hook de Vercel
-        env:
-          DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Configurar git
+        # El autor del commit tiene que ser miembro del proyecto en Vercel; si no,
+        # Vercel rechaza el deploy con "not a member of the team".
         run: |
-          if [ -z "$DEPLOY_HOOK" ]; then
-            echo "Falta el secret VERCEL_DEPLOY_HOOK en el repositorio."
-            echo "Crear un Deploy Hook en Vercel y cargarlo en Settings > Secrets and variables > Actions."
-            exit 1
-          fi
-          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK"
-          echo "Rebuild solicitado."
+          git config --local user.email "114360771+hsotes@users.noreply.github.com"
+          git config --local user.name "hsotes"
+
+      - name: Ver si hay algo vencido
+        id: cola
+        env:
+          PUBLICAR_CARPETA: ${{ github.event.inputs.carpeta }}
+        run: echo "pendientes=$(node scripts/publicador/publicar.mjs --contar)" >> "$GITHUB_OUTPUT"
+
+      # Solo se instalan dependencias cuando hay algo para publicar: el build de
+      # control las necesita, y las corridas vacias (la mayoria) salen en segundos.
+      - name: Instalar dependencias
+        if: steps.cola.outputs.pendientes != '0'
+        run: npm ci
+
+      - name: Publicar
+        if: steps.cola.outputs.pendientes != '0'
+        env:
+          VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+          PUBLICAR_CARPETA: ${{ github.event.inputs.carpeta }}
+        run: node scripts/publicador/publicar.mjs
+
+      # A las 22:00 ART, si la cola quedo sin nada pendiente, el job falla a
+      # proposito para que GitHub mande el mail esa misma noche.
+      - name: Aviso de cola vacia
+        if: success()
+        run: node scripts/publicador/publicar.mjs --alerta

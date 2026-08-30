@@ -1,0 +1,28 @@
+name: Publicar articulos programados
+
+# Rebuild diario del sitio. El filtro por fecha vive en src/lib/blog.ts y se evalua
+# en tiempo de build, asi que un articulo con fecha futura recien aparece cuando el
+# sitio se reconstruye en su dia. Sin este rebuild, nada sale solo.
+#
+# 11:00 UTC = 08:00 en Argentina (UTC-3, sin horario de verano).
+
+on:
+  schedule:
+    - cron: '0 11 * * *'
+  workflow_dispatch:
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Disparar deploy hook de Vercel
+        env:
+          DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
+        run: |
+          if [ -z "$DEPLOY_HOOK" ]; then
+            echo "Falta el secret VERCEL_DEPLOY_HOOK en el repositorio."
+            echo "Crear un Deploy Hook en Vercel y cargarlo en Settings > Secrets and variables > Actions."
+            exit 1
+          fi
+          curl --fail --silent --show-error -X POST "$DEPLOY_HOOK"
+          echo "Rebuild solicitado."

@@ -23,7 +23,7 @@ process.chdir(path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '
 
 const SITE = 'https://www.metalurgicabotomariani.com.ar';
 const COLA = '_programadas';
-const AUTOR = 'Metalúrgica Boto Mariani';
+const AUTOR = 'Ing. Hernán Soto Escalante';
 const IMG_EXT = ['.jpg', '.jpeg', '.png', '.webp'];
 const HORA_DEFECTO = '0800';
 

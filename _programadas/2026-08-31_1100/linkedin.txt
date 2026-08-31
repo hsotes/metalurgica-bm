@@ -1,0 +1,11 @@
+Dos shelters idénticos por fuera pueden necesitar equipos de aire que se llevan veinte a uno. La misma caja, la misma envolvente, el mismo emplazamiento.
+
+Lo que cambia es lo que va adentro. La literatura técnica ubica la disipación interna de un recinto de telecomunicaciones entre 500 W y 10 kW, y es ese número el que define la capacidad del aire acondicionado. No la superficie, no el panel, no el sol.
+
+Hay además una fuente de calor que casi nunca entra en la planilla: la propia UPS. Sobre 5 kW de carga crítica, con un rendimiento del 92 al 95 %, aporta entre 250 y 450 W que quedan dentro del recinto. En shelters chicos eso es entre el 5 y el 10 % de la carga térmica total.
+
+Escribimos sobre cómo se arma ese balance, por qué la potencia de placa no sirve como dato de partida, y por qué de los dos errores posibles el más caro es el que nunca se detecta: el equipo sobredimensionado, que cicla de más y se desgasta al doble de velocidad mientras el shelter opera a la temperatura correcta.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/disipacion-interna-equipos-aire-acondicionado-shelter/
+
+#Shelters #InfraestructuraCritica #BalanceTermico #IngenieriaArgentina #Metalurgica

@@ -1,7 +1,7 @@
 ---
 title: "Resistencia de puesta a tierra: qué hacer cuando el terreno no baja de 5 Ω"
 description: "Dos objetivos distintos sobre el mismo electrodo, por qué la resistividad del terreno decide si el valor es alcanzable, y por qué la red equipotencial pesa más que el número de ohms."
-date: "2026-09-01"
+date: "2026-09-02"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/resistencia-puesta-a-tierra-shelter-terreno-5-ohm/portada.jpg"
 category: "TBex"

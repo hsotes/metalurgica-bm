@@ -1,7 +1,7 @@
 ---
 title: "Acciones de viento sobre un shelter: por qué la localidad exacta cambia el cálculo"
 description: "Velocidad básica, categoría de exposición y factor de importancia: las tres entradas que convierten a un mismo shelter en dos estructuras distintas según dónde se emplace."
-date: "2026-09-03"
+date: "2026-09-04"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/acciones-de-viento-sobre-un-shelter-localidad-exacta/portada.jpg"
 category: "TBex"

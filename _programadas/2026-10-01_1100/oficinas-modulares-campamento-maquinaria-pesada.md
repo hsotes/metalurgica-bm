@@ -1,7 +1,7 @@
 ---
 title: "Oficinas modulares para campamento de maquinaria pesada"
 description: "Qué distingue a un módulo de oficina emplazado junto a un taller de equipo pesado: polvo, vibración, ruido y una estructura que tiene que sobrevivir a varios traslados."
-date: "2026-09-17"
+date: "2026-10-01"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/oficinas-modulares-campamento-maquinaria-pesada/portada.jpg"
 category: "Vivienda Modular"

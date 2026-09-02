@@ -1,7 +1,7 @@
 ---
 title: "El pleno bajo piso técnico: canalización de cables y distribución de aire en el mismo espacio"
 description: "Qué ocurre cuando el espacio bajo el piso registrable se pide simultáneamente como cámara de impulsión y como canalización principal, y cómo se resuelve la incompatibilidad."
-date: "2026-09-08"
+date: "2026-09-10"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/pleno-bajo-piso-tecnico-cables-y-aire/portada.jpg"
 category: "TBex"

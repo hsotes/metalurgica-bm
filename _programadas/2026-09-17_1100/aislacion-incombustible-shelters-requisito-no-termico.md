@@ -1,7 +1,7 @@
 ---
 title: "Aislación incombustible en shelters: el requisito que no es térmico"
 description: "Cuando una especificación pide lana mineral en toda la envolvente no está hablando de aislación: está hablando de reacción al fuego. Qué significa la clasificación y qué arrastra en espesor y peso."
-date: "2026-09-10"
+date: "2026-09-17"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/aislacion-incombustible-shelters-requisito-no-termico/portada.jpg"
 category: "TBex"

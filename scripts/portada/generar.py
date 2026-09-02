@@ -38,6 +38,7 @@ sans_bold = lambda s: ImageFont.truetype(F + "segoeuib.ttf", s)
 
 SHELTERS = u"Shelters y recintos para equipamiento crítico"
 MODULAR = u"Construcción modular"
+SISTEMAS = u"Sistemas compatibles con la estructura metálica"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
@@ -45,6 +46,11 @@ APUNTES = {
         "TBEX-APU-001", SHELTERS, [
             u"Prácticamente toda la energía eléctrica que entra termina convertida en calor dentro del volumen.",
             u"Un equipo sobrado no se detecta nunca, y ese es el problema.",
+        ]),
+    "union-portico-metalico-elemento-de-madera": (
+        "ARQ-APU-001", SISTEMAS, [
+            u"En una estructura híbrida el acero hace lo que sabe hacer y la madera también.",
+            u"La madera protege al acero, que es una inversión de papeles poco intuitiva.",
         ]),
     "resistencia-puesta-a-tierra-shelter-terreno-5-ohm": (
         "TBEX-APU-002", SHELTERS, [

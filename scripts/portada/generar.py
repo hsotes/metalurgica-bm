@@ -49,8 +49,8 @@ APUNTES = {
         ]),
     "union-portico-metalico-elemento-de-madera": (
         "ARQ-APU-001", SISTEMAS, [
-            u"En una estructura híbrida el acero hace lo que sabe hacer y la madera también.",
-            u"La madera protege al acero, que es una inversión de papeles poco intuitiva.",
+            u"El problema no está en ninguno de los dos: está en el punto donde se tocan.",
+            u"El acero de un pasador tiene una resistencia holgada.",
         ]),
     "resistencia-puesta-a-tierra-shelter-terreno-5-ohm": (
         "TBEX-APU-002", SHELTERS, [

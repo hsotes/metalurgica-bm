@@ -16,7 +16,7 @@ import io
 import os
 import re
 import sys
-from PIL import Image, ImageDraw, ImageFont, ImageEnhance
+from PIL import Image, ImageDraw, ImageFont
 
 RAIZ = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 LOGO = os.path.join(RAIZ, "public", "logos", "logo-blanco.png")
@@ -89,6 +89,22 @@ APUNTES = {
 }
 
 
+def buscar_fondo(carpeta):
+    """Imagen de fondo de la portada.
+
+    Se busca primero en <carpeta>/_fuentes/fondo.*  El publicador no mira
+    subcarpetas, asi que el original de alta resolucion queda disponible para
+    regenerar la portada sin terminar publicado como imagen suelta del articulo.
+    """
+    for base in (os.path.join(carpeta, "_fuentes"), carpeta):
+        if not os.path.isdir(base):
+            continue
+        for f in sorted(os.listdir(base)):
+            if f.lower().startswith("fondo") and f.lower().endswith(IMG_EXT):
+                return os.path.join(base, f)
+    return None
+
+
 def frontmatter(ruta):
     texto = io.open(ruta, encoding="utf-8").read()
     bloque = re.match(r"^---\r?\n(.*?)\r?\n---", texto, re.S)
@@ -153,8 +169,7 @@ def generar(carpeta):
     anio, mes, dia = fm["date"].split("-")
     cabecera_fecha = u"%s   ·   %s · %s · %s" % (codigo, dia, mes, anio)
 
-    fotos = [f for f in archivos
-             if f.lower().endswith(IMG_EXT) and not f.lower().startswith("portada")]
+    fondo = buscar_fondo(carpeta)
 
     # ------------------------------------------------------------ fondo
     lienzo = Image.new("RGB", (W, H), AZUL_TOP)
@@ -164,32 +179,43 @@ def generar(carpeta):
         d.line([(0, y), (W, y)],
                fill=tuple(int(AZUL_TOP[i] + (AZUL_BOT[i] - AZUL_TOP[i]) * t) for i in range(3)))
 
-    if fotos:
-        X_FIG = 660
-        ancho_fig, alto_fig = W - X_FIG, H
-        foto = Image.open(os.path.join(carpeta, sorted(fotos)[0])).convert("RGB")
-        r_panel, r_foto = ancho_fig / float(alto_fig), foto.width / float(foto.height)
-        if r_foto > r_panel:
-            nw = int(foto.height * r_panel)
+    if fondo:
+        # Imagen a sangre: ocupa la portada entera, recortada al centro.
+        foto = Image.open(fondo).convert("RGB")
+        r_dest, r_foto = W / float(H), foto.width / float(foto.height)
+        if r_foto > r_dest:
+            nw = int(foto.height * r_dest)
             foto = foto.crop(((foto.width - nw) // 2, 0, (foto.width + nw) // 2, foto.height))
         else:
-            nh = int(foto.width / r_panel)
+            nh = int(foto.width / r_dest)
             foto = foto.crop((0, (foto.height - nh) // 2, foto.width, (foto.height + nh) // 2))
-        foto = foto.resize((ancho_fig, alto_fig), Image.LANCZOS)
-        foto = ImageEnhance.Color(foto).enhance(0.72)
-        foto = ImageEnhance.Brightness(foto).enhance(0.80)
+        lienzo = foto.resize((W, H), Image.LANCZOS)
 
-        mascara = Image.new("L", (ancho_fig, alto_fig), 255)
-        md = ImageDraw.Draw(mascara)
-        FUNDIDO = 260
-        for x in range(FUNDIDO):
-            md.line([(x, 0), (x, alto_fig)], fill=int(255 * (x / float(FUNDIDO)) ** 1.5))
-        lienzo.paste(foto, (X_FIG, 0), mascara)
-        velo = Image.new("RGBA", (ancho_fig, alto_fig), (26, 77, 109, 78))
-        lienzo.paste(Image.alpha_composite(
-            lienzo.crop((X_FIG, 0, W, H)).convert("RGBA"), velo).convert("RGB"), (X_FIG, 0), mascara)
+        # Tres velos encadenados para que el texto sea legible sobre la foto:
+        # lateral desde la izquierda, banda de cabecera y banda de pie.
+        def velar(base, pintar):
+            capa = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+            pintar(ImageDraw.Draw(capa))
+            return Image.alpha_composite(base.convert("RGBA"), capa).convert("RGB")
+
+        def lateral(cd):
+            for x in range(W):
+                a = int(236 * (1 - x / float(W - 1)) ** 1.25)
+                cd.line([(x, 0), (x, H)], fill=AZUL_TOP + (a,))
+
+        def cabecera(cd):
+            for y in range(0, 200):
+                cd.line([(0, y), (W, y)], fill=AZUL_TOP + (int(165 * (1 - y / 200.0) ** 1.2),))
+
+        def pie(cd):
+            for y in range(H - 110, H):
+                t = (y - (H - 110)) / 110.0
+                cd.line([(0, y), (W, y)], fill=AZUL_TOP + (int(165 * t ** 1.2),))
+
+        for capa in (lateral, cabecera, pie):
+            lienzo = velar(lienzo, capa)
         d = ImageDraw.Draw(lienzo)
-        ANCHO = 660
+        ANCHO = 620
     else:
         # Sin foto: motivo tipografico. Pauta de filetes finos que se desvanece,
         # como la trama de una lamina tecnica.
@@ -270,7 +296,7 @@ def generar(carpeta):
     lienzo.save(salida, "JPEG", quality=92, optimize=True)
     print("Portada: %s" % salida)
     print("  %s  |  titulo en %d lineas a %dpx  |  figura: %s"
-          % (codigo, len(lineas_t), tam, sorted(fotos)[0] if fotos else "sin foto (tipografica)"))
+          % (codigo, len(lineas_t), tam, os.path.basename(fondo) if fondo else "sin foto (tipografica)"))
 
 
 if __name__ == "__main__":

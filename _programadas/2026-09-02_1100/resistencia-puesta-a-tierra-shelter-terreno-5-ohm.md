@@ -43,11 +43,19 @@ El método de referencia es el **ensayo de Wenner de cuatro picas**. Cuatro elec
 
 Lo importante del método es que la separación entre picas determina la profundidad que se está explorando: separaciones chicas leen las capas superficiales, separaciones grandes leen el terreno profundo. Un solo ensayo con una única separación no describe el sitio; describe una capa. Y como la humedad superficial varía con la estación, la medición hecha en la época húmeda del año puede mostrar un terreno que en verano no existe.
 
+![Operario midiendo la resistencia de puesta a tierra con instrumento de campo](/blog/resistencia-puesta-a-tierra-shelter-terreno-5-ohm/medicion-resistencia-en-campo.webp)
+
+*La resistividad se mide en el sitio y con el terreno delante. No hay forma de deducirla desde el escritorio.*
+
 ## Cuando el terreno no colabora
 
 Por encima del orden de los **500 Ω·m** el valor objetivo deja de ser alcanzable con una configuración convencional de jabalinas, y hay que decidir por dónde se va a resolver. Las salidas son conocidas y cada una tiene su costo:
 
 **Más electrodo.** Aumentar la cantidad de jabalinas, separarlas al menos su propia longitud para que no se apantallen entre sí, o pasar a electrodos más profundos que alcancen capas de menor resistividad. Es la salida más directa y la que más superficie de terreno consume.
+
+![Conexión del conductor de puesta a tierra a una jabalina de cobre en terreno excavado](/blog/resistencia-puesta-a-tierra-shelter-terreno-5-ohm/electrodo-conexion-en-terreno.webp)
+
+*La unión entre el conductor y el electrodo queda enterrada durante toda la vida de la instalación: es el punto que no se puede revisar después.*
 
 **Contrapesos y radiales.** Conductores enterrados horizontalmente, que en terrenos de alta resistividad suelen rendir mejor que las jabalinas verticales porque desarrollan mucha más superficie de contacto en las capas superficiales.
 

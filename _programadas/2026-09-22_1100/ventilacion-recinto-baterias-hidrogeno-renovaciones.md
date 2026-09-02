@@ -1,7 +1,7 @@
 ---
 title: "Ventilación del recinto de baterías: hidrógeno y renovaciones de aire"
 description: "Por qué una batería regulada por válvula igual desprende hidrógeno, qué límite fija la IEC 62485-2 y por qué el aire acondicionado del shelter no cumple esta función."
-date: "2026-10-08"
+date: "2026-09-22"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/ventilacion-recinto-baterias-hidrogeno-renovaciones/portada.jpg"
 category: "TBex"

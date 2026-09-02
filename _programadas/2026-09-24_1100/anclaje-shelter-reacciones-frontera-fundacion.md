@@ -1,7 +1,7 @@
 ---
 title: "Anclaje de un shelter: reacciones de diseño y frontera con la fundación"
 description: "El módulo lo fabrica uno y la base la ejecuta otro. Qué información tiene que cruzar esa frontera para que el anclaje se pueda verificar, y por qué el viento la gobierna."
-date: "2026-10-15"
+date: "2026-09-24"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/anclaje-shelter-reacciones-frontera-fundacion/portada.jpg"
 category: "TBex"

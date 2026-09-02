@@ -1,7 +1,7 @@
 ---
 title: "La profundidad del rack define el ancho interior del shelter"
 description: "Cómo los pasillos de servicio frontal y posterior fijan la geometría de una sala técnica, y en qué punto la huella deja de entrar en el gálibo de transporte convencional."
-date: "2026-09-24"
+date: "2026-09-15"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/profundidad-del-rack-define-el-ancho-interior-del-shelter/portada.jpg"
 category: "TBex"

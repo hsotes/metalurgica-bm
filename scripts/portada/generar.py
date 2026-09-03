@@ -52,6 +52,11 @@ APUNTES = {
             u"El problema no está en ninguno de los dos: está en el punto donde se tocan.",
             u"El acero de un pasador tiene una resistencia holgada.",
         ]),
+    "chapa-colaborante-sobre-estructura-metalica": (
+        "ARQ-APU-002", SISTEMAS, [
+            u"La capacidad de una losa mixta rara vez la define la flexión.",
+            u"Un mismo perno, en la misma viga, puede valer un 40 % menos solo por la orientación de la chapa.",
+        ]),
     "resistencia-puesta-a-tierra-shelter-terreno-5-ohm": (
         "TBEX-APU-002", SHELTERS, [
             u"La resistencia de un sistema de puesta a tierra no la define el electrodo: la define el terreno.",

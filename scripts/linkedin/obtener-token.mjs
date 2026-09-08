@@ -21,6 +21,10 @@
 // valores van como secrets del repositorio: LINKEDIN_ACCESS_TOKEN y
 // LINKEDIN_AUTHOR_URN.
 
+import fs from 'node:fs';
+import os from 'node:os';
+import path from 'node:path';
+
 const REDIRECT_URI = 'https://www.metalurgicabotomariani.com.ar/admin/';
 const SCOPES = 'openid profile w_member_social';
 
@@ -116,6 +120,37 @@ async function canjear(entrada) {
   console.log(`Dias de validez    : ${Math.round(data.expires_in / 86400)}`);
   console.log('\nVERIFICAR que el miembro autorizado sea Facundo. Si dice otro nombre,');
   console.log('se aprobo con la sesion equivocada y hay que repetir el paso 2.\n');
+
+  // Respaldo FUERA del repositorio: el repo es publico y esto no puede
+  // terminar commiteado ni por accidente. Paso una vez que se cerro la
+  // consola antes de copiar el token, y el codigo es de un solo uso.
+  const destino = path.join(os.tmpdir(), 'linkedin-mbm-token.txt');
+  fs.writeFileSync(
+    destino,
+    [
+      'LINKEDIN_ACCESS_TOKEN',
+      data.access_token,
+      '',
+      'LINKEDIN_AUTHOR_URN',
+      `urn:li:person:${me.sub}`,
+      '',
+      'LINKEDIN_TOKEN_VENCE',
+      vence.toISOString().slice(0, 10),
+      '',
+      `Miembro autorizado: ${me.name || '(sin nombre)'}`,
+      '',
+      'Cargar los tres en:',
+      'https://github.com/hsotes/metalurgica-bm/settings/secrets/actions',
+      'Despues BORRAR este archivo.',
+    ].join('
+'),
+    'utf8'
+  );
+  console.log(`
+Respaldo escrito en:
+  ${destino}`);
+  console.log('Borralo despues de cargar los secrets.
+');
 }
 
 const [modo, arg] = process.argv.slice(2);

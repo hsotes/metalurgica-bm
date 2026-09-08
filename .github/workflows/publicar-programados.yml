@@ -71,6 +71,10 @@ jobs:
         env:
           VERCEL_DEPLOY_HOOK: ${{ secrets.VERCEL_DEPLOY_HOOK }}
           PUBLICAR_CARPETA: ${{ github.event.inputs.carpeta }}
+          # El post de LinkedIn sale desde el perfil de Facundo Boto Mariani.
+          # El token dura ~60 dias: se renueva con scripts/linkedin/obtener-token.mjs
+          LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
+          LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
         run: node scripts/publicador/publicar.mjs
 
       # A las 22:00 ART, si la cola quedo sin nada pendiente, el job falla a

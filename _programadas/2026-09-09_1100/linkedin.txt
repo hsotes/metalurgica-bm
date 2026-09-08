@@ -1,0 +1,13 @@
+Dos chapas colaborantes con el mismo espesor, la misma altura de nervadura y el mismo desarrollo pueden tener capacidades distintas. Y no es un detalle de catálogo.
+
+La capacidad de una losa mixta rara vez la define la flexión. La define el corte longitudinal: la capacidad de la interfaz entre chapa y hormigón para transferir esfuerzo rasante. Y esa transferencia no ocurre por adherencia química, que es despreciable, sino por trabazón mecánica con los grabados que cada fabricante estampa en el alma de la chapa.
+
+Eso trae una consecuencia poco intuitiva: esa capacidad no se calcula. El Eurocódigo 4 la determina por el método m-k, a partir de ensayos de flexión a escala real sobre el perfil específico. De ahí salen las tablas de carga admisible que publica cada fabricante, y por eso las tablas de uno no valen para el perfil de otro, por parecidos que se vean en el corte.
+
+Sustituir una chapa por otra "equivalente" en obra, con la estructura ya calculada, es cambiar el dato de entrada sin recalcular. Probablemente funcione igual. Pero se está operando fuera de lo verificado.
+
+Hay un segundo dato que sorprende: un mismo perno conector, en la misma viga, puede valer un 40 % menos solo por la orientación de las nervaduras.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/chapa-colaborante-sobre-estructura-metalica/
+
+#EstructurasMetalicas #LosaMixta #ChapaColaborante #Eurocodigo #IngenieriaArgentina

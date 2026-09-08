@@ -135,6 +135,113 @@ async function esperarURL(url, intentos = 30, intervaloMs = 30000) {
   return false;
 }
 
+// ---------------------------------------------------------------- LinkedIn
+// El post sale desde el perfil personal de Facundo Boto Mariani, cuya cuenta
+// administra Hernan. No sale como la pagina de MBM porque publicar como
+// organizacion necesita w_organization_social, que viene del producto Community
+// Management API, y LinkedIn no lo ofrece por autoservicio: en el portal queda
+// en gris incluso con la app verificada contra la pagina.
+//
+// El token se saca con scripts/linkedin/obtener-token.mjs y vive como secret.
+
+// LinkedIn versiona su API por mes (YYYYMM) y desactiva las viejas. Se prueba
+// del mes actual hacia atras hasta dar con una activa (426 = probar otra).
+function versionesLinkedIn() {
+  if (process.env.LINKEDIN_VERSION) return [process.env.LINKEDIN_VERSION];
+  const lista = [];
+  const d = new Date();
+  for (let i = 0; i < 10; i++) {
+    lista.push(`${d.getUTCFullYear()}${String(d.getUTCMonth() + 1).padStart(2, '0')}`);
+    d.setUTCMonth(d.getUTCMonth() - 1);
+  }
+  return lista;
+}
+
+// El "Little Text Format" de LinkedIn exige escapar ciertos caracteres del
+// texto del post. No se escapan # ni @ para que los hashtags sigan andando.
+function escapeLinkedIn(texto) {
+  return texto.replace(/\\/g, '\\\\').replace(/([()[\]{}<>|*~_])/g, '\\$1');
+}
+
+async function fetchLinkedIn(url, armarOpts) {
+  let ultimo = '';
+  for (const version of versionesLinkedIn()) {
+    const res = await fetch(url, armarOpts(version));
+    if (res.ok) return res;
+    ultimo = await res.text();
+    if (res.status === 426 || ultimo.includes('NONEXISTENT_VERSION')) {
+      log(`Version ${version} inactiva, probando la anterior...`);
+      continue;
+    }
+    throw new Error(`LinkedIn respondio ${res.status}: ${ultimo.slice(0, 400)}`);
+  }
+  throw new Error(`Ninguna version de la API de LinkedIn activa. Ultimo error: ${ultimo.slice(0, 300)}`);
+}
+
+// Sube la portada y devuelve su URN, para usarla como miniatura de la tarjeta
+// del articulo sin depender de que LinkedIn scrapee el og:image a tiempo.
+async function subirPortadaLinkedIn(token, autor, rutaPortada) {
+  const initRes = await fetchLinkedIn(
+    'https://api.linkedin.com/rest/images?action=initializeUpload',
+    (version) => ({
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'LinkedIn-Version': version,
+        'X-Restli-Protocol-Version': '2.0.0',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ initializeUploadRequest: { owner: autor } }),
+    })
+  );
+  const init = await initRes.json();
+  const uploadUrl = init.value?.uploadUrl;
+  const imagenUrn = init.value?.image;
+  if (!uploadUrl || !imagenUrn) throw new Error('initializeUpload no devolvio uploadUrl/image');
+
+  const binRes = await fetch(uploadUrl, {
+    method: 'PUT',
+    headers: { Authorization: `Bearer ${token}` },
+    body: fs.readFileSync(rutaPortada),
+  });
+  if (!binRes.ok) throw new Error(`La subida de la portada fallo: ${binRes.status}`);
+  log(`Portada subida a LinkedIn: ${imagenUrn}`);
+  return imagenUrn;
+}
+
+async function postearLinkedIn(token, autor, comentario, articleUrl, titulo, miniatura) {
+  const body = {
+    author: autor,
+    commentary: escapeLinkedIn(comentario),
+    visibility: 'PUBLIC',
+    distribution: {
+      feedDistribution: 'MAIN_FEED',
+      targetEntities: [],
+      thirdPartyDistributionChannels: [],
+    },
+    content: {
+      article: {
+        source: articleUrl,
+        title: titulo,
+        ...(miniatura ? { thumbnail: miniatura } : {}),
+      },
+    },
+    lifecycleState: 'PUBLISHED',
+    isReshareDisabledByAuthor: false,
+  };
+  const res = await fetchLinkedIn('https://api.linkedin.com/rest/posts', (version) => ({
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'LinkedIn-Version': version,
+      'X-Restli-Protocol-Version': '2.0.0',
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(body),
+  }));
+  return res.headers.get('x-restli-id');
+}
+
 // Valida la carpeta ANTES de tocar el repo. Todo lo que puede estar mal se
 // detecta aca, con la cola intacta para corregir y reintentar.
 function validarCarpeta(dir, nombreCarpeta) {
@@ -250,22 +357,60 @@ async function publicarCarpeta(nombreCarpeta) {
   }
   log('URL viva.');
 
-  // --- 4. Archivar la carpeta ---
+  // --- 4. Postear en LinkedIn ---
+  // Recien aca, con el articulo confirmado vivo: postear antes deja una tarjeta
+  // con preview roto que LinkedIn cachea y despues no se arregla.
+  const linkedinTxt = path.join(dir, 'linkedin.txt');
+  const token = process.env.LINKEDIN_ACCESS_TOKEN;
+  const autor = process.env.LINKEDIN_AUTHOR_URN;
+  let errorLinkedIn = null;
+
+  if (!fs.existsSync(linkedinTxt)) {
+    resumen(`${slug}: la carpeta no traia linkedin.txt, no hay post que publicar.`);
+  } else if (!token || !autor) {
+    errorLinkedIn = 'faltan los secrets LINKEDIN_ACCESS_TOKEN y/o LINKEDIN_AUTHOR_URN';
+  } else {
+    try {
+      const comentario = fs.readFileSync(linkedinTxt, 'utf8').trim();
+      const portada = imagenes.find((f) => f.toLowerCase().startsWith('portada'));
+      const miniatura = await subirPortadaLinkedIn(token, autor, path.join(dir, portada));
+      const postId = await postearLinkedIn(token, autor, comentario, articleUrl, fm.title, miniatura);
+      resumen(`LinkedIn posteado: https://www.linkedin.com/feed/update/${postId}`);
+    } catch (err) {
+      // No se reintenta ni se frena el archivado: el cron corre cada media hora
+      // y un reintento duplicaria el post. Se avisa y se postea a mano.
+      errorLinkedIn = err.message;
+    }
+  }
+
+  // --- 5. Archivar la carpeta ---
   const archivoDir = path.join(COLA, 'publicadas', nombreCarpeta);
   fs.mkdirSync(path.dirname(archivoDir), { recursive: true });
   fs.renameSync(dir, archivoDir);
   fs.writeFileSync(
     path.join(archivoDir, 'resultado.json'),
-    JSON.stringify({ carpeta: nombreCarpeta, slug, articleUrl, publicado: ahoraART() }, null, 2)
+    JSON.stringify(
+      {
+        carpeta: nombreCarpeta,
+        slug,
+        articleUrl,
+        publicado: ahoraART(),
+        linkedin: errorLinkedIn ? `ERROR: ${errorLinkedIn}` : 'ok',
+      },
+      null,
+      2
+    )
   );
   git(`add -A ${COLA}`);
   commitSiHayCambios(`chore(programadas): archivar ${nombreCarpeta} (${slug})`);
   resumen(`Carpeta archivada en ${COLA}/publicadas/${nombreCarpeta}`);
 
-  // Fase 1: LinkedIn a mano. No es un error, es un recordatorio.
-  if (fs.existsSync(path.join(archivoDir, 'linkedin.txt'))) {
-    resumen(
-      `PENDIENTE postear en LinkedIn. El texto quedo en ${COLA}/publicadas/${nombreCarpeta}/linkedin.txt`
+  // El error de LinkedIn se reporta al final, con la carpeta YA archivada, para
+  // que el blog quede publicado y no se reintente el post.
+  if (errorLinkedIn) {
+    throw new Error(
+      `${slug}: el blog salio bien pero LinkedIn fallo — ${errorLinkedIn}. ` +
+        `Postear a mano con el texto de ${COLA}/publicadas/${nombreCarpeta}/linkedin.txt`
     );
   }
 }

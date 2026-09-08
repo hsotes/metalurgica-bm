@@ -142,15 +142,11 @@ async function canjear(entrada) {
       'Cargar los tres en:',
       'https://github.com/hsotes/metalurgica-bm/settings/secrets/actions',
       'Despues BORRAR este archivo.',
-    ].join('
-'),
+    ].join('\n'),
     'utf8'
   );
-  console.log(`
-Respaldo escrito en:
-  ${destino}`);
-  console.log('Borralo despues de cargar los secrets.
-');
+  console.log(`\nRespaldo escrito en:\n  ${destino}`);
+  console.log('Borralo despues de cargar los secrets.\n');
 }
 
 const [modo, arg] = process.argv.slice(2);

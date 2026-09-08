@@ -55,7 +55,23 @@ function urlAutorizacion() {
   console.log('incluye ?code=XXXXX  — copiar ese valor y usarlo en el paso 3.\n');
 }
 
-async function canjear(codigo) {
+// Acepta el codigo pelado o la URL completa a la que redirigio LinkedIn. Lo
+// segundo es lo comodo: se copia la barra de direcciones y listo.
+function extraerCodigo(entrada) {
+  const t = entrada.trim().replace(/^["']|["']$/g, '');
+  if (t.startsWith('http')) {
+    const code = new URL(t).searchParams.get('code');
+    if (!code) {
+      console.error('\nEsa URL no trae ?code=. Revisar que sea la de despues de aprobar.\n');
+      process.exit(1);
+    }
+    return code;
+  }
+  return t;
+}
+
+async function canjear(entrada) {
+  const codigo = extraerCodigo(entrada);
   const clientId = requerido('LINKEDIN_CLIENT_ID');
   const clientSecret = requerido('LINKEDIN_CLIENT_SECRET');
 

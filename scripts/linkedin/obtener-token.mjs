@@ -31,6 +31,14 @@ function requerido(nombre) {
     console.error('Se saca de la pestana Auth de la app en developer.linkedin.com\n');
     process.exit(1);
   }
+  // Ya paso: se copio el texto de ejemplo en vez del valor real, y el error
+  // recien aparecio en la pantalla de LinkedIn.
+  if (/^(tu_|your_|xxx)/i.test(v) || v.includes('client_id') || v.includes('client_secret')) {
+    console.error(`\n${nombre} tiene el texto de ejemplo, no el valor real: "${v}"`);
+    console.error('Reemplazarlo por el valor de Application credentials, en la pestana');
+    console.error('Auth de la app MBM blog publisher en developer.linkedin.com\n');
+    process.exit(1);
+  }
   return v;
 }
 

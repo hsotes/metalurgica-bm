@@ -5,10 +5,11 @@
 // Flujo: carpeta vencida -> valida -> copia .md e imagenes -> build de control
 // -> commit + push -> deploy hook -> espera la URL viva -> archiva la carpeta.
 //
-// FASE 1: solo blog. El posteo en LinkedIn se hace a mano; si la carpeta trae
-// linkedin.txt el publicador lo deja anotado en el resumen como pendiente.
+// El posteo en LinkedIn sale desde el perfil de Facundo Boto Mariani cuando la
+// carpeta trae linkedin.txt y estan cargados los secrets. Ver el bloque LinkedIn.
 //
-// Env opcionales: VERCEL_DEPLOY_HOOK, PUBLICAR_CARPETA (dispatch manual).
+// Env opcionales: VERCEL_DEPLOY_HOOK, PUBLICAR_CARPETA (dispatch manual),
+// LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN, LINKEDIN_TOKEN_VENCE.
 
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -242,6 +243,24 @@ async function postearLinkedIn(token, autor, comentario, articleUrl, titulo, min
   return res.headers.get('x-restli-id');
 }
 
+// El token de LinkedIn dura 60 dias y no hay refresh: es el limite del producto
+// Share on LinkedIn. Se avisa con anticipacion para que la renovacion no llegue
+// tarde, y a partir de los 3 dias el job falla para que GitHub mande el mail.
+function avisarVencimientoToken() {
+  const vence = process.env.LINKEDIN_TOKEN_VENCE;
+  if (!vence) return;
+  const dias = Math.floor((new Date(vence).getTime() - Date.now()) / 86400000);
+  if (Number.isNaN(dias)) return;
+  if (dias < 0) {
+    resumen(`El token de LinkedIn VENCIO hace ${-dias} dias. Renovarlo con scripts/linkedin/obtener-token.mjs`);
+  } else if (dias <= 3) {
+    resumen(`El token de LinkedIn vence en ${dias} dias. Renovarlo YA con scripts/linkedin/obtener-token.mjs`);
+  } else if (dias <= 10) {
+    resumen(`Aviso: al token de LinkedIn le quedan ${dias} dias.`);
+  }
+  return dias;
+}
+
 // Valida la carpeta ANTES de tocar el repo. Todo lo que puede estar mal se
 // detecta aca, con la cola intacta para corregir y reintentar.
 function validarCarpeta(dir, nombreCarpeta) {
@@ -370,6 +389,7 @@ async function publicarCarpeta(nombreCarpeta) {
   } else if (!token || !autor) {
     errorLinkedIn = 'faltan los secrets LINKEDIN_ACCESS_TOKEN y/o LINKEDIN_AUTHOR_URN';
   } else {
+    avisarVencimientoToken();
     try {
       const comentario = fs.readFileSync(linkedinTxt, 'utf8').trim();
       const portada = imagenes.find((f) => f.toLowerCase().startsWith('portada'));
@@ -429,6 +449,11 @@ function alertaColaVacia() {
     throw new Error(
       `COLA VACIA: no queda ninguna carpeta en ${COLA}/. Cargar la tanda de la semana.`
     );
+  }
+
+  const dias = avisarVencimientoToken();
+  if (dias !== undefined && dias <= 3) {
+    throw new Error(`El token de LinkedIn vence en ${dias} dias. Renovarlo antes de que se corte el posteo.`);
   }
   log(`Cola: ${pendientes.length} carpeta(s) pendiente(s).`);
 }

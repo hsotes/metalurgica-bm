@@ -75,6 +75,7 @@ jobs:
           # El token dura ~60 dias: se renueva con scripts/linkedin/obtener-token.mjs
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
+          LINKEDIN_TOKEN_VENCE: ${{ secrets.LINKEDIN_TOKEN_VENCE }}
         run: node scripts/publicador/publicar.mjs
 
       # A las 22:00 ART, si la cola quedo sin nada pendiente, el job falla a
@@ -83,4 +84,6 @@ jobs:
       # fallar por el estado de la cola.
       - name: Aviso de cola vacia
         if: success() && github.event_name == 'schedule'
+        env:
+          LINKEDIN_TOKEN_VENCE: ${{ secrets.LINKEDIN_TOKEN_VENCE }}
         run: node scripts/publicador/publicar.mjs --alerta

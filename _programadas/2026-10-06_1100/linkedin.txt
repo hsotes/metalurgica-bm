@@ -1,0 +1,11 @@
+En un módulo transportable, el que fabrica la caja y el que ejecuta la base son dos partes distintas, muchas veces separadas por mil kilómetros y varios meses. El punto donde se encuentran es el anclaje, y esa frontera no se resuelve con un bulón.
+
+En un shelter liviano el viento invierte el problema. Con una a dos toneladas de peso propio, varios metros cuadrados de barlovento y un techo plano en succión, los anclajes de barlovento quedan traccionados. Y ahí, para las profundidades de empotramiento habituales, el que gobierna según ACI 318 casi siempre es un modo de falla del hormigón, no del acero: un perno más grueso no mejora nada.
+
+Un dato más: la fricción entre placa y base no sirve para el vuelco. Es proporcional a la compresión, y en esa combinación la compresión es justamente lo que se pierde.
+
+Escribimos sobre qué información tiene que cruzar esa frontera, y por qué el plano de anclaje con las reacciones de diseño tiene que salir antes que cualquier otro plano.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/anclaje-shelter-reacciones-frontera-fundacion/
+
+#Shelters #Anclajes #Fundaciones #CalculoEstructural #IngenieriaArgentina

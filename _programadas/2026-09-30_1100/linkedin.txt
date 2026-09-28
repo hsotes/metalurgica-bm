@@ -1,0 +1,11 @@
+En una columna de tubo de acero relleno de hormigón, el acero cede parte de su propia capacidad para que el hormigón gane más.
+
+Es lo que dice la fórmula del Eurocódigo 4 para tubos circulares: el tubo trabaja en tracción anular, como el aro de un barril, confina al núcleo y le sube la resistencia. A cambio, se le asigna menos capacidad axial al acero. Y el hormigón le devuelve el favor: la pared ya no puede abollarse hacia adentro, lo que admite relaciones ancho/espesor de 54 en lugar de 34 en tubos rectangulares.
+
+Hay un dato que conviene precisar sobre fuego. Sin armadura interior, un tubo relleno ronda los 30 minutos. Para 60 o más, la armadura va dentro del núcleo. La protección está adentro de la columna, y la cara del tubo queda libre de mortero proyectado.
+
+Escribimos sobre cómo trabaja la sección mixta y sobre lo que se define en taller: venteos, ventanas de llenado, diafragmas y conexiones.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/columnas-cft-seccion-mixta-acero-hormigon/
+
+#EstructurasMetalicas #ColumnasMixtas #CFT #Eurocodigo #IngenieriaArgentina

@@ -1,7 +1,7 @@
 ---
 title: "Oficinas modulares para campamento de maquinaria pesada"
-description: "Qué distingue a un módulo de oficina emplazado junto a un taller de equipo pesado: polvo, vibración, ruido y una estructura que tiene que sobrevivir a varios traslados."
-date: "2026-09-17"
+description: "Un módulo de oficina junto a un taller de equipo pesado enfrenta polvo, vibración y ruido, y una estructura que tiene que sobrevivir a varios traslados."
+date: "2026-10-05"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/oficinas-modulares-campamento-maquinaria-pesada/portada.jpg"
 category: "Vivienda Modular"
@@ -12,7 +12,7 @@ Un módulo de oficina de obra y un módulo de oficina en un campamento de maquin
 
 ## El entorno manda
 
-Los campamentos de este tipo se construyen casi siempre con enfoque modular prefabricado, y la razón es de plazo: los módulos se fabrican en taller mientras la obra civil de las plateas avanza en paralelo en el sitio. Esa simultaneidad recorta el plazo total del orden del 30 al 50 % respecto de una construcción tradicional equivalente.
+Los campamentos de este tipo se construyen casi siempre con enfoque modular prefabricado, y la razón es de plazo: los módulos se fabrican en taller mientras la obra civil de las plateas avanza en paralelo en el sitio. Según la literatura del sector, esa simultaneidad recorta el plazo total del orden del 30 al 50 % respecto de una construcción tradicional equivalente.
 
 Pero el ahorro de plazo solo se sostiene si el módulo llega preparado para el ambiente. Y el ambiente de un taller de equipo pesado tiene características que no aparecen en una oficina de obra convencional.
 
@@ -20,7 +20,7 @@ Pero el ahorro de plazo solo se sostiene si el módulo llega preparado para el a
 
 Es la condición dominante y la que más determina la envolvente. El movimiento de equipos sobre superficies no consolidadas genera polvo en suspensión de manera permanente, no episódica. Eso se traduce en tres exigencias concretas: estanqueidad real de la envolvente —no nominal—, carpinterías con burletes de calidad y previsión de reemplazo, y climatización que trabaje con el recinto en ligera sobrepresión para que las infiltraciones vayan de adentro hacia afuera.
 
-La sobrepresión es la medida más eficaz y la que más se omite. Un módulo climatizado sin control de presión termina succionando polvo por cada rendija cada vez que se abre una puerta.
+La sobrepresión es la medida más eficaz frente al polvo. Un módulo climatizado sin control de presión termina succionando polvo por cada rendija cada vez que se abre una puerta.
 
 ### Vibración
 
@@ -30,7 +30,7 @@ La respuesta está en los apoyos y en la resolución de los encuentros, no en en
 
 ### Ruido
 
-Un taller de equipo pesado genera niveles que hacen inviable una oficina sin tratamiento. Y el ruido entra por donde uno no lo espera: no por el panel, que aísla razonablemente, sino por las carpinterías, los pasamuros y los puentes acústicos de la propia estructura.
+Un taller de equipo pesado genera niveles que hacen inviable una oficina sin tratamiento. Y el ruido no entra tanto por el panel, que aísla razonablemente, como por las carpinterías, los pasamuros y los puentes acústicos de la propia estructura.
 
 Conviene definir desde el principio qué nivel interior se busca, porque es la diferencia entre un módulo estándar y uno con tratamiento específico, y esa diferencia se ve en el presupuesto.
 

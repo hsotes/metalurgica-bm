@@ -39,9 +39,30 @@ sans_bold = lambda s: ImageFont.truetype(F + "segoeuib.ttf", s)
 SHELTERS = u"Shelters y recintos para equipamiento crítico"
 MODULAR = u"Construcción modular"
 SISTEMAS = u"Sistemas compatibles con la estructura metálica"
+PARRILLAS = u"Parrillas, arquitectura y metal a la vista"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "losas-alveolares-sobre-portico-metalico": (
+        "ARQ-APU-005", SISTEMAS, [
+            u"Una planta de placas apoyadas y sueltas no transmite el viento.",
+            u"El problema es transitorio, pero en la etapa transitoria es donde la viga está más expuesta.",
+        ]),
+    "conectores-de-corte-seccion-mixta": (
+        "ARQ-APU-003", SISTEMAS, [
+            u"Una losa de hormigón apoyada sobre una viga de acero no forma una sección mixta.",
+            u"Todo eso descansa sobre unos pocos pernos por metro de viga.",
+        ]),
+    "columnas-cft-seccion-mixta-acero-hormigon": (
+        "ARQ-APU-004", SISTEMAS, [
+            u"Un tubo relleno solo puede hacerlo hacia afuera, porque hacia adentro está el núcleo.",
+            u"El acero cede capacidad propia para que el hormigón gane más.",
+        ]),
+    "embudo-de-una-parrilla-tiro-altura-humo": (
+        "GRI-APU-001", PARRILLAS, [
+            u"El embudo no es una tapa con un caño.",
+            u"Agrandar la chimenea no es una solución genérica al humo.",
+        ]),
     "disipacion-interna-equipos-aire-acondicionado-shelter": (
         "TBEX-APU-001", SHELTERS, [
             u"Prácticamente toda la energía eléctrica que entra termina convertida en calor dentro del volumen.",
@@ -80,12 +101,12 @@ APUNTES = {
     "profundidad-del-rack-define-el-ancho-interior-del-shelter": (
         "TBEX-APU-006", SHELTERS, [
             u"La huella de una sala técnica no se define desde afuera hacia adentro.",
-            u"Los tres metros salen de una suma de tres números, y esa suma se puede hacer el primer día.",
+            u"Ninguno de esos pasos es evitable sin renunciar al primero.",
         ]),
     "oficinas-modulares-campamento-maquinaria-pesada": (
         "MOD-GUIA-004", MODULAR, [
             u"Es una estructura que trabaja más en el camión que en el sitio.",
-            u"Un módulo climatizado sin control de presión termina succionando polvo por cada rendija.",
+            u"Un módulo climatizado sin control de presión termina succionando polvo por cada rendija cada vez que se abre una puerta.",
         ]),
     "ventilacion-recinto-baterias-hidrogeno-renovaciones": (
         "TBEX-APU-007", SHELTERS, [
@@ -94,7 +115,7 @@ APUNTES = {
         ]),
     "anclaje-shelter-reacciones-frontera-fundacion": (
         "TBEX-APU-008", SHELTERS, [
-            u"Esa frontera no se resuelve con un bulón. Se resuelve con información.",
+            u"Esa frontera no se resuelve con un bulón.",
             u"La fricción desaparece exactamente en el instante en que se la necesita.",
         ]),
 }

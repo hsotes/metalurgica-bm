@@ -1,7 +1,7 @@
 ---
 title: "Anclaje de un shelter: reacciones de diseño y frontera con la fundación"
-description: "El módulo lo fabrica uno y la base la ejecuta otro. Qué información tiene que cruzar esa frontera para que el anclaje se pueda verificar, y por qué el viento la gobierna."
-date: "2026-09-24"
+description: "El módulo lo fabrica uno y la base la ejecuta otro. Qué información tiene que cruzar esa frontera para verificar el anclaje, y por qué gobierna el viento."
+date: "2026-10-06"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/anclaje-shelter-reacciones-frontera-fundacion/portada.jpg"
 category: "TBex"
@@ -25,7 +25,7 @@ El entregable que hace verificable el anclaje no es un plano de detalle del bast
 | Distancia mínima al borde | Es, con frecuencia, lo que gobierna la capacidad |
 | Tipo de anclaje previsto | Preinstalado u hormigonado posterior, no son equivalentes |
 
-Las tres últimas filas son las que más se omiten y las que más problemas generan. Una base perfectamente dimensionada para la carga, ejecutada con el borde a pocos centímetros del perno, puede tener la mitad de la capacidad que se supuso.
+Las tres últimas filas son las que con más frecuencia condicionan la capacidad real. Una base perfectamente dimensionada para la carga, ejecutada con el borde a pocos centímetros del perno, puede tener la mitad de la capacidad que se supuso.
 
 ## Por qué el viento gobierna el anclaje
 
@@ -41,7 +41,7 @@ Eso tiene una implicancia contraintuitiva: poner un perno más grueso no siempre
 
 ## La fricción no se puede invocar para el vuelco
 
-Es un error de razonamiento que aparece seguido. Frente a un esfuerzo horizontal, la fricción entre la placa base y el hormigón puede absorber una parte, y para acciones pequeñas es una hipótesis aceptable.
+Es una hipótesis que conviene revisar. Frente a un esfuerzo horizontal, la fricción entre la placa base y el hormigón puede absorber una parte, y para acciones pequeñas es una hipótesis aceptable.
 
 El problema es que la fricción disponible es proporcional a la compresión sobre la placa. Y en la combinación que gobierna —viento con succión de techo— la compresión es justamente lo que se está perdiendo. La fricción desaparece exactamente en el instante en que se la necesita.
 

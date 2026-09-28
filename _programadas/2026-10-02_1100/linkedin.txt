@@ -1,0 +1,11 @@
+A las baterías más usadas en shelters se las llama "selladas". El nombre correcto es VRLA: plomo-ácido regulada por válvula. Y la válvula existe justamente porque hay algo que tiene que salir.
+
+Ese algo es hidrógeno. Una VRLA recombina casi todo el gas que produce, pero no todo, y deja de hacerlo con sobrecarga, envejecimiento o temperatura elevada. La IEC 62485-2 fija el límite en 1 % de hidrógeno en volumen: la cuarta parte del límite inferior de explosividad, porque el gas más liviano que existe se acumula bajo el cielorraso aunque la media del recinto sea baja.
+
+Por eso la salida de aire va arriba y la entrada abajo. Y por eso el aire acondicionado no resuelve esto: recircula. Puede mantener la temperatura perfecta mientras la concentración de hidrógeno sube.
+
+Escribimos sobre la ventilación del recinto de baterías como lo que es: una función distinta de la climatización, sobre el mismo volumen.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/ventilacion-recinto-baterias-hidrogeno-renovaciones/
+
+#Shelters #Baterias #IEC62485 #InfraestructuraCritica #IngenieriaArgentina

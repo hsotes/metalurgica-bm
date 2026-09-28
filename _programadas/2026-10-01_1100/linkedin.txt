@@ -1,0 +1,11 @@
+Una sala técnica con racks de acceso por ambas caras tiene un ancho interior que se puede calcular el primer día, antes de hablar de estructura o de envolvente.
+
+Pasillo frontal de 1.200 mm, rack de 1.000 mm, pasillo posterior de 800 mm: 3.000 mm. Son los valores de referencia de la TIA-942 aplicados a un rack de 42U de uso corriente.
+
+Con la envolvente, el ancho exterior se va a unos 3.200 mm. Un contenedor de 20 pies tiene 2.350 mm interiores, y el ancho de carga que circula sin permiso especial es de 2.600 mm. En esa sala técnica el que gobierna la geometría ya no es el transporte: es el mantenimiento. El transporte pasa a ser una consecuencia que hay que resolver.
+
+Y un detalle del equipamiento que recupera espacio: puertas de rack bipartidas. Una hoja única de 600 mm, abierta, deja 200 mm de paso en el pasillo posterior.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/profundidad-del-rack-define-el-ancho-interior-del-shelter/
+
+#Shelters #SalasTecnicas #Racks #TIA942 #InfraestructuraCritica

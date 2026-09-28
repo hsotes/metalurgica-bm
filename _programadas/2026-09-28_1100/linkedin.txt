@@ -1,0 +1,11 @@
+Una losa de hormigón apoyada sobre una viga de acero no es una viga mixta. Son dos elementos apilados que se deslizan uno sobre el otro cuando la viga flexiona.
+
+Lo que los convierte en una sola sección es un perno de 19 mm soldado sobre el ala. Con eso, frente a la viga de acero sola, la resistencia se duplica y la rigidez puede triplicarse. En luces de 12 a 20 m el acero pesa entre un 30 y un 50 % menos.
+
+Dos datos que muestran lo fino que es el detalle. Con un hormigón C25/30 el perno falla por el hormigón; con un C30/37, por el acero: está en equilibrio entre sus dos modos de falla. Y soldado a través de la chapa colaborante, un perno de 22 mm deja de ser dúctil en los ensayos.
+
+Escribimos sobre cómo trabaja el conector, qué lo limita y por qué buena parte de sus condiciones se definen en el taller, antes de que el perno exista.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/conectores-de-corte-seccion-mixta/
+
+#EstructurasMetalicas #VigasMixtas #ConectoresDeCorte #Eurocodigo #IngenieriaArgentina

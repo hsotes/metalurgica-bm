@@ -1,0 +1,13 @@
+Una losa alveolar llega a obra terminada, se iza, se apoya y queda lista. Sobre una estructura metálica la combinación es natural: las dos se fabrican en taller y se montan en seco.
+
+Pero la velocidad del sistema descansa en tres condiciones que no las resuelve la losa, sino la viga que la recibe.
+
+El apoyo: la práctica británica pide 75 mm nominales sobre acero y 40 mm netos después de todas las tolerancias. Entre uno y otro se consumen la separación entre vigas, el largo de la placa y el montaje.
+
+El montaje de un solo lado: mientras se colocan las placas, la viga recibe carga excéntrica y gira, sin ninguna restricción lateral todavía. El límite de referencia es de 2°, y arriostrar solo las alas traccionadas no lo evita.
+
+Y el diafragma: una planta de placas sueltas no transmite el viento. Lo hacen las juntas macizadas, la capa armada o los tensores perimetrales.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/losas-alveolares-sobre-portico-metalico/
+
+#EstructurasMetalicas #LosasAlveolares #Prefabricados #Entrepisos #IngenieriaArgentina

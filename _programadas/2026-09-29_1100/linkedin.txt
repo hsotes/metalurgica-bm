@@ -1,0 +1,11 @@
+Cuando una especificación de sala técnica pide lana mineral en muros, techo y piso, y además dentro de los perfiles tubulares, se lee como un requisito de aislación. No lo es.
+
+Es un requisito de reacción al fuego. La lana de roca clasifica A1: no se enciende, no aporta llama, humo ni gotas. El poliisocianurato clasifica D. Que sea autoextinguible no lo vuelve incombustible: un material autoextinguible deja de arder cuando se retira la fuente; un material A1 nunca empieza.
+
+La consecuencia práctica está en el espesor. Con 0,040 W/m·K contra 0,022, igualar la resistencia térmica de un panel de poliisocianurato de 100 mm exige del orden de 180 mm de lana de roca. Eso arrastra superficie interior, peso sobre el bastidor, izaje y flete.
+
+Escribimos sobre por qué conviene separar las dos preguntas: qué sistema de envolvente corresponde al ambiente, y qué núcleo corresponde al requisito de fuego.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/aislacion-incombustible-shelters-requisito-no-termico/
+
+#Shelters #ReaccionAlFuego #PanelSandwich #InfraestructuraCritica #IngenieriaArgentina

@@ -132,7 +132,7 @@ def buscar_fondo(carpeta):
         if not os.path.isdir(base):
             continue
         for f in sorted(os.listdir(base)):
-            if f.lower().startswith("fondo") and f.lower().endswith(IMG_EXT):
+            if os.path.splitext(f.lower())[0] == "fondo" and f.lower().endswith(IMG_EXT):
                 return os.path.join(base, f)
     return None
 

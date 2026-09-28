@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# respaldos locales del vigilante de portadas
+_programadas/**/_anteriores/

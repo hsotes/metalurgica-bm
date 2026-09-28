@@ -54,7 +54,8 @@ def adoptar_fondo(c):
     if nueva.stat().st_size != t:
         return False
     for viejo in f.glob("fondo.*"):
-        viejo.rename(f / ("fondo-anterior-%s%s" % (datetime.now().strftime("%H%M%S"), viejo.suffix.lower())))
+        (f / "_anteriores").mkdir(exist_ok=True)
+        viejo.rename(f / "_anteriores" / ("fondo-%s%s" % (datetime.now().strftime("%Y%m%d-%H%M%S"), viejo.suffix.lower())))
     destino = f / ("fondo" + nueva.suffix.lower())
     nueva.rename(destino)
     log("%s: %s adoptada como fondo de portada" % (c.name, nueva.name))

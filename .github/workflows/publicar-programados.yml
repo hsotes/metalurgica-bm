@@ -76,6 +76,8 @@ jobs:
           LINKEDIN_ACCESS_TOKEN: ${{ secrets.LINKEDIN_ACCESS_TOKEN }}
           LINKEDIN_AUTHOR_URN: ${{ secrets.LINKEDIN_AUTHOR_URN }}
           LINKEDIN_TOKEN_VENCE: ${{ secrets.LINKEDIN_TOKEN_VENCE }}
+          # Mencion a la pagina de MBM en cada post: "Nombre|urn:li:organization:NNN"
+          LINKEDIN_MENCION: ${{ secrets.LINKEDIN_MENCION }}
         run: node scripts/publicador/publicar.mjs
 
       # A las 22:00 ART, si la cola quedo sin nada pendiente, el job falla a

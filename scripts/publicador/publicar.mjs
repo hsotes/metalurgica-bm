@@ -9,7 +9,7 @@
 // carpeta trae linkedin.txt y estan cargados los secrets. Ver el bloque LinkedIn.
 //
 // Env opcionales: VERCEL_DEPLOY_HOOK, PUBLICAR_CARPETA (dispatch manual),
-// LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN, LINKEDIN_TOKEN_VENCE.
+// LINKEDIN_ACCESS_TOKEN, LINKEDIN_AUTHOR_URN, LINKEDIN_TOKEN_VENCE y opcional LINKEDIN_MENCION.
 
 import { execSync } from 'node:child_process';
 import fs from 'node:fs';
@@ -210,10 +210,39 @@ async function subirPortadaLinkedIn(token, autor, rutaPortada) {
   return imagenUrn;
 }
 
+// Mencion a la pagina de empresa en cada post (secret LINKEDIN_MENCION, formato
+// "Nombre exacto de la pagina|urn:li:organization:NNN"). Se publica desde el
+// perfil de Facundo porque la API no deja postear como pagina; la mencion hace
+// que el post aparezca en las menciones de la pagina, que lo puede volver a
+// publicar. El nombre tiene que coincidir exacto con el de la pagina.
+function agregarMencion(commentary) {
+  const conf = process.env.LINKEDIN_MENCION;
+  if (!conf || !conf.includes('|')) return commentary;
+  const [nombre, urn] = conf.split('|').map((x) => x.trim());
+  if (!/^urn:li:organization:\d+$/.test(urn)) return commentary;
+  const mencion = `@[${nombre}](${urn})`;
+  const partes = commentary.split(/\r?\n\s*\r?\n/);
+  const ultima = partes[partes.length - 1].trim();
+  if (ultima.startsWith('#')) partes.splice(partes.length - 1, 0, mencion);
+  else partes.push(mencion);
+  return partes.join('\n\n');
+}
+
 async function postearLinkedIn(token, autor, comentario, articleUrl, titulo, miniatura) {
+  try {
+    return await postearLinkedInCon(token, autor, agregarMencion(escapeLinkedIn(comentario)), articleUrl, titulo, miniatura);
+  } catch (err) {
+    // Un 4xx significa que el post no se creo: se reintenta una vez sin mencion.
+    if (!process.env.LINKEDIN_MENCION || !/respondio 4\d\d/.test(err.message)) throw err;
+    log(`LinkedIn rechazo el post con mencion (${err.message.slice(0, 160)}). Reintento sin mencion.`);
+    return await postearLinkedInCon(token, autor, escapeLinkedIn(comentario), articleUrl, titulo, miniatura);
+  }
+}
+
+async function postearLinkedInCon(token, autor, commentary, articleUrl, titulo, miniatura) {
   const body = {
     author: autor,
-    commentary: escapeLinkedIn(comentario),
+    commentary,
     visibility: 'PUBLIC',
     distribution: {
       feedDistribution: 'MAIN_FEED',

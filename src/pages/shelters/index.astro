@@ -1,0 +1,390 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ServiceSchema from '../../components/seo/ServiceSchema.astro';
+import BreadcrumbSchema from '../../components/seo/BreadcrumbSchema.astro';
+import FAQSchema from '../../components/seo/FAQSchema.astro';
+import { siteConfig } from '../../config/site';
+
+const { contact } = siteConfig;
+
+const breadcrumbs = [
+  { name: 'Inicio', url: '/' },
+  { name: 'Shelters modulares', url: '/shelters/' },
+];
+
+const PILAR = '/blog/shelters-modulares-para-equipos-criticos-guia-tecnica-de-diseno-climatizacion-y-proteccion/';
+
+// Aplicaciones: tomadas de la guía técnica publicada (sección 1 del pilar)
+const aplicaciones = [
+  { titulo: 'Telecomunicaciones', texto: 'Estaciones base de telefonía móvil, nodos de fibra óptica y sitios de radioenlace.' },
+  { titulo: 'Data center perimetral', texto: 'Salas técnicas modulares para cómputo en el borde de la red (edge), con climatización redundante y respaldo de energía.' },
+  { titulo: 'Oil & Gas', texto: 'Salas eléctricas, de control e instrumentación en yacimientos y plantas de proceso.' },
+  { titulo: 'Minería', texto: 'Equipos de comunicaciones, control y monitoreo en sitios remotos.' },
+  { titulo: 'Energía', texto: 'Casetas de control en subestaciones y en parques solares y eólicos; salas de UPS y baterías.' },
+  { titulo: 'Corredores viales', texto: 'Equipamiento de sistemas inteligentes de transporte (ITS) a la vera de la ruta.' },
+];
+
+// Variables de ingeniería: cada una remite al artículo técnico que la desarrolla
+const ingenieria = [
+  {
+    titulo: 'Viento y vuelco',
+    texto: 'La velocidad básica, la categoría de exposición y el factor de importancia cambian con la localidad exacta del sitio. En un shelter, el vuelco suele gobernar antes que la tensión.',
+    href: '/blog/acciones-de-viento-sobre-un-shelter-localidad-exacta/',
+  },
+  {
+    titulo: 'Balance térmico',
+    texto: 'La carga térmica no es la potencia de placa de los equipos. El aire acondicionado se dimensiona con la disipación real, la envolvente y la temperatura exterior de diseño, con redundancia N+1 y ventilación de emergencia.',
+    href: '/blog/balance-termico-de-un-shelter-como-dimensionar-el-aire-acondicionado-para-operar-a-45-c/',
+  },
+  {
+    titulo: 'Disipación interna',
+    texto: 'El dato de partida que define la capacidad de climatización, y lo que ocurre cuando se dimensiona sobre el número equivocado.',
+    href: '/blog/disipacion-interna-equipos-aire-acondicionado-shelter/',
+  },
+  {
+    titulo: 'Puesta a tierra',
+    texto: 'La resistividad del terreno decide si 5 Ω es alcanzable. Cuando no lo es, la red equipotencial pesa más que el número de ohms.',
+    href: '/blog/resistencia-puesta-a-tierra-shelter-terreno-5-ohm/',
+  },
+  {
+    titulo: 'Protección contra rayos',
+    texto: 'Coordinación de SPD Clase I y II según IEC 62305-4, zonas de protección LPZ y evaluación de riesgo IEC 62305-2.',
+    href: '/blog/spd-clase-i-y-ii-en-shelters-la-coordinacion-que-evita-perder-los-equipos/',
+  },
+  {
+    titulo: 'Piso técnico',
+    texto: 'Cuando el pleno bajo piso se pide a la vez como cámara de impulsión de aire y como canalización de cables, la incompatibilidad es física y se resuelve en el diseño.',
+    href: '/blog/pleno-bajo-piso-tecnico-cables-y-aire/',
+  },
+  {
+    titulo: 'Vida útil',
+    texto: 'Fundación, envolvente antivandalismo, vibración del entorno, transporte de larga distancia como condición de carga y documentación as-built.',
+    href: '/blog/vida-util-de-un-shelter-modular-analisis-de-las-variables-de-diseno/',
+  },
+  {
+    titulo: 'Shelter o gabinete',
+    texto: 'Con más de 2-3 kW de disipación o intervenciones técnicas frecuentes, el shelter walk-in suele ser más eficiente en costo total que un gabinete outdoor.',
+    href: PILAR,
+  },
+];
+
+const alcance = [
+  'Estructura principal de acero, con orejas de izaje y puntos de eslingaje identificados',
+  'Envolvente con aislación de panel sándwich y puerta de chapa de acero',
+  'Piso técnico y pasamuros para el ingreso de cables',
+  'Integración de climatización, tablero eléctrico, iluminación, bandejas portacables y barra de puesta a tierra',
+  'Gabinetes, racks y tableros de la línea TBEX',
+  'Memoria de cálculo, planos y documentación as-built',
+];
+
+const faqs = [
+  {
+    question: '¿Dónde fabrica shelters Metalúrgica Boto Mariani?',
+    answer: `En su planta de ${contact.address.full}. Es una planta de 1.400 m² con corte láser, plegado de chapa de hasta 6 m e izaje propio de hasta 12 t.`,
+  },
+  {
+    question: '¿Qué información hace falta para cotizar un shelter?',
+    answer: 'La ubicación del sitio (define viento, fundación y logística), las dimensiones interiores o el equipamiento a alojar, la disipación térmica de los equipos, los requerimientos de energía y respaldo (UPS y baterías), el grado de protección requerido y el plazo. Con esos datos se arma una oferta desagregada por estructura, climatización, sistema eléctrico, protección contra rayos, logística y documentación.',
+  },
+  {
+    question: '¿Cuándo conviene un shelter y cuándo un gabinete outdoor?',
+    answer: 'Si la disipación térmica de los equipos supera 2-3 kW o el sitio requiere intervenciones técnicas frecuentes, un shelter walk-in suele ser más eficiente en costo total. Para un equipo único de bajo consumo, el gabinete outdoor es la solución correcta.',
+  },
+  {
+    question: '¿Cuánto pesa un shelter y cómo se transporta?',
+    answer: 'Un shelter de 6 × 2,4 m equipado pesa típicamente entre 4.500 y 7.500 kg. Se transporta en camión y se iza con grúa sobre una fundación preparada; el diseño incluye puntos de izaje y un plano de izaje para el equipo de campo.',
+  },
+  {
+    question: '¿Qué normas intervienen en el diseño de un shelter?',
+    answer: 'ETSI EN 300 019 para el ambiente interior y exterior, IEC 60529 para el grado de protección IP, IEC 62305 para protección contra rayos, IEC 60364 / IRAM 2281 para la instalación eléctrica, CIRSOC 102 para cargas de viento e INPRES-CIRSOC 103 para cargas sísmicas.',
+  },
+  {
+    question: '¿Fabrican también los gabinetes y racks que van dentro del shelter?',
+    answer: 'Sí. Gabinetes eléctricos, racks y tableros se fabrican en la misma planta con la línea TBEX, cuyos gabinetes cuentan con certificación INTI IP66.',
+  },
+];
+---
+
+<BaseLayout
+  title="Shelters modulares metálicos para equipos críticos | Fabricante en Argentina"
+  description="Metalúrgica Boto Mariani fabrica shelters modulares metálicos para telecomunicaciones, data centers, oil & gas, minería y energía. Planta de 1.400 m² en Burzaco, Buenos Aires."
+  image="/images/tbox/shelter-02.jpg"
+>
+  <ServiceSchema
+    serviceName="Fabricación de shelters modulares metálicos"
+    description="Diseño y fabricación de shelters modulares metálicos walk-in para equipos críticos de telecomunicaciones, data centers perimetrales, oil & gas, minería y energía, en planta propia en Burzaco, Buenos Aires, Argentina."
+    serviceType="Fabricación de shelters modulares"
+    category="Shelters para equipos críticos"
+    image="/images/tbox/shelter-02.jpg"
+  />
+  <BreadcrumbSchema items={breadcrumbs} />
+  <FAQSchema items={faqs} />
+
+  <!-- Hero -->
+  <section class="relative min-h-[70vh] flex items-center">
+    <div class="absolute inset-0">
+      <img
+        src="/images/tbox/shelter-02.jpg"
+        alt="Shelter modular metálico con climatización redundante instalado en sitio"
+        class="w-full h-full object-cover"
+      />
+      <div class="absolute inset-0 bg-gradient-to-r from-gray-900/95 via-gray-900/85 to-gray-900/60"></div>
+    </div>
+
+    <div class="container relative z-10 py-20">
+      <div class="max-w-3xl">
+        <p class="text-sm font-semibold tracking-wider text-[#4b9bc9] mb-4">FABRICACIÓN EN BURZACO, BUENOS AIRES</p>
+        <h1 class="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-white!">
+          Shelters modulares metálicos para equipos críticos
+        </h1>
+        <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+          Metalúrgica Boto Mariani diseña y fabrica shelters walk-in para telecomunicaciones, data centers perimetrales,
+          oil &amp; gas, minería y energía. La ingeniería estructural, térmica y eléctrica se resuelve en un mismo proyecto,
+          en planta propia de 1.400 m² en Burzaco, Provincia de Buenos Aires.
+        </p>
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contacto" class="btn btn-primary text-base px-8">Cotizar un shelter</a>
+          <a href={PILAR} class="btn btn-outline border-white! text-white! hover:bg-white! hover:text-gray-900! text-base px-8">
+            Leer la guía técnica
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Datos de planta -->
+  <section class="bg-primary py-8">
+    <div class="container">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-8 text-center">
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-white">1.400 m²</div>
+          <div class="text-sm text-gray-300 mt-1">Planta en Burzaco</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-white">6 m</div>
+          <div class="text-sm text-gray-300 mt-1">Plegado de chapa</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-white">12 t</div>
+          <div class="text-sm text-gray-300 mt-1">Izaje propio</div>
+        </div>
+        <div>
+          <div class="text-3xl md:text-4xl font-bold text-white">{siteConfig.company.foundedYear}</div>
+          <div class="text-sm text-gray-300 mt-1">Año de fundación</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Qué es un shelter -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12 items-center">
+        <div>
+          <h2 class="section-title">Qué es un shelter y qué fabricamos</h2>
+          <p class="text-lg text-gray-600 mb-4">
+            Un shelter es una construcción modular prefabricada, metálica, que aloja y protege equipos que deben operar
+            en forma continua donde no se justifica una obra tradicional. Llega al sitio terminado —estructura, envolvente
+            aislada, piso, puerta, climatización, instalación eléctrica y puesta a tierra— y se posiciona con grúa sobre
+            una fundación preparada.
+          </p>
+          <p class="text-lg text-gray-600">
+            Fabricamos shelters a medida del equipamiento y del sitio: cada proyecto parte de la localidad de emplazamiento,
+            la disipación térmica de los equipos y los requerimientos de energía y respaldo.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <img src="/images/tbox/shelter-09.jpg" alt="Shelter metálico en planta, con pasamuros de ingreso de cables" class="rounded-lg shadow-lg w-full h-64 object-cover" loading="lazy" />
+          <img src="/images/tbox/shelter-01.jpg" alt="Interior de shelter con bandejas portacables, rejillas de ventilación y barra de puesta a tierra" class="rounded-lg shadow-lg w-full h-64 object-cover" loading="lazy" />
+        </div>
+      </div>
+
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-12">
+        {aplicaciones.map((a) => (
+          <div class="bg-white border border-gray-200 rounded-xl p-6">
+            <h3 class="text-lg font-bold text-gray-900 mb-2">{a.titulo}</h3>
+            <p class="text-gray-600 text-sm">{a.texto}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Ingeniería -->
+  <section class="section bg-gray-50">
+    <div class="container">
+      <div class="text-center mb-12">
+        <h2 class="section-title">Las variables que definen un shelter</h2>
+        <p class="section-subtitle mx-auto">
+          Cada variable está desarrollada en un artículo técnico del blog, escrito por el equipo de ingeniería de MBM.
+        </p>
+      </div>
+      <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        {ingenieria.map((item) => (
+          <a href={item.href} class="bg-white rounded-xl p-6 border border-gray-200 hover:shadow-lg hover:border-[#4b9bc9] transition-all group">
+            <h3 class="text-lg font-bold text-gray-900 mb-2 group-hover:text-primary">{item.titulo}</h3>
+            <p class="text-gray-600 text-sm mb-4">{item.texto}</p>
+            <span class="text-sm font-semibold text-primary">Leer el artículo →</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Alcance y planta -->
+  <section class="section">
+    <div class="container">
+      <div class="grid lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="section-title">Alcance de fabricación</h2>
+          <p class="text-gray-600 mb-6">
+            El alcance se define con cada proyecto: desde estructura y envolvente para integración de terceros hasta el
+            shelter terminado con sus sistemas integrados.
+          </p>
+          <ul class="space-y-3">
+            {alcance.map((item) => (
+              <li class="flex items-start gap-3">
+                <span class="mt-2 w-2 h-2 rounded-full bg-[#4b9bc9] flex-shrink-0"></span>
+                <span class="text-gray-700">{item}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <div>
+          <h2 class="section-title">Planta y capacidades</h2>
+          <p class="text-gray-600 mb-6">
+            {contact.address.full}.
+          </p>
+          <table class="w-full text-sm">
+            <tbody class="divide-y divide-gray-200">
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Superficie</th><td class="py-3 text-gray-600">1.400 m² cubiertos</td></tr>
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Corte láser</th><td class="py-3 text-gray-600">Formato 3.000 × 1.500 mm</td></tr>
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Plegado</th><td class="py-3 text-gray-600">Hasta 6 m de longitud</td></tr>
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Izaje</th><td class="py-3 text-gray-600">Propio hasta 12 t</td></tr>
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Materiales</th><td class="py-3 text-gray-600">Acero F24 y F36, acero inoxidable AISI 304/316, aluminio</td></tr>
+              <tr><th class="text-left py-3 pr-4 text-gray-900 font-semibold align-top">Ingeniería</th><td class="py-3 text-gray-600">Tekla Structures, SAP2000, RAM Elements, SolidWorks, AutoCAD; metodología BIM</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gabinetes y racks TBEX -->
+  <section class="section bg-primary">
+    <div class="container">
+      <div class="max-w-3xl mx-auto text-center">
+        <h2 class="text-3xl md:text-4xl font-bold text-white! mb-4">Gabinetes y racks para el interior del shelter</h2>
+        <p class="text-lg text-gray-300 mb-8">
+          El equipamiento que va dentro del shelter —gabinetes eléctricos, racks y tableros— se fabrica en la misma planta
+          con la línea TBEX, cuyos gabinetes cuentan con certificación INTI IP66.
+        </p>
+        <a href="/tbex/" class="btn btn-outline border-white! text-white! hover:bg-white! hover:text-primary! text-base px-8">
+          Ver la línea TBEX
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preguntas frecuentes -->
+  <section class="section">
+    <div class="container">
+      <div class="max-w-3xl mx-auto">
+        <h2 class="section-title text-center mb-10">Preguntas frecuentes</h2>
+        <div class="space-y-4">
+          {faqs.map((f) => (
+            <details class="bg-gray-50 rounded-lg p-5 group" open>
+              <summary class="font-semibold text-gray-900 cursor-pointer">{f.question}</summary>
+              <p class="text-gray-600 mt-3">{f.answer}</p>
+            </details>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contacto -->
+  <section id="contacto" class="section bg-gray-50">
+    <div class="container">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="section-title">Cotizar un shelter</h2>
+          <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Indique la ubicación del sitio y el equipamiento a alojar. Con esos datos el equipo de ingeniería prepara una
+            oferta desagregada.
+          </p>
+        </div>
+
+        <form class="bg-white p-8 md:p-10 rounded-2xl shadow-xl" action="https://formspree.io/f/mkozpjoy" method="POST">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="empresa" class="block text-sm font-semibold text-gray-700 mb-2">Empresa *</label>
+              <input type="text" id="empresa" name="empresa" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Nombre de la empresa" />
+            </div>
+            <div>
+              <label for="nombre" class="block text-sm font-semibold text-gray-700 mb-2">Nombre completo *</label>
+              <input type="text" id="nombre" name="nombre" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Su nombre" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="email" class="block text-sm font-semibold text-gray-700 mb-2">Email corporativo *</label>
+              <input type="email" id="email" name="email" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="email@empresa.com" />
+            </div>
+            <div>
+              <label for="telefono" class="block text-sm font-semibold text-gray-700 mb-2">Teléfono *</label>
+              <input type="tel" id="telefono" name="telefono" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="+54 11 1234-5678" />
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div>
+              <label for="ubicacion" class="block text-sm font-semibold text-gray-700 mb-2">Ubicación del sitio</label>
+              <input type="text" id="ubicacion" name="ubicacion" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Localidad y provincia" />
+            </div>
+            <div>
+              <label for="industria" class="block text-sm font-semibold text-gray-700 mb-2">Aplicación</label>
+              <select id="industria" name="industria" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all">
+                <option value="">Seleccione una aplicación</option>
+                <option value="telecomunicaciones">Telecomunicaciones</option>
+                <option value="datacenter">Data center / IT</option>
+                <option value="petrolera">Oil &amp; Gas</option>
+                <option value="mineria">Minería</option>
+                <option value="energia">Energía</option>
+                <option value="vial">Corredores viales</option>
+                <option value="otra">Otra</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="mb-6">
+            <label for="mensaje" class="block text-sm font-semibold text-gray-700 mb-2">Equipamiento y requerimientos *</label>
+            <textarea id="mensaje" name="mensaje" required rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition-all" placeholder="Equipos a alojar, disipación estimada, dimensiones, respaldo de energía, plazo..."></textarea>
+          </div>
+
+          <input type="hidden" name="_subject" value="Nueva consulta Shelters - Metalurgica Boto Mariani" />
+
+          <button type="submit" class="w-full btn btn-primary text-base py-4 font-bold">Enviar solicitud de cotización</button>
+        </form>
+
+        <div class="mt-8 grid md:grid-cols-2 gap-6">
+          <a
+            href={`https://wa.me/${contact.phoneWhatsApp}?text=${encodeURIComponent('Hola, quiero consultar por un shelter modular.')}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            class="flex items-center justify-center gap-3 bg-white border border-gray-200 hover:border-primary text-gray-900 px-6 py-4 rounded-xl transition-all"
+          >
+            <span class="font-medium">Contactar por WhatsApp</span>
+          </a>
+          <a
+            href={`mailto:${contact.email}?subject=Consulta%20Shelters`}
+            class="flex items-center justify-center gap-3 bg-white border border-gray-200 hover:border-primary text-gray-900 px-6 py-4 rounded-xl transition-all"
+          >
+            <span class="font-medium">{contact.email}</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

@@ -160,7 +160,7 @@ Un shelter cuya climatización está correctamente dimensionada es invisible: op
 
 El cálculo expuesto no requiere herramientas sofisticadas — una planilla de cálculo basta — pero sí exige tres datos del cliente: la disipación real de equipos, la temperatura exterior de diseño del sitio y la temperatura interior objetivo. Sin esos tres datos no hay balance térmico posible.
 
-Para más contexto sobre el diseño integral del shelter, las normas aplicables y los demás sistemas (energía, protecciones, logística), puede consultarse la [guía técnica completa sobre shelters modulares para equipos críticos](/blog/shelters-modulares-equipos-criticos-guia-tecnica/).
+Para más contexto sobre el diseño integral del shelter, las normas aplicables y los demás sistemas (energía, protecciones, logística), puede consultarse la [guía técnica completa sobre shelters modulares para equipos críticos](/blog/shelters-modulares-para-equipos-criticos-guia-tecnica-de-diseno-climatizacion-y-proteccion/).
 
 Cuando una integradora o un proyectista necesita verificar un balance térmico, comparar ofertas de climatización o especificar la configuración correcta para un sitio en particular, el equipo de ingeniería de Metalúrgica Boto Mariani está disponible para apoyar el análisis técnico.
 

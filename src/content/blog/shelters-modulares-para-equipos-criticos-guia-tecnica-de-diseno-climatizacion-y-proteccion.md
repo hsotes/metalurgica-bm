@@ -53,7 +53,7 @@ Ambos protegen equipos, ambos son metálicos, ambos pueden cumplir IP55. Pero el
 
 La regla heurística que aplica la industria es directa: si la suma de la disipación térmica de los equipos supera **2-3 kW** o si el sitio requiere intervenciones técnicas frecuentes (más de una vez al mes), un shelter walk-in es más eficiente en costo total de propiedad (TCO) que un gabinete. Por el contrario, si se trata de un equipo único de bajo consumo (un nodo óptico pasivo, una unidad de medición, un repetidor de baja potencia), el gabinete outdoor es la solución correcta.
 
-Existe abundante literatura técnica sobre [criterios térmicos y acústicos en gabinetes outdoor](/blog/disipacion-pasiva-calor-ruido-gabinetes-outdoor-telecom/) y sobre la [elección del material de la envolvente entre acero y aluminio](/blog/acero-vs-aluminio-gabinetes-outdoor-comparativa/) que aplica también, parcialmente, al shelter walk-in.
+Existe abundante literatura técnica sobre [criterios térmicos y acústicos en gabinetes outdoor](/blog/gabinetes-outdoor-telecom-disipacion-de-calor-y-control-de-ruido/) y sobre la [elección del material de la envolvente entre acero y aluminio](/blog/acero-vs-aluminio-en-gabinetes-outdoor-lo-que-los-catalogos-no-comparan/) que aplica también, parcialmente, al shelter walk-in.
 
 ---
 
@@ -126,7 +126,7 @@ El piso recibe equipos de gran peso concentrado, y simultáneamente debe ser fá
 
 La puerta es el punto más vulnerable a la intemperie y al vandalismo. Debe especificarse:
 
-- **Chapa de acero** con espesor mínimo de 1,5 mm en cara exterior y aislación de panel sándwich (la guía sobre [puertas de chapa inyectada vs no inyectada](/blog/puertas-chapa-inyectada-vs-no-inyectada-comparativa/) desarrolla este punto en profundidad).
+- **Chapa de acero** con espesor mínimo de 1,5 mm en cara exterior y aislación de panel sándwich (la guía sobre [puertas de chapa inyectada vs no inyectada](/blog/puertas-de-chapa-inyectada-vs-no-inyectada-lo-que-cambia-con-el-poliuretano/) desarrolla este punto en profundidad).
 - **Cerradura multipunto** con cilindro europeo de alta seguridad y opcionalmente sistema electrónico de control de acceso.
 - **Bisagras anti-extracción** o soldadas para evitar desmontaje desde el exterior.
 - **Burletes perimetrales** que garanticen el grado IP de la envolvente.
@@ -174,7 +174,7 @@ Para un shelter de 6,0 × 2,4 × 2,8 m con disipación interna estimada de 2,5 k
 
 Es decir, para 2,5 kW de equipos, **se requiere un equipo de climatización de aproximadamente 18.000 BTU/h con compresor inverter** que pueda operar con confiabilidad a +45 °C exterior. La elección de un equipo subdimensionado — habitual cuando se especifica "un split de 12.000 BTU/h" sin cálculo previo — se traduce en operación al límite, fallas prematuras del compresor y temperatura interior fuera de la clase 3.1 de ETSI EN 300 019-1-3.
 
-El análisis detallado paso a paso, con un caso real, se desarrolla en el artículo satélite [Balance térmico de un shelter: cómo dimensionar el aire acondicionado para operar a +45 °C](/blog/balance-termico-shelter-climatizacion-45-grados/).
+El análisis detallado paso a paso, con un caso real, se desarrolla en el artículo satélite [Balance térmico de un shelter: cómo dimensionar el aire acondicionado para operar a +45 °C](/blog/balance-termico-de-un-shelter-como-dimensionar-el-aire-acondicionado-para-operar-a-45-c/).
 
 ### 5.3. Redundancia y ventilación de emergencia
 
@@ -249,7 +249,7 @@ La **coordinación entre etapas** exige que la energía que pasa el SPD I sea me
 
 La elección frecuente de un único SPD II "porque parecía suficiente" deja al sistema sin protección frente a rayo directo o cercano, con riesgo de daño catastrófico al equipamiento aún cuando el SPD II quede destruido.
 
-El detalle completo, con cálculos de evaluación de riesgo y selección de clases, se desarrolla en el artículo satélite [SPD Clase I y II en shelters: la coordinación que evita perder los equipos](/blog/spd-clase-i-ii-coordinacion-shelter-iec-62305/).
+El detalle completo, con cálculos de evaluación de riesgo y selección de clases, se desarrolla en el artículo satélite [SPD Clase I y II en shelters: la coordinación que evita perder los equipos](/blog/spd-clase-i-y-ii-en-shelters-la-coordinacion-que-evita-perder-los-equipos/).
 
 ### 7.3. Puesta a tierra
 
@@ -295,8 +295,6 @@ Cuando la planta de fabricación está a 800, 1.000 o 1.500 km del sitio de inst
 
 La práctica recomendada para sitios remotos es **diseñar el shelter con orejas de izaje y puntos de eslingaje claramente identificados**, entregar plano de izaje al equipo de campo, y ensayar el procedimiento en planta antes del despacho.
 
-El artículo satélite [Shelter para corredor vial: siete detalles de ingeniería que el pliego no menciona](/blog/shelter-corredor-vial-ingenieria-7-detalles/) desarrolla en profundidad las particularidades de un despliegue en banquina de ruta.
-
 ---
 
 ## 10. Checklist para solicitar (y evaluar) una cotización seria
@@ -333,7 +331,7 @@ Cuando una integradora tecnológica, una operadora vial o una empresa de telecom
 
 *Referencias y lecturas relacionadas:*
 
-- [Disipación pasiva de calor y control de ruido en gabinetes outdoor para telecomunicaciones](/blog/disipacion-pasiva-calor-ruido-gabinetes-outdoor-telecom/)
-- [Acero vs aluminio en gabinetes outdoor: lo que los catálogos no comparan](/blog/acero-vs-aluminio-gabinetes-outdoor-comparativa/)
-- [Puertas de chapa inyectada vs no inyectada: lo que cambia con el poliuretano](/blog/puertas-chapa-inyectada-vs-no-inyectada-comparativa/)
-- [Módulos habitables y campamentos modulares para obra: guía técnica](/blog/modulos-habitables-campamentos-modulares-obra/)
+- [Disipación pasiva de calor y control de ruido en gabinetes outdoor para telecomunicaciones](/blog/gabinetes-outdoor-telecom-disipacion-de-calor-y-control-de-ruido/)
+- [Acero vs aluminio en gabinetes outdoor: lo que los catálogos no comparan](/blog/acero-vs-aluminio-en-gabinetes-outdoor-lo-que-los-catalogos-no-comparan/)
+- [Puertas de chapa inyectada vs no inyectada: lo que cambia con el poliuretano](/blog/puertas-de-chapa-inyectada-vs-no-inyectada-lo-que-cambia-con-el-poliuretano/)
+- [Módulos habitables y campamentos modulares para obra: guía técnica](/blog/modulos-habitables-y-campamentos-modulares-para-obra-guia-tecnica/)

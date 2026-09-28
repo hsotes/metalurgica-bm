@@ -9,11 +9,11 @@ const navigation = [
   {
     name: 'Unidades de Negocio',
     href: '#',
-    children: businessUnits.map(unit => ({
-      name: unit.name,
-      href: unit.slug,
-      badge: unit.badge,
-    })),
+    children: businessUnits.flatMap(unit => [
+      { name: unit.name, href: unit.slug, badge: unit.badge },
+      // Shelters vive dentro de TBex pero tiene página propia
+      ...(unit.id === 'tbox' ? [{ name: 'Shelters modulares', href: '/shelters/', badge: undefined }] : []),
+    ]),
   },
   { name: 'Blog', href: '/blog/' },
   { name: 'Nosotros', href: '/nosotros/' },

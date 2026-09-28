@@ -17,9 +17,17 @@ const post = Astro.props;
 const { Content } = await render(post);
 
 const allPosts = await getPublishedPosts();
-const relatedPosts = allPosts
-  .filter(p => p.id !== post.id)
-  .slice(0, 2);
+const tieneTag = (p: typeof post, patron: RegExp) => p.data.tags.some((t: string) => patron.test(t));
+const esShelter = tieneTag(post, /shelter/i);
+
+// Relacionados: primero los que comparten tags, después los más recientes
+const tagsPost = new Set(post.data.tags.map((t: string) => t.toLowerCase()));
+const otros = allPosts.filter(p => p.id !== post.id);
+const compartidos = (p: typeof post) => p.data.tags.filter((t: string) => tagsPost.has(t.toLowerCase())).length;
+const porTema = otros
+  .filter(p => compartidos(p) > 0 || (esShelter && tieneTag(p, /shelter/i)))
+  .sort((a, b) => compartidos(b) - compartidos(a));
+const relatedPosts = [...porTema, ...otros.filter(p => !porTema.includes(p))].slice(0, 2);
 
 const formatDate = (date: Date) => {
   return date.toLocaleDateString('es-AR', {
@@ -109,6 +117,16 @@ const breadcrumbs = [
         <div class="prose">
           <Content />
         </div>
+
+        {esShelter && (
+          <div class="mt-10 p-6 bg-primary/5 border-l-4 border-primary rounded-r-lg">
+            <p class="font-semibold text-gray-900 mb-1">Shelters modulares metálicos</p>
+            <p class="text-gray-600 text-sm mb-3">
+              Metalúrgica Boto Mariani fabrica shelters para telecomunicaciones, data centers, oil &amp; gas, minería y energía en su planta de Burzaco, Buenos Aires.
+            </p>
+            <a href="/shelters/" class="text-sm font-semibold text-primary hover:underline">Ver alcance de fabricación y cotizar →</a>
+          </div>
+        )}
 
         <!-- Tags -->
         {post.data.tags.length > 0 && (

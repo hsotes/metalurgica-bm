@@ -40,7 +40,7 @@ export const siteConfig = {
     },
     hours: {
       weekdays: '8:00 - 17:00',
-      saturday: '8:00 - 12:00',
+      saturday: 'Cerrado',
       sunday: 'Cerrado',
     },
   },

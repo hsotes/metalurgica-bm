@@ -5,6 +5,8 @@ const blog = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/blog' }),
   schema: z.object({
     title: z.string(),
+    // Título corto para <title> cuando el título editorial supera ~70 caracteres
+    seoTitle: z.string().optional(),
     description: z.string(),
     date: z.coerce.date(),
     author: z.string().default('Metalúrgica Boto Mariani'),

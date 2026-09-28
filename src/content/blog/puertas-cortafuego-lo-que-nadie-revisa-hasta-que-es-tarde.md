@@ -8,8 +8,6 @@ category: "Arquitectura Metalica"
 tags: ["puertas cortafuego", "puerta cortafuego certificada INTI", "normativa IRAM 11949", "RF60 RF90 RF120", "protección pasiva contra incendios", "decreto 351/79 anexo VII", "puertas cortafuego hospitales", "NFPA 80 inspección", "puertas cortafuego Argentina", "Cromañón Iron Mountain incendio", "sectorización contra incendios", "burletes intumescentes", "cierrapuertas automático"]
 ---
 
-# Puertas Cortafuego: Lo que Nadie Revisa Hasta que es Tarde
-
 ---
 
 La noche del 30 de diciembre de 2004, en el barrio de Once, Buenos Aires, una bengala encendió el revestimiento acústico de poliuretano del techo del boliche República Cromañón. El humo tóxico se propagó por todo el local en menos de tres minutos. Las salidas de emergencia estaban bloqueadas o clausuradas con alambre. No había sectorización contra incendios. No había puertas cortafuego. 194 personas murieron. La mayoría eran jóvenes.

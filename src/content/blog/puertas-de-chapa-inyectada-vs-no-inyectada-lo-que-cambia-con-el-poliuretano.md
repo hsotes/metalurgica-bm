@@ -8,8 +8,6 @@ category: "Arquitectura Metalica"
 tags: ["puertas chapa inyectada poliuretano", "puerta doble chapa vs simple", "aislación térmica puertas", "aislación acústica puertas edificios", "puertas para hospitales", "puertas chapa galvanizada argentina", "doble contacto burlete EPDM", "puertas arquitectura metálica"]
 ---
 
-# Puertas de Chapa Inyectada vs No Inyectada: Lo que Cambia Cuando el Poliuretano Entra en la Ecuación
-
 Una puerta de chapa parece una decisión menor dentro de un proyecto de construcción. Es, al fin y al cabo, una abertura más. Sin embargo, la diferencia entre una puerta de chapa simple y una puerta de doble chapa inyectada con poliuretano es considerablemente mayor de lo que su apariencia exterior sugiere — y esa diferencia se manifiesta de forma acumulativa a lo largo de los años en aislación térmica, aislación acústica, seguridad, rigidez estructural y costos de mantenimiento.
 
 Este artículo presenta una comparativa técnica entre ambos tipos de puerta, con el objetivo de ofrecer criterios de selección fundamentados para proyectos residenciales, comerciales, hospitalarios e institucionales.

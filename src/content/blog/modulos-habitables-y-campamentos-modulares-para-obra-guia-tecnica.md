@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["módulos habitables obra", "campamento modular", "obrador modular", "contenedor habitable", "panel sándwich módulo", "Decreto 911/96 obradores", "módulos para minería petróleo", "campamento modular latinoamérica", "compra vs alquiler módulos obra", "dimensionamiento obrador"]
 ---
 
-# Módulos Habitables y Campamentos Modulares para Obra: Diseño, Normativa y Criterios Técnicos de Selección
-
 La infraestructura temporal de obra ha dejado de ser un tema menor en la planificación de proyectos. Estudios del sector de la construcción y la ingeniería de campamentos sugieren que **las condiciones de habitabilidad en el sitio de trabajo inciden directamente en la productividad, la retención de personal y los índices de siniestralidad laboral**. En regiones con condiciones climáticas extremas y dificultades logísticas de acceso — situación frecuente en gran parte de Latinoamérica — la calidad de los módulos habitables puede marcar una diferencia operativa significativa.
 
 Este artículo presenta un análisis técnico de los sistemas modulares para obra: tipologías, materiales constructivos, normativa aplicable, servicios complementarios y criterios de selección. El objetivo es ofrecer una guía de referencia para profesionales que deben especificar, evaluar o aprobar este tipo de infraestructura en proyectos de construcción, energía, minería o telecomunicaciones.

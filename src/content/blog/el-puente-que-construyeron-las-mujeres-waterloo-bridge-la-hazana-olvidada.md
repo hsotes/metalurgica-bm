@@ -9,8 +9,6 @@ tags: ["mujeres soldadoras Segunda Guerra Mundial", "Puente de Waterloo historia
 ---
 
 
-# El Puente que Construyeron las Mujeres: Waterloo Bridge y la Hazaña que el Mundo Decidió Olvidar
-
 Hay historias que la historia prefiere no contar. No porque carezcan de importancia — sino, tal vez, porque su reconocimiento obligaría a revisar demasiadas certezas. La del Puente de Waterloo en Londres es una de ellas.
 
 Se trata de un puente que cruza el Támesis desde hace más de ochenta años. Cinco tramos de hormigón armado revestidos en piedra Portland, 375 metros de largo, 24 metros de ancho, diseñado por Sir Giles Gilbert Scott — el mismo arquitecto de la icónica cabina telefónica roja británica y de la Central Eléctrica de Battersea. Una obra de ingeniería que fue declarada **de importancia nacional** por el Ministerio de Transporte del Reino Unido en plena Segunda Guerra Mundial.

@@ -8,8 +8,6 @@ category: "TBex"
 tags: ["gabinetes eléctricos metálicos vs no metálicos", "degradación UV policarbonato exteriores", "blindaje EMI gabinetes telecomunicaciones", "gestión térmica gabinetes outdoor", "costo total propiedad gabinetes", "gabinetes acero aluminio LATAM", "IP66 degradación ciclado térmico"]
 ---
 
-# Gabinetes Eléctricos Metálicos vs No Metálicos: Lo que Ocurre Después del Primer Año en Exteriores
-
 Existe una decisión de ingeniería que se repite en prácticamente todos los proyectos de infraestructura eléctrica, de telecomunicaciones o industrial: **¿gabinete metálico o no metálico?** La pregunta parece simple. La respuesta, según la evidencia técnica disponible, no lo es tanto.
 
 Las fichas técnicas de ambos tipos de gabinete presentan datos comparativos que, tomados de forma aislada, pueden conducir a decisiones subóptimas. Un gabinete de policarbonato puede parecer superior en una tabla de especificaciones: más liviano, más barato, no se oxida, aislante eléctrico natural. Sin embargo, estudios sobre degradación de polímeros y reportes de campo en entornos industriales y de telecomunicaciones sugieren que **la diferencia real entre un gabinete metálico y uno no metálico no se manifiesta el día de la instalación — se manifiesta después del primer año en exteriores**.

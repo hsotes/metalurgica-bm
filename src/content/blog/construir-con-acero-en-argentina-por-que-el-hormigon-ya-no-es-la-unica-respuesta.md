@@ -8,8 +8,6 @@ category: "Estructuras"
 tags: ["construcción con acero Argentina", "acero vs hormigón armado", "estructura metálica edificios", "steel frame Argentina", "CIRSOC 301", "Espacio Añelo Vaca Muerta", "acero estructural vivienda", "pintura intumescente acero", "construcción en seco", "reciclabilidad acero construcción", "costos acero vs hormigón 2026", "sismorresistencia acero"]
 ---
 
-# Construir con Acero en Argentina: Por Qué el Hormigón Ya No Es la Única Respuesta
-
 ---
 
 En Japón, más del 50% de las viviendas nuevas se construyen con estructura de acero. En el Reino Unido, el 65% de los edificios de varios pisos usa acero como esqueleto principal. En Estados Unidos, las naves industriales, hospitales y rascacielos llevan décadas eligiendo acero sobre hormigón.

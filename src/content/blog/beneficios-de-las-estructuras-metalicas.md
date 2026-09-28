@@ -8,8 +8,6 @@ category: "Estructuras"
 tags: ["estructuras metálicas", "construcción", "arquitectura", "acero", "diseño"]
 ---
 
-# El impacto de las estructuras metálicas en la industria de la construcción
-
 En el dinámico mundo de la construcción, las **estructuras metálicas** han emergido como una solución predilecta por su versatilidad, resistencia y sostenibilidad. Desde sus inicios en la Revolución Industrial, el uso del acero y otros metales ha evolucionado hasta convertirse en un pilar fundamental para proyectos de diversa índole.
 
 El avance en tecnología ha permitido refinar los procesos de producción y ensamblaje, resultando en estructuras más eficientes y funcionales. En este artículo, exploraremos las numerosas aplicaciones y beneficios que ofrecen, tanto en ámbitos industriales como residenciales.

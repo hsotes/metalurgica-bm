@@ -8,8 +8,6 @@ category: "Estructuras"
 tags: ["luces libres", "grandes luces", "acero vs hormigon", "naves industriales", "cubiertas metalicas", "estadios de acero", "hangares", "centros logisticos", "CIRSOC 301", "reticulados de acero", "cerchas", "estructuras de gran luz"]
 ---
 
-# Luces Libres: Por Qué el Acero Resuelve lo que el Hormigón No Puede en Grandes Estructuras
-
 Una pregunta incómoda para empezar: **¿cuántos estadios techados de hormigón armado podés nombrar? ¿Cuántos aeropuertos con cubierta de losa maciza? ¿Cuántos hangares para aviones comerciales con techo de hormigón?**
 
 La respuesta es prácticamente ninguno.

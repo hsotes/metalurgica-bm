@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["casas modulares", "construcción sostenible", "vivienda eficiente", "arquitectura moderna", "metalurgica"]
 ---
 
-# Vivienda Modular: Eficiencia y Sostenibilidad
-
 Con más de 30 años de experiencia en el sector metalúrgico, en **Metalurgica Boto Mariani** estamos a la vanguardia de las soluciones de vivienda moderna. La construcción de casas modulares está transformando la manera en que concebimos los hogares del futuro. Vamos a explorar qué convierte a este tipo de construcción en una opción acertada para quienes buscan rapidez, personalización y eficiencia.
 
 ## ¿Qué es una casa modular?

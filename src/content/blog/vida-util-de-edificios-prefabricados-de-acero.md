@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["construcción modular", "edificios prefabricados", "acero", "arquitectura modular", "durabilidad"]
 ---
 
-# Vida útil de los edificios prefabricados de acero
-
 En un mundo donde la rapidez y la eficiencia son claves, la construcción de edificios prefabricados de acero está cobrando cada vez más protagonismo. Este tipo de estructuras se ha convertido en una solución líder para proyectos que requieren calidad, durabilidad y, sobre todo, agilidad en su ejecución. Descubramos juntos cuánto pueden durar estas edificaciones y qué factores influyen en su longevidad.
 
 

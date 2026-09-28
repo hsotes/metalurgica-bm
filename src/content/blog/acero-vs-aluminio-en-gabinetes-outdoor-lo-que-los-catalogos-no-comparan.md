@@ -8,8 +8,6 @@ category: "TBex"
 tags: ["acero vs aluminio gabinetes", "gabinete outdoor telecom", "aluminio 6061 gabinete", "acero galvanizado exterior", "conductividad térmica gabinete", "corrosión gabinete outdoor", "blindaje EMI gabinete", "costo total propiedad gabinete", "IP66 aluminio", "5G gabinete aluminio", "disipación térmica pasiva", "NEMA 4X aluminio"]
 ---
 
-# Acero vs Aluminio en Gabinetes Outdoor: Lo que los Catálogos No Comparan
-
 ---
 
 Cuando un ingeniero especifica un gabinete para exteriores, la primera decisión no es la marca ni el grado IP. Es el material. Y en esa decisión hay más ingeniería de la que parece.

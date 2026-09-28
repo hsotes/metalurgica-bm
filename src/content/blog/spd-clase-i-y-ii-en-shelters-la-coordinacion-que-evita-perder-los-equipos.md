@@ -8,8 +8,6 @@ category: "TBex"
 tags: ["SPD Clase I Clase II", "IEC 62305 protección rayos", "shelter protección contra rayos", "coordinación SPD", "Lightning Protection Zones LPZ", "puesta a tierra shelter telecomunicaciones", "IRAM 2184", "sobretensiones equipos críticos", "shelter telecomunicaciones LATAM", "diseño eléctrico shelter modular"]
 ---
 
-# SPD Clase I y II en Shelters: La Coordinación que Evita Perder los Equipos
-
 Un shelter de telecomunicaciones en una banquina de ruta, en lo alto de un cerro o en medio de un campo abierto cumple, sin proponérselo, todas las condiciones para ser objetivo de descargas atmosféricas: es un cuerpo metálico aislado en un entorno sin estructuras competidoras. Sin protección adecuada, una descarga directa o cercana puede destruir el equipamiento interno en milisegundos, con costos de reposición que habitualmente superan diez veces el valor de los dispositivos de protección que faltaron.
 
 La disciplina que regula este problema es la familia normativa **IEC 62305** — cuatro partes que cubren principios, evaluación de riesgo, protección física y protección eléctrica — y, en Argentina, la **IRAM 2184** que la traduce al marco local. Este artículo se concentra en el punto que más errores produce en proyectos reales: la **coordinación de SPD (Surge Protective Devices) clase I, II y III** según IEC 62305-4.

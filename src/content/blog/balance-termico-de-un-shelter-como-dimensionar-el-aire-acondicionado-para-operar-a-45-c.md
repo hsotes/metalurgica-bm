@@ -8,8 +8,6 @@ category: "TBex"
 tags: ["balance térmico shelter", "climatización shelter telecomunicaciones", "dimensionamiento aire acondicionado shelter", "shelter +45 grados", "ETSI EN 300 019", "panel sándwich lana de roca", "transmitancia térmica U panel", "ventilación de emergencia shelter", "carga térmica equipos críticos", "infraestructura modular LATAM"]
 ---
 
-# Balance Térmico de un Shelter: Cómo Dimensionar el Aire Acondicionado para Operar a +45 °C
-
 En la mayoría de los pliegos de licitación que llegan a la industria de fabricación de shelters de telecomunicaciones, la especificación de climatización aparece de manera genérica: *"aire acondicionado industrial de operación 24/7, capaz de operar con temperatura exterior de +45 °C"*. La frase tiene un problema serio: **no menciona la potencia frigorífica requerida**. Y la potencia frigorífica no se elige por catálogo — se calcula a partir del balance térmico del shelter.
 
 Cuando ese cálculo no se hace, ocurre uno de dos escenarios. En el primero, el integrador especifica un equipo subdimensionado — habitualmente un split residencial de 12.000 o 18.000 BTU/h — que opera al 100 % de su capacidad de manera permanente, con compresor sobreexigido, ciclos cortos y vida útil de 18 a 30 meses en lugar de los 10-15 años esperados. En el segundo, sobredimensiona "por las dudas" instalando un equipo de 36.000 BTU/h donde alcanzaba uno de 18.000, generando ciclos de encendido/apagado demasiado frecuentes, problemas de humedad por baja deshumidificación y costo energético innecesario.

@@ -18,7 +18,11 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://www.metalurgicabotomariani.com.ar';
-const fullTitle = `${title} | Metalurgica Boto Mariani`;
+// La marca se agrega solo si el título total entra en ~70 caracteres
+const brand = 'Metalurgica Boto Mariani';
+const fullTitle = title.includes('Boto Mariani') || title.length + brand.length + 3 > 70
+  ? title
+  : `${title} | ${brand}`;
 const imageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
 const canonicalUrl = canonical || Astro.url.href;
 ---

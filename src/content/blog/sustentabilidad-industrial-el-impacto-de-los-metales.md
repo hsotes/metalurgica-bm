@@ -8,8 +8,6 @@ category: "Industria"
 tags: ["sustentabilidad", "metalurgia", "eficiencia", "competitividad", "materiales"]
 ---
 
-# La sustentabilidad en la industria: impacto de las decisiones sobre metales
-
 En el vertiginoso mundo industrial de hoy, la sustentabilidad ya no es un lujo o una opción para las empresas, sino una necesidad imperiosa. Con regulaciones cada vez más estrictas y costos operativos en alza, muchas industrias deben repensar sus procesos. La clave está en las decisiones técnicas, específicamente la elección de materiales metálicos adecuados, que pueden marcar la diferencia en cuanto a eficiencia y competitividad.
 
 Mientras navegamos por los desafíos contemporáneos, es esencial entender que la sustentabilidad no se trata solo de reducir emisiones o adherir a discursos ambientales. Se trata de tomar decisiones técnicas inteligentes desde el inicio, empezando por la elección de los metales que componen la columna vertebral de casi todos los procesos industriales.

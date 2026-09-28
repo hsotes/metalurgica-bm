@@ -8,8 +8,6 @@ category: "Estructuras"
 tags: ["naves industriales", "estructuras de acero", "porticos metalicos", "correas PGC", "puente grua", "CIRSOC 102", "CIRSOC 301", "arriostramiento longitudinal", "cerchas", "cuantia de acero", "cargas de viento", "cargas de nieve", "naves logisticas", "galpones industriales"]
 ---
 
-# Naves Industriales: Anatomía de una Estructura que Parece Simple
-
 A simple vista, una nave industrial parece una caja con techo. Cuatro paredes, un par de aguas, columnas en el perímetro, una puerta grande adelante. La sensación es que se podría dibujar en una servilleta y construir en un mes.
 
 Esa percepción es probablemente la causa de la mayoría de los problemas que aparecen en este tipo de obras: filtraciones que no se resuelven, deformaciones que crecen con los años, vibraciones bajo puente grúa, fisuras en cerramientos, refuerzos sucesivos para cargas que nadie había anticipado.

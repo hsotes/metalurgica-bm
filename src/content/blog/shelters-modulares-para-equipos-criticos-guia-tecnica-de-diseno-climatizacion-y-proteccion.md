@@ -1,14 +1,13 @@
 ---
 title: "Shelters Modulares para Equipos Críticos: Guía Técnica de Diseño, Climatización y Protección"
-description: "Guía técnica integral sobre shelters modulares metálicos para alojar equipos críticos. Diseño, normativa ETSI e IEC, balance térmico, UPS, protección contra rayos y logística en LATAM."
+seoTitle: "Shelters modulares para equipos críticos: guía técnica"
+description: "Guía técnica de shelters modulares para equipos críticos: diseño estructural, normas ETSI e IEC, balance térmico, UPS, protección contra rayos y logística."
 date: "2026-05-20"
 author: "Metalurgica Boto Mariani"
 image: "/blog/shelters-modulares-para-equipos-criticos-guia-tecnica-de-diseno-climatizacion-y-proteccion-1779286925540.jpg"
 category: "Estructuras"
 tags: ["shelter modular metálico", "shelter equipos críticos", "shelter telecomunicaciones", "cabina técnica prefabricada", "shelter outdoor IP55", "ETSI EN 300 019", "IEC 62305 protección rayos", "balance térmico shelter", "UPS shelter telecomunicaciones", "shelter corredor vial", "shelter ITS sistemas inteligentes transporte", "infraestructura modular LATAM"]
 ---
-
-# Shelters Modulares para Equipos Críticos: Guía Técnica de Diseño, Climatización y Protección
 
 Cuando un operador de red, una concesionaria vial o una integradora tecnológica necesita desplegar equipos electrónicos sensibles en un sitio remoto — una banquina de ruta, una loma sin tendido eléctrico, una planta industrial, un nodo de fibra óptica — la pregunta técnica que define el éxito del proyecto rara vez aparece en el pliego inicial: **¿cómo se garantiza que esos equipos sigan operando los próximos 15 a 20 años, sin asistencia humana frecuente, expuestos al clima, al polvo, al viento, a las descargas atmosféricas y a la variabilidad de la red eléctrica?**
 

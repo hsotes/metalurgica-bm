@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["resistencia al fuego construcción modular", "panel sándwich incendio PUR PIR lana mineral", "steel frame fuego", "casa modular seguridad incendio", "Euroclase panel sándwich", "Grenfell Tower panel combustible", "clasificación fuego vivienda F30 F60"]
 ---
 
-# ¿Tu Casa Puede Incendiarse? Lo que Nadie te Dice sobre Fuego y Construcción Modular
-
 En Argentina se registra, en promedio, **un incendio de vivienda por día** solo en temporada invernal en zonas como la Patagonia. El 40% de las instalaciones eléctricas en inmuebles nuevos presenta defectos críticos que pueden derivar en cortocircuitos, según relevamientos de la Asociación para la Promoción de la Seguridad Eléctrica (APSE). Solo el 10% de los hogares argentinos tiene seguro contra incendios.
 
 A pesar de estas cifras, **la resistencia al fuego rara vez aparece como criterio de decisión** cuando una familia elige su sistema constructivo. Se comparan costos, plazos, terminaciones, eficiencia energética. Pero casi nadie pregunta: *¿qué pasa con esta casa si se produce un incendio?*

@@ -8,8 +8,6 @@ category: "Arquitectura Metalica"
 tags: ["esculturas cinéticas", "arte en metal", "escultura eólica", "acero inoxidable arte", "Anthony Howe escultura", "Lyman Whitaker", "Ali y Nino Batumi", "arte cinético eólico", "esculturas de viento", "fabricación metálica artística", "soldadura TIG arte", "corte láser escultura", "Trinidad Caminos escultora", "Tamara Kvesitadze", "escultura movimiento viento"]
 ---
 
-# Esculturas que Danzan con el Viento: Arte Cinético en Metal
-
 **Serie: Arte en Metal #1**
 
 

@@ -8,8 +8,6 @@ category: "Arquitectura Metalica"
 tags: ["arquitectura paramétrica", "fachada metálica paramétrica", "corte láser CNC arquitectura", "Grasshopper Rhino fachadas", "paneles perforados fachada", "Guggenheim Bilbao titanio", "Louvre Abu Dhabi cúpula", "Museo Soumaya hexágonos", "diseño computacional metal", "fachada aluminio perforada", "Zaha Hadid metal", "fabricación CNC fachadas"]
 ---
 
-# Arquitectura Paramétrica en Metal: Cuando el Algoritmo Diseña la Estructura
-
 ---
 
 En 1997, Frank Gehry presentó un edificio en Bilbao que parecía imposible: curvas de titanio que no se repetían, 33.000 paneles únicos, ninguno igual al otro. Los arquitectos del mundo se preguntaron cómo se había fabricado. La respuesta no estaba en un taller más grande. Estaba en un software de la industria aeroespacial.

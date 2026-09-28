@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["madera masiva construcción", "CLT cross laminated timber", "sistema estructural híbrido", "estructura metálica edificios altura media", "hybrid CLT steel construction", "construcción industrializada", "entrepisos híbridos madera acero", "edificios sustentables Argentina", "carbono incorporado construcción", "sistema constructivo novedoso"]
 ---
 
-# Madera masiva sobre estructura metálica: el sistema estructural híbrido que está apareciendo en edificios de altura media
-
 En los últimos tres años, la disciplina estructural aplicada a edificios comerciales y residenciales de altura media empezó a moverse en una dirección que hasta hace poco se discutía en foros académicos y hoy aparece en pliegos operativos: sistemas estructurales híbridos donde la estructura portante metálica se combina con paneles de madera masiva laminada para funcionar como losa, entrepiso y a veces cubierta. La combinación resuelve simultáneamente varias cosas que la construcción convencional resuelve por separado, y lo hace con métricas de plazo, peso y comportamiento al fuego que no coincide con lo que la mayoría del rubro asume sobre la madera cuando se piensa en edificios de cinco a ocho pisos.
 
 Este artículo desarrolla en qué consiste el sistema, cómo se ensambla técnicamente, qué datos de performance lo sostienen en los proyectos internacionales ya ejecutados y en qué escenarios argentinos empieza a tener sentido explorar su aplicación.

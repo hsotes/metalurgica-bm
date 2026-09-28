@@ -8,8 +8,6 @@ category: "TBex"
 tags: ["shelter modular vida útil", "análisis variables diseño shelter", "viento ráfaga shelter CIRSOC 102", "fundación shelter sitios remotos", "shelter antivandalismo", "transporte shelter larga distancia", "mantenimiento remoto shelter", "documentación as-built shelter", "costo total propiedad shelter", "infraestructura modular LATAM"]
 ---
 
-# Vida útil de un shelter modular: análisis de las variables de diseño
-
 La vida útil esperada de un shelter modular metálico para equipos críticos se ubica habitualmente entre 15 y 25 años, según la literatura técnica del sector y la práctica documentada en proyectos desplegados en Argentina y Latinoamérica. Sobre las especificaciones de base que fija el cliente — dimensiones, grado IP, velocidad de viento de proyecto, climatización 24/7, UPS, protecciones — se elabora una segunda capa de variables de diseño que actúa sobre el costo total de propiedad (TCO) a lo largo de ese ciclo.
 
 Este artículo propone una lectura analítica de siete de esas variables. No son alternativas al pliego del cliente sino los términos sobre los que se conversan los detalles entre el área de ingeniería del comprador y el área de cálculo del proveedor: cargas dinámicas, fundación, envolvente expuesta, vibración del entorno, transporte de larga distancia, operación remota y documentación as-built. Cada una aplica por igual a infraestructura de telecomunicaciones, generación y distribución de energía, monitoreo industrial, redes de control y sistemas de adquisición de datos.

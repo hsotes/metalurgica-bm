@@ -50,7 +50,7 @@ const breadcrumbs = [
 ---
 
 <BaseLayout
-  title={`${post.data.title} | Blog MBM`}
+  title={post.data.seoTitle ?? post.data.title}
   description={post.data.description}
   image={post.data.image}
   type="article"

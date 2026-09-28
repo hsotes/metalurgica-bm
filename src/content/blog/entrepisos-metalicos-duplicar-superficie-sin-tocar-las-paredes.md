@@ -8,8 +8,6 @@ category: "Arquitectura Metalica"
 tags: ["entrepisos metálicos", "entrepiso de acero galpón", "mezzanine industrial Argentina", "duplicar superficie depósito", "entrepiso autoportante", "chapa lagrimada entrepiso", "losa colaborante", "CIRSOC 301", "costo entrepiso metálico m2", "entrepiso desmontable", "entrepiso sobre racks", "ampliar galpón sin obra"]
 ---
 
-# Entrepisos Metálicos: Duplicar Superficie sin Tocar las Paredes
-
 ---
 
 Hay un momento en la vida de todo galpón, depósito o nave industrial donde el espacio se termina. La mercadería crece, las operaciones se expanden, los metros cuadrados dejan de alcanzar. Y la primera reacción es siempre la misma: buscar un lugar más grande.

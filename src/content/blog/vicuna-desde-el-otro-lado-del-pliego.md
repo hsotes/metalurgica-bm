@@ -8,8 +8,6 @@ category: "Vivienda Modular"
 tags: ["proyecto Vicuña San Juan", "construcción modular minería", "PyMEs metalúrgicas Argentina", "RIGI proveedores locales", "megaproyectos mineros PyMEs", "campamentos modulares minería", "CAPECHI institucionalidad bilateral", "RIMI Decreto 242 2026", "contenido nacional minería", "envolventes modulares acero"]
 ---
 
-# Vicuña desde el otro lado del pliego
-
 Para una metalúrgica modular argentina, la adjudicación reciente del campamento Batidero — pieza central de uno de los megaproyectos mineros más ambiciosos en cartera nacional — fue más que una noticia sectorial. Fue una señal de cómo se va a organizar la conexión entre la demanda de los próximos diez años y la oferta industrial que el país viene construyendo desde hace décadas. El diferencial entre la oferta nacional y la del consorcio sino-argentino que ganó la licitación fue de USD 18 millones sobre un proyecto total estimado en USD 18.000 millones: 0,01 % del paquete completo. Una cifra que, vista desde el lado del taller, no se explica por capacidad técnica.
 
 La industria modular argentina ejecutó, en los últimos cinco años, once hospitales modulares en cuarenta días durante la pandemia y campamentos para mil seiscientas personas en el sector energético. Acá sabemos lo que implica fabricar 45.000 m² de construcción modular con 4.500 toneladas de acero: lo planificamos, lo medimos, lo entregamos. La diferencia de precio entre la oferta nacional y la extranjera no proviene de competitividad técnica. Proviene de carga fiscal local, costo financiero relativo y respaldo estatal al capital extranjero — variables estructurales que no se mueven con esfuerzo individual de cada PyME.

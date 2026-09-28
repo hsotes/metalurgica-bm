@@ -8,8 +8,6 @@ category: "Estructuras"
 tags: ["acero F-24", "acero F-36", "estructura paneles solares", "perfil C galvanizado", "perfil Z galvanizado", "soporte fotovoltaico Argentina", "acero estructural IRAM", "galvanizado en caliente", "CIRSOC 301", "energía solar Argentina"]
 ---
 
-# Acero F-24 vs F-36 para Estructuras de Paneles Solares en Argentina: Resistencia, Costo y Durabilidad
-
 **Elegir el acero correcto para tu estructura solar puede marcar la diferencia entre una inversión que dura 25 años y una que dura 50.** En este artículo comparamos los dos aceros estructurales más utilizados en Argentina —el IRAM F-24 y el IRAM F-36— para que puedas tomar la mejor decisión en tu próximo proyecto fotovoltaico.
 
 ---

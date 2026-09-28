@@ -9,8 +9,6 @@ tags: ["soldadura estructural", "patologias soldadura", "distorsion termica", "t
 ---
 
 
-# La Anatomía Oculta de una Soldadura: Por Qué se Distorsiona el Metal y las Patologías que Esconde
-
 Una placa de acero perfectamente recta entra al taller. Dos soldadores la unen a otra placa con un cordón continuo. Cuando el conjunto se enfría, la placa ya no está recta. Está curvada, levemente girada, y bajo tensiones internas que ningún operador puso ahí intencionalmente.
 
 Esa pregunta —¿por qué se "revira" el metal cuando lo soldamos?— tiene una respuesta que es, al mismo tiempo, simple desde la física y profundamente compleja desde la ingeniería. Y la respuesta es lo que separa a un taller de soldadura calificado de uno improvisado: porque las consecuencias de no entenderla aparecen meses, años o décadas después, casi siempre como fallas estructurales.

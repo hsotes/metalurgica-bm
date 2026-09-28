@@ -8,8 +8,6 @@ category: "Griglia"
 tags: ["varilla en V parrilla", "ángulo varilla parrilla", "parrilla acero inoxidable 304", "diseño técnico parrilla", "grasera parrilla"]
 ---
 
-# El Ángulo del Embudo: Por Qué la Geometría de la Varilla en V Define el Resultado del Asado
-
 ---
 
 Cuando un asador discute sobre parrillas, suele hablar de hierro o inoxidable, de leña o carbón, de altura del fuego. Casi nunca habla del ángulo de la varilla en V. Y sin embargo, esa decisión geométrica — tomada por el fabricante mucho antes de que el primer chorizo toque la grilla — determina más variables del resultado final que casi cualquier otra.

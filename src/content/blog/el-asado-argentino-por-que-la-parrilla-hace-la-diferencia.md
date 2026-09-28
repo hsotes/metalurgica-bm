@@ -8,8 +8,6 @@ category: "Griglia"
 tags: ["asado argentino", "parrilla a medida", "quincho completo", "parrilla hierro o acero inoxidable", "puerta guillotina parrilla", "cortes de asado tiempos cocción", "parrilla fabricación artesanal", "quincho con horno de barro"]
 ---
 
-# El Asado Argentino: Por Qué la Parrilla Hace la Diferencia
-
 **El asado no es solo una comida. Es la mesa donde se juntan los domingos, los cumpleaños, los festejos y las excusas para no cocinar adentro.** Si sos argentino, sabés que pocas cosas generan más debate que cómo hacer un buen asado — y que detrás de cada asado memorable hay una buena parrilla.
 
 En este artículo vamos a hablar de lo que todo asador sabe pero pocos se detienen a pensar: por qué la parrilla que usás cambia el resultado en el plato.

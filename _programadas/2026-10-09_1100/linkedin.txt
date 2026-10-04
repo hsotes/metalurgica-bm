@@ -1,0 +1,11 @@
+Nadie mide un escalón antes de pisarlo. El pie aprende el ritmo en los primeros dos o tres y repite el movimiento hasta el final.
+
+Por eso diez milímetros alcanzan. En un estudio de ergonomía, un solo escalón 10 mm más alto que el resto redujo en unos 9 mm el despeje del pie, sobre un margen normal de menos de 40. Y en una investigación sobre 80 caídas, el 60 % ocurrió en escaleras con diferencias de alzada mayores a 9,5 mm.
+
+Del lado estructural hay otra sorpresa. A la zanca de una escalera metálica rara vez la gobierna la resistencia: la gobierna la vibración. Zancas chicas para la luz que cubren, poca masa y un amortiguamiento del orden del 1 %. La guía de AISC pide una frecuencia natural vertical mayor a 5 Hz, y lo que se verifica es el descenso, no el ascenso.
+
+La resistencia sobra. Lo que falta es rigidez y masa.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/escaleras-metalicas-pedada-alzada-y-calculo-de-la-zanca/
+
+#EscalerasMetalicas #ArquitecturaMetalica #CalculoEstructural #EstructurasMetalicas #IngenieriaArgentina

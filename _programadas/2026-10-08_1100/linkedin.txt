@@ -1,0 +1,13 @@
+"Arenado" y "granallado" nombran un método. Ninguna de las dos palabras dice cómo tiene que quedar el acero.
+
+Lo que la pintura necesita es un resultado, y se define con dos datos medibles. El grado de limpieza: la mayoría de las imprimaciones ricas en zinc piden Sa 2½. Y el perfil de rugosidad, donde hay una particularidad que conviene tener presente: según ISO 8503, "perfil medio" es de 60 a 100 micrones si el abrasivo fue angular, y de 40 a 70 si fue esférico. La misma palabra, dos rangos.
+
+Los dos extremos fallan. Con perfil bajo la pintura no ancla. Con perfil alto los picos quedan por encima de la película y se oxidan primero.
+
+Y la frontera entre los métodos no es de calidad: los dos llegan a Sa 3. La traza la pieza, su tamaño y dónde está.
+
+Con este apunte abrimos una serie sobre tratamiento de superficies y protección anticorrosiva del acero.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/preparacion-de-superficie-grado-de-limpieza-y-perfil-de-rugosidad/
+
+#ProteccionAnticorrosiva #Granallado #EstructurasMetalicas #PinturaIndustrial #IngenieriaArgentina

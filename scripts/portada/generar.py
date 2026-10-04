@@ -40,9 +40,25 @@ SHELTERS = u"Shelters y recintos para equipamiento crítico"
 MODULAR = u"Construcción modular"
 SISTEMAS = u"Sistemas compatibles con la estructura metálica"
 PARRILLAS = u"Parrillas, arquitectura y metal a la vista"
+SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "preparacion-de-superficie-grado-de-limpieza-y-perfil-de-rugosidad": (
+        "SUP-APU-001", SUPERFICIES, [
+            u"Un acero puede estar perfectamente limpio y no servir para pintar.",
+            u"Los dos extremos fallan, por razones distintas.",
+        ]),
+    "escaleras-metalicas-pedada-alzada-y-calculo-de-la-zanca": (
+        "ARQ-APU-006", PARRILLAS, [
+            u"El pie no mide: repite la trayectoria que aprendió en los escalones anteriores.",
+            u"La resistencia sobra; lo que falta es rigidez y masa.",
+        ]),
+    "monumentos-de-acero-inoxidable": (
+        "ARQ-ART-007", PARRILLAS, [
+            u"Es el experimento de durabilidad más largo que tiene el material, y salió bien.",
+            u"El acero inoxidable perdona poco y devuelve mucho.",
+        ]),
     "losas-alveolares-sobre-portico-metalico": (
         "ARQ-APU-005", SISTEMAS, [
             u"Una planta de placas apoyadas y sueltas no transmite el viento.",

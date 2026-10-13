@@ -1,0 +1,11 @@
+Un gabinete ensayado como IP66 al que se le monta un equipo de refrigeración queda, hacia el interior, en IP54. No es un defecto de ninguno de los dos: es la suma de dos productos con grados distintos.
+
+El grado IP es el resultado de un ensayo de tipo: una muestra, en una condición de montaje, con determinados accesorios. Lo que se agrega después, una perforación para un prensacable, un ventilador, una rejilla, ya no es lo que se ensayó. La calificación del conjunto queda limitada por el componente menos exigente.
+
+Hay dos datos más que conviene tener presentes. Los grados no son todos acumulativos: un IP67, que es inmersión, puede no resistir el chorro del IP66. Y el código habla de sólidos y de agua, y de nada más: la corrosión, el sol y la condensación son requisitos aparte.
+
+En un shelter transitable, con puertas, ventilación de baterías y pasamuros, el grado se ubica mejor cuando se lo refiere a algo concreto. Escribimos sobre dónde aplica y dónde deja de aplicar.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/grado-de-proteccion-ip-de-un-shelter/
+
+#Shelters #GradoIP #IEC60529 #Gabinetes #InfraestructuraCritica

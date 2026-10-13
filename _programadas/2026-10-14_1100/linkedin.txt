@@ -1,0 +1,11 @@
+En un edificio de estructura metálica, el cerramiento de steel framing comparte material con la estructura y nada más. La estructura principal sostiene el edificio. El cerramiento cierra el vano entre dos pisos.
+
+Lo que lleva es viento y su propio peso. Lo que no tiene que recibir es la carga que le llegaría si la viga de arriba se deforma y se apoya sobre él.
+
+Para eso existe el cabezal deslizante: la solera superior sujeta al montante en horizontal y lo deja libre en vertical. La holgura depende de la luz de la viga de borde: luz sobre 500, con un mínimo de 10 mm, cuando la estructura es de acero. Con hormigón es aproximadamente el doble, por la fluencia lenta y la retracción.
+
+Y hay un dato de responsabilidad que conviene tener escrito: el valor de esa holgura lo define quien proyecta la estructura principal, porque es el único que sabe cuánto se va a deformar esa viga.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/steel-framing-como-cerramiento-sobre-estructura-principal/
+
+#EstructurasMetalicas #SteelFraming #Cerramientos #Fachadas #IngenieriaArgentina

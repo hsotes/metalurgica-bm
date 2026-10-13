@@ -44,6 +44,31 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "steel-framing-como-cerramiento-sobre-estructura-principal": (
+        "ARQ-APU-007", SISTEMAS, [
+            u"Es un sistema que comparte material con la estructura y nada más.",
+            u"Se parecen en la forma y no son lo mismo.",
+        ]),
+    "shelters-en-ambiente-marino-esquema-de-proteccion": (
+        "TBEX-APU-012", SHELTERS, [
+            u"Lo que cambia es el aire.",
+            u"La categoría se define por el sitio, no por el mapa.",
+        ]),
+    "barandas-carga-horizontal-y-anclaje-del-poste": (
+        "ARQ-APU-008", PARRILLAS, [
+            u"Lo que decide es la base.",
+            u"Una baranda que se mueve nueve centímetros puede cumplir y no convence a nadie.",
+        ]),
+    "acero-corten-el-oxido-como-estetica": (
+        "ARQ-ART-006", PARRILLAS, [
+            u"El material funciona en un ambiente, no en todos.",
+            u"En chapa fina, deja un agujero.",
+        ]),
+    "grado-de-proteccion-ip-de-un-shelter": (
+        "TBEX-APU-011", SHELTERS, [
+            u"El código IP habla de dos cosas, sólidos y agua, y de nada más.",
+            u"El eslabón más débil de la cadena.",
+        ]),
     "preparacion-de-superficie-grado-de-limpieza-y-perfil-de-rugosidad": (
         "SUP-APU-001", SUPERFICIES, [
             u"Un acero puede estar perfectamente limpio y no servir para pintar.",

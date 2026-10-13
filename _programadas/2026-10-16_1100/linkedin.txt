@@ -1,0 +1,11 @@
+Una baranda toma una fuerza chica aplicada a un metro de altura y la devuelve multiplicada sobre una placa de pocos centímetros.
+
+Con la carga más baja de las normas, 0,73 kN por metro, y postes cada 1,2 m, el corte en la base es de menos de 1 kN. La tracción en los anclajes es de 12 kN: casi catorce veces más. Con la carga que se pide donde hay aglomeraciones, cada anclaje pasa de 24 kN.
+
+El caño casi siempre sobra. Lo que decide es la base, y la base va, por definición, en el borde de la losa, que es el peor lugar para un anclaje.
+
+Hay además un requisito que el usuario percibe antes que cualquier otro: la deformación. Un criterio de ensayo admite que el poste se desplace hasta un doceavo de su altura. Son casi nueve centímetros. Una baranda así puede cumplir y no convence a nadie.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/barandas-carga-horizontal-y-anclaje-del-poste/
+
+#Barandas #ArquitecturaMetalica #AceroInoxidable #Anclajes #IngenieriaArgentina

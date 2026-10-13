@@ -1,0 +1,11 @@
+Un galvanizado de 85 micrones dura, tierra adentro, entre 40 y más de 100 años. En una costa de alta salinidad, entre 10 y 20. Mar afuera, entre 3 y 10.
+
+La cuenta sale de las velocidades de corrosión que la norma ISO 9223 asigna a cada categoría de atmósfera: en mar afuera, el acero pierde entre 200 y 700 micrones en su primer año, de ocho a catorce veces más que en un ambiente urbano.
+
+Por eso un shelter para ambiente marino no es un shelter común con más pintura. En la costa corresponde un esquema de tres capas con imprimación rica en zinc, de 260 a 320 micrones. Mar afuera, la norma ya no acepta una tabla de espesores: exige un esquema precalificado con seis meses de ensayo cíclico. Y el sistema dúplex, galvanizado más pintura, dura más que la suma de sus partes.
+
+Lo que falla primero es siempre geométrico: cantos, soldaduras y bulones.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/shelters-en-ambiente-marino-esquema-de-proteccion/
+
+#Shelters #CorrosionMarina #ProteccionAnticorrosiva #Offshore #IngenieriaArgentina

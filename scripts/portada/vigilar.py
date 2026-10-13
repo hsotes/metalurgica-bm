@@ -59,7 +59,48 @@ def adoptar_fondo(c):
     destino = f / ("fondo" + nueva.suffix.lower())
     nueva.rename(destino)
     log("%s: %s adoptada como fondo de portada" % (c.name, nueva.name))
+    quitar_marco_blanco(destino, c.name)
     return True
+
+
+def quitar_marco_blanco(ruta, nombre):
+    """Recorta franjas blancas en los bordes.
+
+    Aparecen cuando la imagen se exporta desde un lienzo de otra proporcion
+    (por ejemplo una imagen 1.91:1 sobre un lienzo 16:9 de Canva).
+    """
+    try:
+        from PIL import Image
+        im = Image.open(ruta).convert("RGB")
+        ancho, alto = im.size
+        gris = im.convert("L")
+        px = gris.load()
+
+        def fila_blanca(y):
+            return all(px[x, y] > 235 for x in range(0, ancho, 8))
+
+        def col_blanca(x):
+            return all(px[x, y] > 235 for y in range(0, alto, 8))
+
+        arriba, abajo, izq, der = 0, alto, 0, ancho
+        while arriba < alto - 1 and fila_blanca(arriba):
+            arriba += 1
+        while abajo > arriba + 1 and fila_blanca(abajo - 1):
+            abajo -= 1
+        while izq < ancho - 1 and col_blanca(izq):
+            izq += 1
+        while der > izq + 1 and col_blanca(der - 1):
+            der -= 1
+        if (arriba, abajo, izq, der) == (0, alto, 0, ancho):
+            return
+        # margen de 2 px para no dejar el borde suavizado de la franja
+        caja = (izq + (2 if izq else 0), arriba + (2 if arriba else 0),
+                der - (2 if der < ancho else 0), abajo - (2 if abajo < alto else 0))
+        im.crop(caja).save(ruta)
+        log("%s: marco blanco recortado (arriba %d, abajo %d, izq %d, der %d px)"
+            % (nombre, arriba, alto - abajo, izq, ancho - der))
+    except Exception as e:  # la portada sale igual con la imagen sin recortar
+        log("%s: no se pudo revisar el marco blanco -> %s" % (nombre, e))
 
 
 def mtime(p):

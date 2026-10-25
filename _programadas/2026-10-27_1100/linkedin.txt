@@ -1,0 +1,11 @@
+Cuatro horas de autonomía para 2 kW de equipamiento en 48 V son 8 kWh. Pero el banco que se instala tiene del orden de 17 kWh: más de dos kilowatts-hora comprados por cada uno que se usa.
+
+La cuenta tiene tres correcciones que fija la norma IEEE 485, envejecimiento, margen y temperatura, y un efecto menos intuitivo: la batería entrega menos cuanto más rápido se la descarga. El mismo monobloque que da 180 Ah en diez horas entrega 119 en una.
+
+En kilos, esas cuatro horas son del orden de 460 kg de baterías. En un rack de dos niveles, del orden de 11 kN/m² sobre el piso: cuatro veces la carga de una oficina. Ocho horas son unos 700 kg; veinte horas, más de una tonelada y media. Y hay que decidir si el shelter viaja con las baterías puestas.
+
+La autonomía se escribe en horas y se paga en kilos, en metros cuadrados y en estructura. Pasar de cuatro a ocho horas no es un cambio de baterías: es otro piso.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/autonomia-banco-de-baterias-peso-volumen-shelter/
+
+#Shelters #Baterias #IEEE485 #InfraestructuraCritica #Telecomunicaciones

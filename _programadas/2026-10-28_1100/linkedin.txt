@@ -1,0 +1,11 @@
+En una nave industrial, las correas y los largueros de pared pesan del orden del 15 al 25 % del acero. Y su peso depende sobre todo de una decisión que no es de la correa: la separación entre pórticos.
+
+Con las tablas de un fabricante de correas Z, separadas 1,8 m: con pórticos cada 6 m, unos 2,2 kg por m² de techo; cada 7,5 m, 2,6; cada 9 m, 3,9. De 6 a 7,5 m el peso sube un 18 %. De 7,5 a 9 m, un 50 %.
+
+Ahí está el equilibrio de toda nave: alejar los pórticos ahorra pórticos y fundaciones, acercarlos ahorra correas. El pórtico más liviano no es necesariamente el edificio más económico.
+
+Y con viento, la correa cambia de problema: la succión levanta el techo y el ala comprimida pasa a ser la inferior, sin chapa que la sostenga. Por eso la misma correa tiene capacidades distintas según tenga cero, uno o dos tensores.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/correas-de-cubierta-costo-del-techo/
+
+#NavesIndustriales #Galpones #EstructurasMetalicas #Correas #IngenieriaArgentina

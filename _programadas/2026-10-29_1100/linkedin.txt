@@ -1,0 +1,11 @@
+Si se corta toda la climatización de un shelter con equipamiento crítico, el recinto llega a su límite de temperatura en algo así como 20 minutos a una hora. Si el sitio no tiene personal y el técnico está a horas de viaje, la cuenta es simple: la redundancia tiene que resolver la falla sola. El técnico llega después, a reparar, no a salvar.
+
+Por eso dos equipos de aire en la pared son el comienzo de la redundancia, no la redundancia. Cada uno tiene que poder con la carga entera solo: dos equipos que juntos la cubren, pero no por separado, son un equipo partido en dos.
+
+Y la redundancia se pierde por lo que comparten: el mismo circuito, el mismo controlador sin respaldo, el mismo sensor, alarmas que llegan todas por un solo contacto. Ante un corte prolongado, la ventilación de emergencia en 48 V desde las baterías gana tiempo con unos 100 W.
+
+Escribimos sobre qué significa N+1 en un sitio sin personal permanente.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/redundancia-n-mas-1-climatizacion-shelter/
+
+#Shelters #Climatizacion #Redundancia #InfraestructuraCritica #Telecomunicaciones

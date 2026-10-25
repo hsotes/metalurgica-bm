@@ -44,6 +44,36 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "pintar-sobre-galvanizado-arenado-de-barrido-y-sistema-duplex": (
+        "SUP-APU-002", SUPERFICIES, [
+            u"Las dos se protegen mutuamente.",
+            u"Se resuelve con números: cuánto zinc se va, qué perfil queda y cuándo llega la pintura.",
+        ]),
+    "autonomia-banco-de-baterias-peso-volumen-shelter": (
+        "TBEX-APU-009", SHELTERS, [
+            u"Y el peso no incluye el rack.",
+            u"Pasar de cuatro a ocho horas no es un cambio de baterías: es otro piso.",
+        ]),
+    "correas-de-cubierta-costo-del-techo": (
+        "ARQ-APU-009", SISTEMAS, [
+            u"La correa, liviana y optimizada, es el elemento con menos reserva de toda la estructura.",
+            u"Ahí está el equilibrio de toda nave.",
+        ]),
+    "chapa-perforada-en-fachada-vacio-y-viento": (
+        "ARQ-APU-010", PARRILLAS, [
+            u"Con un 30 % de vacío, la diferencia con la maciza es casi despreciable.",
+            u"La cámara de aire no siempre ayuda",
+        ]),
+    "redundancia-n-mas-1-climatizacion-shelter": (
+        "TBEX-APU-013", SHELTERS, [
+            u"Dos equipos que juntos cubren la carga, pero no por separado, no son redundantes: son un equipo partido en dos.",
+            u"El técnico llega después, a reparar, no a salvar.",
+        ]),
+    "eiffel-en-sudamerica-hierro-prefabricado": (
+        "INS-ART-004", PARRILLAS, [
+            u"Mil setecientos bultos convertidos en una iglesia, al otro lado de un continente.",
+            u"Con el tiempo, el nombre más famoso se quedó con todas.",
+        ]),
     "steel-framing-como-cerramiento-sobre-estructura-principal": (
         "ARQ-APU-007", SISTEMAS, [
             u"Es un sistema que comparte material con la estructura y nada más.",

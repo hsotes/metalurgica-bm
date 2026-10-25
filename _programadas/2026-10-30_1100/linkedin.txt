@@ -1,0 +1,11 @@
+Una chapa perforada con la mitad de su superficie en agujeros no recibe la mitad del viento. Recibe del orden del 75 %.
+
+El factor que usa la norma australiana para pantallas porosas lo resume: la carga es la de la chapa maciza por 1 menos el área abierta al cuadrado. Con 30 % de vacío, la diferencia con una chapa maciza es casi despreciable. La normativa estadounidense llega al mismo lugar: con menos del 30 % de aberturas, se calcula como maciza.
+
+El aire no atraviesa la chapa sin resistencia: cada agujero estrangula el flujo. Por eso la subestructura de una fachada perforada se diseña casi como la de una fachada cerrada.
+
+Y hay un efecto que aparece con el edificio terminado: el silbido. Con viento rasante, las perforaciones pueden producir tonos de 800 a 1.500 Hz. Se puede evaluar en proyecto; corregirlo después es posible, pero sobre una fachada terminada.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/chapa-perforada-en-fachada-vacio-y-viento/
+
+#ChapaPerforada #Fachadas #ArquitecturaMetalica #CargaDeViento #IngenieriaArgentina

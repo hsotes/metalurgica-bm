@@ -128,7 +128,7 @@ const modelos = [
     descripcion: 'Vivienda unifamiliar en un solo módulo transportable. Construcción en base a perfilería de acero galvanizado de alta resistencia con paneles aislantes de alta exigencia termoacústicos.',
     ambientes: '1 o 2 habitaciones, cocina integrada, sala de estar y baño completo',
     dimensiones: '14.63m de largo por 3.72m de ancho',
-    precios: { estandar: 43200, medium: 51300, premium: 64800 },
+    precios: { estandar: 32400, medium: 45900, premium: 67500 },
     imagen: '/images/modular/2.png',
     imagenReal: null,
     destacado: false
@@ -141,7 +141,7 @@ const modelos = [
     descripcion: 'Vivienda unifamiliar desarrollada en dos módulos transportables independientes. Ideal para familias que buscan amplitud y confort.',
     ambientes: '2 o 3 dormitorios, vestidor, baño en suite, baño adicional completo, cocina integrada, sala de estar',
     dimensiones: '13.83m de largo por 7.7m de ancho cada módulo',
-    precios: { estandar: 84800, medium: 100700, premium: 127200 },
+    precios: { estandar: 63000, medium: 89250, premium: 131250 },
     imagen: '/images/modular/2.png',
     imagenReal: null,
     destacado: true
@@ -154,7 +154,7 @@ const modelos = [
     descripcion: 'Vivienda unifamiliar desarrollada en dos módulos transportables. Incluye pérgola de estacionamiento, semicubierto y pérgola de ingreso.',
     ambientes: 'Habitación principal integrada, sala de estar, baño completo, opcional pérgola de estacionamiento',
     dimensiones: 'Módulos transportables independientes',
-    precios: { estandar: 36800, medium: 43700, premium: 55200 },
+    precios: { estandar: 27600, medium: 39100, premium: 57500 },
     imagen: '/images/modular/3.png',
     imagenReal: null,
     destacado: false
@@ -167,7 +167,7 @@ const modelos = [
     descripcion: 'Vivienda de dos plantas desarrollada en tres módulos transportables. Máximo espacio y confort para familias numerosas.',
     ambientes: '4 habitaciones con baño en suite, vestidor, cocina integrada, sala de estar, zona de lavadero, semicubierto y terraza en segundo piso',
     dimensiones: '11.83m de largo por 3.75m de ancho cada módulo',
-    precios: { estandar: 128000, medium: 152000, premium: null },
+    precios: { estandar: 96000, medium: 136000, premium: null },
     imagen: '/images/modular/3.png',
     imagenReal: '/images/modular/WhatsApp Image 2025-02-18 at 9.48.26 PM (3).jpg',
     destacado: true
@@ -180,7 +180,7 @@ const modelos = [
     descripcion: 'Vivienda Minimalista en 1 módulo transportable independiente. Perfecta para singles, parejas o como espacio adicional.',
     ambientes: '1 cocina comedor integrada, 1 baño completo con espacio de lavado, 1 habitación con espacio de placard',
     dimensiones: '7.81m de largo por 3.17m de ancho',
-    precios: { estandar: 22400, medium: 26600, premium: 33600 },
+    precios: { estandar: 16800, medium: 23800, premium: 35000 },
     imagen: '/images/modular/4.png',
     imagenReal: null,
     destacado: false
@@ -193,7 +193,7 @@ const modelos = [
     descripcion: 'La sensación de estar en una cabaña en medio de paisajes espectaculares. Ideal para lodges, alojamientos turísticos o retiros.',
     ambientes: 'Baño en suite, Mini Kitchen con mueble de melamina, anafe eléctrico, bacha de acero inoxidable y grifería monocomando',
     dimensiones: '8.00m de largo x 3.00m de ancho',
-    precios: { estandar: 19200, medium: 22800, premium: 28800 },
+    precios: { estandar: 14400, medium: 20400, premium: 30000 },
     imagen: '/images/modular/5.png',
     imagenReal: '/images/modular/WhatsApp Image 2026-02-02 at 10.49.13.jpeg',
     destacado: false
@@ -206,7 +206,7 @@ const modelos = [
     descripcion: 'Ambiente estilo Quincho Sala de Estar. Sustentable garantizando un 60% de ahorro energético, estilo moderno.',
     ambientes: 'Espacio parrilla con frente de acero inoxidable, sala de estar y área de baños discreta',
     dimensiones: 'Personalizable según necesidad',
-    precios: { estandar: 28500, medium: 30000, premium: null },
+    precios: { estandar: null, medium: null, premium: null },
     imagen: '/images/modular/6.png',
     imagenReal: null,
     destacado: false
@@ -217,7 +217,7 @@ const modelos = [
 const terminaciones = [
   {
     nivel: 'ESTÁNDAR',
-    precio: '800 USD/m²',
+    precio: '600 USD/m²',
     color: 'gray',
     specs: [
       'Perfilería de acero galvanizado de alta resistencia',
@@ -234,7 +234,7 @@ const terminaciones = [
   },
   {
     nivel: 'MEDIUM',
-    precio: '950 USD/m²',
+    precio: '850 USD/m²',
     color: 'primary',
     specs: [
       'Perfilería de acero galvanizado de alta resistencia',
@@ -252,7 +252,7 @@ const terminaciones = [
   },
   {
     nivel: 'PREMIUM',
-    precio: '1.200 USD/m²',
+    precio: '1.250 USD/m²',
     color: 'accent',
     specs: [
       'Perfilería de acero galvanizado de alta resistencia',
@@ -781,8 +781,8 @@ const clientes = [
                   </div>
                 </div>
 
-                <a href="#cotizar" class="btn btn-accent w-full">
-                  Cotizar Modelo {modelo.id}
+                <a href="#calcular-vivienda" class="btn btn-accent w-full">
+                  Calcular Modelo {modelo.id}
                 </a>
               </div>
             </div>
@@ -835,7 +835,7 @@ const clientes = [
                   </li>
                 ))}
               </ul>
-              <a href="#cotizar" class={`btn w-full mt-6 ${index === 0 ? 'btn-outline border-gray-300 text-gray-700 hover:bg-gray-100' : index === 1 ? 'btn-primary' : 'bg-amber-500 hover:bg-amber-600 text-white'}`}>
+              <a href="#calcular-vivienda" class={`btn w-full mt-6 ${index === 0 ? 'btn-outline border-gray-300 text-gray-700 hover:bg-gray-100' : index === 1 ? 'btn-primary' : 'bg-amber-500 hover:bg-amber-600 text-white'}`}>
                 Elegir {term.nivel}
               </a>
             </div>
@@ -868,15 +868,15 @@ const clientes = [
               <th class="px-6 py-4 text-left font-bold">M² CUBIERTOS</th>
               <th class="px-6 py-4 text-center font-bold">
                 <div>ESTÁNDAR</div>
-                <div class="text-xs font-normal text-gray-400">800 USD/m²</div>
+                <div class="text-xs font-normal text-gray-400">600 USD/m²</div>
               </th>
               <th class="px-6 py-4 text-center font-bold bg-primary">
                 <div>MEDIUM</div>
-                <div class="text-xs font-normal text-primary-light">950 USD/m²</div>
+                <div class="text-xs font-normal text-primary-light">850 USD/m²</div>
               </th>
               <th class="px-6 py-4 text-center font-bold bg-amber-500">
                 <div>PREMIUM</div>
-                <div class="text-xs font-normal text-amber-100">1.200 USD/m²</div>
+                <div class="text-xs font-normal text-amber-100">1.250 USD/m²</div>
               </th>
             </tr>
           </thead>
@@ -895,7 +895,7 @@ const clientes = [
                   {modelo.precios.medium ? `USD ${modelo.precios.medium.toLocaleString()}` : '-'}
                 </td>
                 <td class="px-6 py-4 text-center font-bold bg-amber-50">
-                  {modelo.precios.premium ? `USD ${modelo.precios.premium.toLocaleString()}` : 'Consultar'}
+                  {modelo.precios.premium ? `USD ${modelo.precios.premium.toLocaleString()}` : '-'}
                 </td>
               </tr>
             ))}
@@ -909,8 +909,8 @@ const clientes = [
           <div class="text-xl font-bold text-gray-900">USD 350/m²</div>
         </div>
         <div class="bg-primary/10 rounded-xl p-4 text-center">
-          <div class="text-sm text-primary">Personalización incluida</div>
-          <div class="text-xl font-bold text-primary">Sin costo adicional</div>
+          <div class="text-sm text-primary">Estructura y aislación</div>
+          <div class="text-xl font-bold text-primary">Estándar industrial</div>
         </div>
         <div class="bg-accent/20 rounded-xl p-4 text-center">
           <div class="text-sm text-gray-600">Entrega llave en mano</div>
@@ -919,6 +919,159 @@ const clientes = [
       </div>
     </div>
   </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <!-- CALCULADOR DE VIVIENDA: filtro previo a la cotización -->
+  <!-- ═══════════════════════════════════════════════════════════════════════ -->
+  <section id="calcular-vivienda" class="section bg-gray-900 text-white scroll-mt-20">
+    <div class="container">
+      <div class="text-center mb-12">
+        <span class="inline-block bg-white/10 text-gray-200 px-4 py-1 rounded-full text-sm font-semibold mb-4 tracking-wide">
+          ANTES DE PEDIR COTIZACIÓN
+        </span>
+        <h2 class="text-4xl md:text-5xl font-bold mb-4">
+          Calculá tu vivienda en un minuto
+        </h2>
+        <p class="text-xl text-gray-400 max-w-3xl mx-auto">
+          Preferimos que conozcas el número antes de escribirnos. Elegí el nivel de terminación y la superficie, y vas a ver la inversión estimada al instante.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
+        <!-- Controles -->
+        <div class="bg-gray-800 rounded-3xl p-6 md:p-8">
+          <div class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">1. Nivel de terminación</div>
+          <div class="grid grid-cols-3 gap-3 mb-8" role="radiogroup" aria-label="Nivel de terminación">
+            <button type="button" class="calc-nivel rounded-2xl border-2 border-gray-600 p-4 text-center transition-colors" data-nivel="Estándar" data-tarifa="600" aria-pressed="false">
+              <div class="font-bold">Estándar</div>
+              <div class="text-sm text-gray-400">600 USD/m²</div>
+            </button>
+            <button type="button" class="calc-nivel rounded-2xl border-2 border-gray-600 p-4 text-center transition-colors" data-nivel="Medium" data-tarifa="850" aria-pressed="false">
+              <div class="font-bold">Medium</div>
+              <div class="text-sm text-gray-400">850 USD/m²</div>
+            </button>
+            <button type="button" class="calc-nivel rounded-2xl border-2 border-gray-600 p-4 text-center transition-colors" data-nivel="Premium" data-tarifa="1250" aria-pressed="false">
+              <div class="font-bold">Premium</div>
+              <div class="text-sm text-gray-400">1.250 USD/m²</div>
+            </button>
+          </div>
+
+          <div class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">2. Superficie cubierta</div>
+          <div class="flex items-center gap-4 mb-8">
+            <input id="calc-m2" type="range" min="24" max="200" step="1" value="60" class="w-full accent-[#75AADB]" aria-label="Metros cuadrados cubiertos" />
+            <div class="shrink-0 w-28 text-right"><span id="calc-m2-valor" class="text-2xl font-bold">60</span> <span class="text-gray-400">m²</span></div>
+          </div>
+
+          <div class="text-sm font-semibold text-gray-400 uppercase tracking-wide mb-3">3. Semicubierto tipo pérgola <span class="normal-case font-normal">(opcional, 350 USD/m²)</span></div>
+          <div class="flex items-center gap-4">
+            <input id="calc-semi" type="range" min="0" max="60" step="1" value="0" class="w-full accent-[#75AADB]" aria-label="Metros cuadrados semicubiertos" />
+            <div class="shrink-0 w-28 text-right"><span id="calc-semi-valor" class="text-2xl font-bold">0</span> <span class="text-gray-400">m²</span></div>
+          </div>
+        </div>
+
+        <!-- Resultado -->
+        <div class="bg-gradient-to-br from-primary to-primary-dark rounded-3xl p-6 md:p-8 flex flex-col justify-center">
+          <div class="text-sm font-semibold text-gray-300 uppercase tracking-wide mb-2">Inversión estimada</div>
+          <div id="calc-total" class="text-5xl md:text-6xl font-bold mb-3">—</div>
+          <div id="calc-detalle" class="text-gray-300 mb-6">Elegí un nivel de terminación para ver el valor.</div>
+          <p class="text-sm text-gray-300 border-t border-white/20 pt-4">
+            Valor de referencia en dólares, a precio de planta. El traslado se cotiza según la distancia hasta tu terreno.
+          </p>
+        </div>
+      </div>
+
+      <!-- Franqueza + filtro -->
+      <div class="max-w-4xl mx-auto mt-12 bg-white text-gray-900 rounded-3xl p-6 md:p-10">
+        <h3 class="text-2xl font-bold mb-4">Lo decimos con franqueza</h3>
+        <p class="text-gray-700 mb-4">
+          Nuestras viviendas no son las más económicas del mercado, y no intentan serlo. Las construimos con el mismo criterio que los campamentos y las estructuras especiales que fabricamos para la industria: estructura calculada, aislación de especificación técnica y fabricación en nuestro taller. Eso tiene un costo, y está en el número de arriba.
+        </p>
+        <p class="text-gray-700 mb-8">
+          Si tu prioridad es el menor precio, seguramente encuentres módulos importados más baratos. Está bien: no todos los proyectos necesitan lo que hacemos.
+        </p>
+
+        <div class="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-4">Si querés seguir adelante, confirmá estos tres puntos</div>
+        <div class="space-y-3 mb-8">
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" class="calc-check mt-1 w-5 h-5 accent-[#1a4d6d]" />
+            <span class="text-gray-800">Cuento con una inversión del orden de <strong id="calc-check-monto">la estimada</strong> para este proyecto.</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" class="calc-check mt-1 w-5 h-5 accent-[#1a4d6d]" />
+            <span class="text-gray-800">Busco una construcción con estándar industrial, no el menor precio del mercado.</span>
+          </label>
+          <label class="flex items-start gap-3 cursor-pointer">
+            <input type="checkbox" class="calc-check mt-1 w-5 h-5 accent-[#1a4d6d]" />
+            <span class="text-gray-800">Tengo el terreno y quiero avanzar en los próximos seis meses.</span>
+          </label>
+        </div>
+
+        <a id="calc-enviar" href="#calcular-vivienda" target="_blank" rel="noopener noreferrer" aria-disabled="true"
+           class="btn w-full py-4 text-lg bg-gray-200 text-gray-500 pointer-events-none">
+          Confirmá los tres puntos para continuar
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <script define:vars={{ telefono: contact.phoneWhatsApp }}>
+    (() => {
+      const niveles = document.querySelectorAll('.calc-nivel');
+      const m2 = document.getElementById('calc-m2');
+      const semi = document.getElementById('calc-semi');
+      const checks = document.querySelectorAll('.calc-check');
+      const enviar = document.getElementById('calc-enviar');
+      const usd = (n) => 'USD ' + Math.round(n).toLocaleString('es-AR');
+      let nivel = null, tarifa = 0;
+
+      function actualizar() {
+        document.getElementById('calc-m2-valor').textContent = m2.value;
+        document.getElementById('calc-semi-valor').textContent = semi.value;
+        const total = tarifa * m2.value + 350 * semi.value;
+        if (nivel) {
+          document.getElementById('calc-total').textContent = usd(total);
+          document.getElementById('calc-detalle').textContent =
+            `${m2.value} m² × ${tarifa.toLocaleString('es-AR')} USD/m²` +
+            (semi.value > 0 ? ` + ${semi.value} m² de semicubierto` : '') + ` · Nivel ${nivel}`;
+          document.getElementById('calc-check-monto').textContent = usd(total);
+        }
+        const listo = nivel && [...checks].every((c) => c.checked);
+        enviar.setAttribute('aria-disabled', listo ? 'false' : 'true');
+        enviar.classList.toggle('pointer-events-none', !listo);
+        enviar.classList.toggle('bg-gray-200', !listo);
+        enviar.classList.toggle('text-gray-500', !listo);
+        enviar.classList.toggle('btn-accent', !!listo);
+        if (listo) {
+          const msg = `Hola! Usé el calculador de viviendas de la web: nivel ${nivel}, ${m2.value} m² cubiertos` +
+            (semi.value > 0 ? ` y ${semi.value} m² de semicubierto` : '') +
+            `. Inversión estimada ${usd(total)}. Confirmo el presupuesto, el estándar industrial y que tengo terreno para avanzar en los próximos seis meses. Quisiera una cotización formal.`;
+          enviar.href = `https://wa.me/${telefono}?text=${encodeURIComponent(msg)}`;
+          enviar.textContent = 'Solicitar cotización formal por WhatsApp';
+        } else {
+          enviar.href = '#calcular-vivienda';
+          enviar.textContent = nivel ? 'Confirmá los tres puntos para continuar' : 'Elegí un nivel y confirmá los tres puntos';
+        }
+      }
+
+      niveles.forEach((b) => b.addEventListener('click', () => {
+        niveles.forEach((o) => {
+          o.setAttribute('aria-pressed', 'false');
+          o.classList.remove('border-[#75AADB]', 'bg-white/10');
+          o.classList.add('border-gray-600');
+        });
+        b.setAttribute('aria-pressed', 'true');
+        b.classList.remove('border-gray-600');
+        b.classList.add('border-[#75AADB]', 'bg-white/10');
+        nivel = b.dataset.nivel;
+        tarifa = Number(b.dataset.tarifa);
+        actualizar();
+      }));
+      [m2, semi].forEach((i) => i.addEventListener('input', actualizar));
+      checks.forEach((c) => c.addEventListener('change', actualizar));
+      enviar.addEventListener('click', (e) => { if (enviar.getAttribute('aria-disabled') === 'true') e.preventDefault(); });
+      actualizar();
+    })();
+  </script>
 
   <!-- ═══════════════════════════════════════════════════════════════════════ -->
   <!-- GALERÍA Y PROYECTOS -->
@@ -1272,12 +1425,10 @@ const clientes = [
               </a>
 
               <a
-                href={`https://wa.me/${contact.phoneWhatsApp}?text=${encodeURIComponent('Hola! Estoy interesado en las Viviendas Modulares Línea HighPanel. Me gustaría recibir información y cotización.')}`}
-                target="_blank"
-                rel="noopener noreferrer"
+                href="#calcular-vivienda"
                 class="btn btn-accent w-full py-4 text-lg"
               >
-                Cotizar Vivienda HighPanel
+                Vivienda HighPanel: calcular primero
               </a>
 
               <a

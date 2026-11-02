@@ -126,7 +126,7 @@ El traslado de un shelter desde la planta de fabricación al sitio implica decen
 
 ### 5.2. Gálibo, permisos e itinerario
 
-En Argentina, un shelter de 6 × 2,4 m en transporte estándar habitualmente no requiere permiso especial (cumple gálibo de tránsito). Anchos superiores a 2,55 m sí requieren permisos provinciales y escolta. La verificación de los itinerarios — pasos a nivel, túneles, gálibos de puentes, rotondas estrechas — se hace en la etapa de proyecto, no en la de despacho.
+En Argentina, un shelter de 6 × 2,4 m en transporte estándar habitualmente no requiere permiso especial (cumple gálibo de tránsito). Anchos superiores a 2,60 m o alturas superiores a 4,30 m desde la calzada requieren permiso de tránsito para carga indivisible, nacional y provincial, con las condiciones de escolta y horario que fije cada permiso. La verificación de los itinerarios — pasos a nivel, túneles, gálibos de puentes, rotondas estrechas — se hace en la etapa de proyecto, no en la de despacho.
 
 ---
 

@@ -39,11 +39,41 @@ sans_bold = lambda s: ImageFont.truetype(F + "segoeuib.ttf", s)
 SHELTERS = u"Shelters y recintos para equipamiento crítico"
 MODULAR = u"Construcción modular"
 SISTEMAS = u"Sistemas compatibles con la estructura metálica"
-PARRILLAS = u"Parrillas, arquitectura y metal a la vista"
+PARRILLAS = u"Arquitectura y metal a la vista"
 SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "espesor-de-pintura-como-se-mide-y-que-significa-el-valor-del-pliego": (
+        "SUP-APU-003", SUPERFICIES, [
+            u"Está pidiendo algo más preciso que eso.",
+            u"El micrón que importa es el que está donde la pintura más cuesta quedarse.",
+        ]),
+    "galibo-de-transporte-cuando-un-shelter-deja-de-ser-carga-comun": (
+        "TBEX-APU-014", SHELTERS, [
+            u"Arranca en la ley de tránsito.",
+            u"El permiso habilita; la ruta decide.",
+        ]),
+    "arriostramientos-el-sistema-que-hace-estable-a-una-nave": (
+        "ARQ-APU-011", SISTEMAS, [
+            u"puede caer como fichas de dominó.",
+            u"ese sistema solo existe cuando está completo y tenso.",
+        ]),
+    "condensacion-en-un-shelter-punto-de-rocio-y-puentes-termicos": (
+        "TBEX-APU-015", SHELTERS, [
+            u"Es dónde, y de qué lado de la aislación.",
+            u"Un paño de panel bien aislado no condensa.",
+        ]),
+    "vidrio-sobre-estructura-metalica-lo-que-el-vidrio-exige-al-acero": (
+        "ARQ-APU-012", PARRILLAS, [
+            u"El vidrio es frágil: no tiene reserva plástica, no redistribuye y no avisa.",
+            u"El acero puede resolver casi cualquier geometría.",
+        ]),
+    "puente-de-la-mujer-ingenieria-de-un-puente-giratorio": (
+        "INS-ART-005", PARRILLAS, [
+            u"Lo que no se ve a simple vista es que esa escultura se mueve.",
+            u"Equilibrado, el mecanismo solo tiene que hacerlo girar.",
+        ]),
     "pintar-sobre-galvanizado-arenado-de-barrido-y-sistema-duplex": (
         "SUP-APU-002", SUPERFICIES, [
             u"Las dos se protegen mutuamente.",

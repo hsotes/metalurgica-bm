@@ -4,8 +4,8 @@ description: "Descubrí las ventajas de las parrillas de acero galvanizado: dura
 date: "2026-02-24"
 author: "Metalurgica Boto Mariani"
 image: "/blog/beneficios-de-las-parrillas-de-acero-galvanizado-1771933928049.jpeg"
-category: "Griglia"
-tags: ["parrillas", "acero galvanizado", "durabilidad", "eficiencia", "Griglia"]
+category: "Arquitectura Metalica"
+tags: ["parrillas", "acero galvanizado", "durabilidad", "eficiencia"]
 ---
 
 En un país donde el asado es casi una religión, contar con las herramientas adecuadas es crucial para una experiencia inigualable. El acero galvanizado se presenta como el material estrella para parrillas, fusionando tradición y modernidad. Su combinación de durabilidad y eficiencia lo convierte en la elección perfecta para apasionados y expertos del asado.

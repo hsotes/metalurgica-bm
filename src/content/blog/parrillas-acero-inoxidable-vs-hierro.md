@@ -4,7 +4,7 @@ description: "Comparativa técnica entre parrillas de acero inoxidable y hierro 
 date: "2026-02-15"
 author: "Metalurgica Boto Mariani"
 image: "/images/griglia/WhatsApp Image 2026-02-20 at 14.21.11.jpeg"
-category: "Griglia"
+category: "Arquitectura Metalica"
 tags: ["parrillas", "acero inoxidable", "hierro", "quincho", "asado"]
 ---
 
@@ -32,7 +32,7 @@ El hierro es el material tradicional por excelencia en la parrilla argentina. Su
 
 ## Parrillas de Acero Inoxidable
 
-El acero inoxidable es la opción moderna que ha ganado terreno en los últimos años. En nuestra línea **Griglia**, trabajamos con acero inoxidable AISI 304, el estándar de la industria alimentaria.
+El acero inoxidable es la opción moderna que ha ganado terreno en los últimos años. En nuestro taller trabajamos con acero inoxidable AISI 304, el estándar de la industria alimentaria.
 
 ### Ventajas del acero inoxidable
 
@@ -60,6 +60,6 @@ El acero inoxidable es la opción moderna que ha ganado terreno en los últimos 
 
 **Si usás la parrilla todos los fines de semana** y disfrutás del ritual de curar y mantener, el hierro es tu material. **Si preferís practicidad y cero mantenimiento**, el acero inoxidable es la mejor inversión a largo plazo.
 
-## ¿Necesitás asesoramiento?
+## En síntesis
 
-En Metalúrgica Boto Mariani fabricamos parrillas a medida en ambos materiales. Nuestra línea **Griglia** incluye modelos con sistema guillotina, cajones para cenizas y accesorios complementarios. [Contactanos](/contacto/) para recibir un presupuesto personalizado.
+Lo que decide la durabilidad es el material y cómo se trabaja, más que el modelo.

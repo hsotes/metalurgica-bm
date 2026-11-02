@@ -1,0 +1,11 @@
+El acero es dúctil: si una pieza se deforma más de lo previsto, fluye, redistribuye y avisa. El vidrio no tiene reserva plástica. Rompe.
+
+Por eso, cuando una estructura metálica sostiene vidrio, el cálculo por resistencia es la parte fácil. En una viga de borde de 9 metros, una flecha de luz/360 son 25 mm; a luz/1000, unos 9 mm. Un muro cortina unitizado absorbe del orden de 15 mm de movimiento. La guía británica de construcción en acero lo dice sin vueltas: luz/360 no es realista para una viga de borde que sostiene fachada.
+
+Y hay una cuestión de secuencia: el vidrio se fabrica con ±2 mm de tolerancia, la estructura montada trabaja con bastante más, y el vidrio se corta después de relevar el acero, no antes.
+
+Escribimos sobre lo que el vidrio le exige a la estructura que lo sostiene.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/vidrio-sobre-estructura-metalica-lo-que-el-vidrio-exige-al-acero/
+
+#Fachadas #Vidrio #EstructurasMetalicas #ArquitecturaMetalica #IngenieriaArgentina

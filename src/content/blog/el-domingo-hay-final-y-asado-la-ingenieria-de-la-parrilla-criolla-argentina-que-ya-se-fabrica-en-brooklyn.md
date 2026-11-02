@@ -4,7 +4,7 @@ description: "Del taller argentino al mercado premium de Brooklyn: la ingenierí
 date: "2026-07-16"
 author: "Metalurgica Boto Mariani"
 image: "/blog/el-domingo-hay-final-y-asado-la-ingenieria-de-la-parrilla-criolla-argentina-que-ya-se-fabrica-en-brooklyn-1784221545278.jpg"
-category: "Griglia"
+category: "Arquitectura Metalica"
 tags: ["parrilla criolla ingeniería", "asado argentino Mundial 2026", "final Argentina España domingo", "Northfork Ironworks Brooklyn", "Engelbrecht Grillworks", "Francis Mallmann Seven Fires", "hinchada argentina Bangladesh Kerala", "Messi Mundial 2026", "parrilla premium Estados Unidos", "herreros argentinos exportación"]
 ---
 

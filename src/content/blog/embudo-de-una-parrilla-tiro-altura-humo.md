@@ -4,8 +4,8 @@ description: "El humo de una parrilla sube por una diferencia de presión que de
 date: "2026-10-03"
 author: "Ing. Hernán Soto Escalante"
 image: "/blog/embudo-de-una-parrilla-tiro-altura-humo/portada.jpg"
-category: "Griglia"
-tags: ["parrillas", "embudo", "chimenea", "tiro", "quinchos", "Griglia"]
+category: "Arquitectura Metalica"
+tags: ["parrillas", "embudo", "chimenea", "tiro", "quinchos"]
 ---
 
 Cuando una parrilla echa humo al quincho, la primera sospecha recae sobre la leña, el carbón o el viento de ese día. Casi siempre el problema está más arriba: en el embudo, la campana que recoge el humo y lo conduce por la chimenea hacia afuera.

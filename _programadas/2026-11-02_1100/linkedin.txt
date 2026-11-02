@@ -1,0 +1,13 @@
+Un pliego que pide 240 micrones de espesor de pintura no está pidiendo que cada punto mida 240.
+
+Según la ISO 19840, el área se acepta si el promedio llega al nominal, si ninguna lectura baja del 80 % y si las lecturas entre el 80 y el 100 % son menos del 20 % del total. Con 240 micrones, una lectura de 200 es admisible y una de 190 no.
+
+Y sobre acero granallado, el medidor no lee el espesor que protege. Lee hasta algún punto entre los picos y los valles del perfil. Por eso la norma obliga a restar 10, 25 o 40 micrones según la rugosidad sea fina, media o gruesa. Una lectura de 150 sobre un perfil medio son 125 micrones de película.
+
+El exceso también es un defecto: un silicato de zinc demasiado grueso se cuartea, y no se repara, se rehace.
+
+Escribimos sobre qué significa el número del pliego y cómo se verifica.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/espesor-de-pintura-como-se-mide-y-que-significa-el-valor-del-pliego/
+
+#ProteccionAnticorrosiva #PinturaIndustrial #EstructurasMetalicas #ISO12944 #IngenieriaArgentina

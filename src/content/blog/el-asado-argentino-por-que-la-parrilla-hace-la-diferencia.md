@@ -4,7 +4,7 @@ description: "Cortes, tiempos, fuego y el fierro que hace la diferencia. Todo lo
 date: "2026-03-01"
 author: "Metalurgica Boto Mariani"
 image: "/blog/el-asado-argentino-por-que-la-parrilla-hace-la-diferencia-1772386373142.jpg"
-category: "Griglia"
+category: "Arquitectura Metalica"
 tags: ["asado argentino", "parrilla a medida", "quincho completo", "parrilla hierro o acero inoxidable", "puerta guillotina parrilla", "cortes de asado tiempos cocción", "parrilla fabricación artesanal", "quincho con horno de barro"]
 ---
 
@@ -134,4 +134,4 @@ Porque al final, **un buen asado se merece una buena parrilla**. Y una buena par
 
 ---
 
-*¿Estás pensando en tu parrilla? Escribinos y te ayudamos a elegir el modelo ideal para tu espacio. Fabricamos a medida en hierro o acero inoxidable.*
+*Este artículo forma parte de la serie sobre arquitectura y metal a la vista.*

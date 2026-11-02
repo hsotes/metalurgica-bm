@@ -183,15 +183,6 @@ export const businessUnits = [
     target: 'B2B/B2C',
     priority: 4,
   },
-  {
-    id: 'griglia',
-    name: 'Linea Griglia',
-    shortName: 'Griglia',
-    slug: '/griglia/',
-    description: 'Parrillas a medida, puertas guillotina y cierres de parrilla.',
-    target: 'B2C',
-    priority: 5,
-  },
 ];
 
 /**

@@ -4,7 +4,7 @@ description: "Análisis técnico de la varilla en V en parrillas argentinas: án
 date: "2026-04-14"
 author: "Metalurgica Boto Mariani"
 image: "/blog/por-que-dos-parrillas-iguales-cocinan-distinto-el-secreto-esta-en-la-grilla-1776189421498.jpg"
-category: "Griglia"
+category: "Arquitectura Metalica"
 tags: ["varilla en V parrilla", "ángulo varilla parrilla", "parrilla acero inoxidable 304", "diseño técnico parrilla", "grasera parrilla"]
 ---
 

@@ -64,6 +64,11 @@
       "permanent": true
     },
     {
+      "source": "/griglia/",
+      "destination": "/arquitectura-metalica/",
+      "permanent": true
+    },
+    {
       "source": "/griglia/:path*",
       "destination": "/arquitectura-metalica/",
       "permanent": true

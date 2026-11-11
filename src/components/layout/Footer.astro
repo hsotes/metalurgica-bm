@@ -7,6 +7,7 @@ const currentYear = new Date().getFullYear();
 const companyLinks = [
   { name: 'Blog', href: '/blog/' },
   { name: 'Nosotros', href: '/nosotros/' },
+  { name: 'Política de calidad', href: '/politica-de-calidad/' },
   { name: 'Contacto', href: '/contacto/' },
 ];
 ---
@@ -38,9 +39,9 @@ const companyLinks = [
           <span class="bg-accent text-gray-900 text-xs font-bold px-2 py-1 rounded">
             Certificación INTI
           </span>
-          <span class="bg-blue-500 text-white text-xs font-bold px-2 py-1 rounded">
+          <a href="/politica-de-calidad/" class="bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold px-2 py-1 rounded transition-colors">
             ISO 9001
-          </span>
+          </a>
         </div>
       </div>
 

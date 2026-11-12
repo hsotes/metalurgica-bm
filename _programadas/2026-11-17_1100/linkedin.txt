@@ -1,0 +1,11 @@
+Un shelter pasa casi toda su vida apoyado. Pero antes cuelga de una grúa al menos dos veces, con los equipos ya instalados, y en esos minutos todo su peso pasa por cuatro puntos.
+
+A 30° de la horizontal, cada ramal de un par de eslingas soporta una fuerza igual al peso completo de la carga. Y sobre una carga rígida, cuatro ramales no reparten en cuatro: las guías de práctica consideran que trabajan dos.
+
+La norma de DNV para contenedores offshore lo resume en una frase que vale para cualquier shelter: un contenedor puede ser excesivamente flexible sin tener tensiones calculadas altas. Lo que se cuida en un izaje no es solo el cáncamo; es la puerta que tiene que seguir cerrando y las juntas que tienen que seguir estancas.
+
+Escribimos sobre los puntos de izaje, el ángulo de eslinga, el centro de gravedad y la base que tiene que resistirlo.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/izaje-de-un-shelter-puntos-de-izaje-y-angulo-de-eslinga/
+
+#Shelters #Izaje #Rigging #EstructuraMetalica #InfraestructuraCritica

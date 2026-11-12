@@ -44,6 +44,21 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "galvanizado-en-caliente-el-espesor-de-zinc-lo-define-el-acero": (
+        "SUP-APU-004", SUPERFICIES, [
+            u"El espesor no se aplica: resulta.",
+            u"Más zinc no es siempre mejor zinc.",
+        ]),
+    "viga-carril-de-puente-grua-lo-que-el-puente-exige-a-la-nave": (
+        "ARQ-APU-013", SISTEMAS, [
+            u"Y pasa por los mismos puntos miles de veces.",
+            u"En una nave con puente grúa, el pórtico deja de ser el protagonista.",
+        ]),
+    "izaje-de-un-shelter-puntos-de-izaje-y-angulo-de-eslinga": (
+        "TBEX-APU-017", SHELTERS, [
+            u"Pero el cáncamo rara vez es lo que falla.",
+            u"lo único que queda por decidir es el largo de las eslingas.",
+        ]),
     "extincion-por-agente-limpio-en-un-shelter-la-hermeticidad-del-recinto": (
         "TBEX-APU-016", SHELTERS, [
             u"El cilindro aporta el agente; la envolvente decide si el agente se queda.",

@@ -1,0 +1,11 @@
+James Fisher, autor de la guía de la AISC sobre edificios industriales, estima que el 90 % de los problemas de vigas carril de puente grúa están asociados a fisuras por fatiga.
+
+Y agrega un dato que cambia la forma de inspeccionar: la iniciación de la fisura consume del orden del 80 % de la vida a fatiga. Cuando la fisura se ve, el detalle ya está prácticamente agotado.
+
+Una nave con puente grúa es otra estructura. Cargas en tres direcciones, flechas de L/600 a L/1000 que no protegen a la viga sino al puente, y una soldadura entre ala y alma que recibe un ciclo por cada rueda que pasa.
+
+Escribimos sobre lo que el puente grúa le exige a la nave.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/viga-carril-de-puente-grua-lo-que-el-puente-exige-a-la-nave/
+
+#PuenteGrua #NavesIndustriales #EstructuraMetalica #Fatiga #Ingenieria

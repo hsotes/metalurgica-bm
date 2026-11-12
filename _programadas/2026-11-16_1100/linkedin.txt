@@ -1,0 +1,11 @@
+El galvanizado en caliente no se aplica como una pintura. La pieza se sumerge en zinc fundido a unos 450 °C y el recubrimiento crece por reacción con el acero. El espesor no se elige: resulta.
+
+Por eso la ISO 1461 no fija un espesor único. Pide 85 µm de promedio para acero de más de 6 mm y 55 µm para chapa de 1,5 a 3 mm. Y el silicio del acero cambia el resultado: entre 0,04 % y 0,14 % de silicio, el recubrimiento puede crecer mucho más de lo esperable.
+
+¿Y si hace falta más zinc? Granallar antes de galvanizar es la vía más controlable. Pero hay un techo: por encima de unos 250 µm, los recubrimientos sobre piezas pesadas tienden a desprenderse.
+
+Escribimos sobre qué define el espesor del galvanizado y qué significa en años de protección.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/galvanizado-en-caliente-el-espesor-de-zinc-lo-define-el-acero/
+
+#Galvanizado #ProteccionAnticorrosiva #EstructuraMetalica #ISO1461 #Ingenieria

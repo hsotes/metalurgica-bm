@@ -44,6 +44,11 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "pasarelas-metalicas-la-vibracion-que-se-siente-al-caminar": (
+        "ARQ-APU-014", PARRILLAS, [
+            u"El problema no es la carga, sino su ritmo.",
+            u"El Millennium Bridge no tenía un problema de resistencia.",
+        ]),
     "galvanizado-en-caliente-el-espesor-de-zinc-lo-define-el-acero": (
         "SUP-APU-004", SUPERFICIES, [
             u"El espesor no se aplica: resulta.",

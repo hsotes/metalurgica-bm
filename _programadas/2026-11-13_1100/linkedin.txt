@@ -1,0 +1,11 @@
+El 10 de junio de 2000 se inauguró el Millennium Bridge, sobre el Támesis. Ese día lo cruzaron unas 100.000 personas, empezó a balancearse de lado con aceleraciones de hasta 0,25 g y dos días después se cerró.
+
+No tenía un problema de resistencia. Su vano central tenía un modo lateral de 0,49 Hz, y una persona que camina empuja de lado a la mitad de su frecuencia de paso, alrededor de 1 Hz. Cuando el tablero se movía, la gente abría el paso para equilibrarse y, sin querer, empujaba al ritmo del puente.
+
+Rigidizarlo habría exigido unas nueve veces la rigidez lateral. Se resolvió con 37 amortiguadores viscosos, que llevaron el amortiguamiento de alrededor del 0,5 % al 20 %. Reabrió en febrero de 2002.
+
+Escribimos sobre por qué una pasarela de acero se diseña por frecuencia y aceleración, no solo por resistencia.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/pasarelas-metalicas-la-vibracion-que-se-siente-al-caminar/
+
+#Pasarelas #ArquitecturaMetalica #Vibraciones #EstructuraMetalica #Ingenieria

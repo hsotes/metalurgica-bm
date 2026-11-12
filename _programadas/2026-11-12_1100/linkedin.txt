@@ -1,0 +1,11 @@
+Un sistema de extinción por agente limpio no apaga el fuego con el gas. Lo apaga con una concentración de gas sostenida en el tiempo: al menos el 85 % de la de diseño durante no menos de diez minutos, según la NFPA 2001 y la ISO 14520.
+
+Ese tiempo no lo garantiza el cilindro. Lo garantiza el recinto. Los agentes halogenados forman una mezcla más pesada que el aire, que sale por las fugas bajas mientras entra aire por las altas.
+
+Y la descarga, que dura unos diez segundos, primero baja la presión del recinto y después la sube. La guía británica de la FIA da referencias: unos 500 Pa para una mampostería, unos 250 Pa para un tabique liviano. Y aclara que ese dato no lo da el proveedor del sistema contra incendio: lo da quien construyó el recinto.
+
+Escribimos sobre lo que la extinción por agente limpio le exige a la envolvente de un shelter.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/extincion-por-agente-limpio-en-un-shelter-la-hermeticidad-del-recinto/
+
+#Shelters #ProteccionContraIncendio #AgenteLimpio #DataCenter #InfraestructuraCritica

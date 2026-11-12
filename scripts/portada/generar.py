@@ -44,6 +44,11 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "extincion-por-agente-limpio-en-un-shelter-la-hermeticidad-del-recinto": (
+        "TBEX-APU-016", SHELTERS, [
+            u"El cilindro aporta el agente; la envolvente decide si el agente se queda.",
+            u"La hermeticidad no se declara: se mide.",
+        ]),
     "espesor-de-pintura-como-se-mide-y-que-significa-el-valor-del-pliego": (
         "SUP-APU-003", SUPERFICIES, [
             u"Está pidiendo algo más preciso que eso.",

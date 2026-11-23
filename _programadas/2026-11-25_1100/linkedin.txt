@@ -1,0 +1,11 @@
+Una estructura pintada hace unos años muestra casi siempre el mismo patrón: los paños sanos y el óxido en lugares puntuales. El canto de una chapa, el pie de una soldadura, la cabeza de un bulón.
+
+No es casualidad. Mientras seca, la pintura se retira de los cantos agudos. La especificación militar estadounidense MIL-PRF-23236 considera "retentiva de cantos" a una pintura que conserva en el vértice al menos el 70 % del espesor del paño.
+
+Por eso la ISO 12944-3 exige el grado P3 de la ISO 8501-3, cantos con radio de 2 mm y soldaduras amoladas, cuando se pide durabilidad alta en categoría C4 o superior.
+
+Escribimos sobre los lugares donde el esquema de pintura falla primero.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/cantos-soldaduras-y-bulones-donde-el-esquema-falla-primero/
+
+#ProteccionAnticorrosiva #EstructuraMetalica #ISO12944 #Pintura #Ingenieria

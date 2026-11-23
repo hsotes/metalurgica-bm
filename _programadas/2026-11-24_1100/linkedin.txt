@@ -1,0 +1,11 @@
+Casi todos los pliegos de shelters piden lo mismo: que sea antivandálico. Pero la palabra describe una intención, no un requisito.
+
+La norma europea EN 1627 lo traduce a minutos: 3 minutos con destornilladores y cuñas en la clase RC2, 10 con sierras y taladro a batería en la RC4, 20 con amoladora de 250 mm en la RC6.
+
+Y el ensayo carga cada punto de cierre, bisagras incluidas. La clase la define el punto más débil. En un shelter, eso incluye el panel, las rejillas, el equipo de aire acondicionado y los pasamuros.
+
+Escribimos sobre qué significa una clase de resistencia a la intrusión aplicada a un shelter.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/shelter-antivandalico-que-significa-una-clase-de-resistencia/
+
+#Shelters #SeguridadFisica #InfraestructuraCritica #Telecomunicaciones #Mineria

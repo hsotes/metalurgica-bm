@@ -1,0 +1,11 @@
+Un metro de nieve húmeda sobre el techo de un shelter pesa unos 400 kg por metro cuadrado. Sobre un shelter de 3 por 6 metros, más de 7 toneladas.
+
+El problema es que, en alta cordillera, las normas dejan de dar el dato. La parte de nieve del Eurocódigo no se aplica por encima de 1.500 metros. Y la norma chilena NCh 431, en su versión de 1977, deja sin valor la franja entre 17° y 26° de latitud sur por encima de 2.000 metros: la casilla dice "sin información".
+
+Una tesis de la Universidad de Chile comparó esa norma con mediciones reales: entre 32° y 34° S, a 3.000 metros, propuso casi el doble de carga.
+
+Escribimos sobre la carga de nieve de un shelter en cordillera y por qué el dato hay que salir a buscarlo.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/carga-de-nieve-sobre-un-shelter-en-cordillera/
+
+#Shelters #Mineria #InfraestructuraCritica #EstructuraMetalica #Ingenieria

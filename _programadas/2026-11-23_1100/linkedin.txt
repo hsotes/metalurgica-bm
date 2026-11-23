@@ -1,0 +1,11 @@
+En el modelo de cálculo, la base de una columna es un símbolo: un triángulo o un empotramiento. En la obra es una placa, cuatro pernos y una capa de mortero.
+
+Lo que se decide en ese símbolo lo paga la fundación. Y la diferencia se ve en la deriva: en un ejemplo publicado, considerar un 20 % de fijación en las bases redujo el desplazamiento en el alero casi un 40 %.
+
+Mientras tanto, la Guía de Diseño 1 de la AISC advierte algo que se pasa por alto: con agujeros sobredimensionados, no todos los pernos toman el corte a la vez. Recomienda contar solo dos.
+
+Escribimos sobre lo que se decide en la placa base de una columna.
+
+Leelo acá: https://www.metalurgicabotomariani.com.ar/blog/placa-base-de-columna-empotramiento-o-articulacion/
+
+#NavesIndustriales #EstructuraMetalica #Fundaciones #PlacaBase #Ingenieria

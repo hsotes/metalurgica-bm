@@ -44,6 +44,31 @@ SUPERFICIES = u"Tratamiento de superficies"
 
 # Los fragmentos son TEXTUALES del articulo: se verifican antes de dibujar.
 APUNTES = {
+    "placa-base-de-columna-empotramiento-o-articulacion": (
+        "ARQ-APU-015", SISTEMAS, [
+            u"Lo que se decide en ese símbolo no queda en la estructura metálica.",
+            u"Ninguna de las dos opciones es mejor en abstracto.",
+        ]),
+    "shelter-antivandalico-que-significa-una-clase-de-resistencia": (
+        "TBEX-APU-018", SHELTERS, [
+            u"La palabra describe una intención, no un requisito.",
+            u"La clase la define el punto más débil, no el más visible.",
+        ]),
+    "cantos-soldaduras-y-bulones-donde-el-esquema-falla-primero": (
+        "SUP-APU-005", SUPERFICIES, [
+            u"Pero la estructura no es solo paño, y en esos lugares la misma pintura no se comporta igual.",
+            u"una película más delgada justo donde el acero está más expuesto.",
+        ]),
+    "carga-de-nieve-sobre-un-shelter-en-cordillera": (
+        "TBEX-APU-019", SHELTERS, [
+            u"Falla el invierno en que nieva como dicen los registros.",
+            u"en alta cordillera, el valor de la norma es un piso, no un dato.",
+        ]),
+    "marquesinas-metalicas-en-voladizo-el-viento-que-levanta": (
+        "ARQ-APU-016", PARRILLAS, [
+            u"Un cable o una barra delgada no resisten compresión.",
+            u"la estructura estaba bien calculada y el anclaje que se colocó no era el calculado.",
+        ]),
     "pasarelas-metalicas-la-vibracion-que-se-siente-al-caminar": (
         "ARQ-APU-014", PARRILLAS, [
             u"El problema no es la carga, sino su ritmo.",
